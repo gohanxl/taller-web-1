@@ -2,3 +2,9 @@ language: java
 script: mvn clean test
 jdk:
   - oraclejdk11
+notifications:
+  email:
+    - isaias.caporusso@gmail.com
+    - luis-blotta@hotmail.com
+    - anamicaela2008@gmail.com
+    - ifocas@alumno.unlam.edu.ar
