@@ -4,19 +4,18 @@ import javax.persistence.*;
 
 @Entity
 public class Libro {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME", nullable = false, length = 50)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "ISBN", nullable = false, length = 50)
-    private String isbn;
-
-    @Column(name = "PRICE", nullable = false)
+    @Column(name = "precio", nullable = false)
     private Double precio;
+
+    @Column(name = "ruta", nullable = false)
+    private String ruta;
 
     public Long getId() {
         return id;
@@ -34,19 +33,19 @@ public class Libro {
         this.nombre = nombre;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public Double getPrecio() {
         return precio;
     }
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 }
