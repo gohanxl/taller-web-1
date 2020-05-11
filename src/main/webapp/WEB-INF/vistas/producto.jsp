@@ -24,7 +24,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand waves-effect" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-            <strong class="blue-text">${nombre} ${apellido}</strong>
+            <strong class="blue-text">MDB</strong>
         </a>
 
         <!-- Collapse -->
