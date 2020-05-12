@@ -26,7 +26,7 @@ public class ControladorPublicar {
     public ModelAndView publicarLibro(@RequestParam("file") MultipartFile archivo,
                              @RequestParam("nombre") String nombre,
                              @RequestParam("precio") Double precio) throws IOException {
-        servicioPublicar.subirArchivo(archivo);
+        servicioPublicar.subirArchivo(nombre, precio, archivo);
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);
