@@ -17,6 +17,9 @@ public class Libro {
     @Column(name = "ruta", nullable = false)
     private String ruta;
 
+    @ManyToOne()
+    private Usuario propietario;
+
     public Long getId() {
         return id;
     }
@@ -47,5 +50,20 @@ public class Libro {
 
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+
+    public Usuario getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Usuario propietario) {
+        this.propietario = propietario;
+    }
+
+    public Libro(String nombre, Double precio, String ruta, Usuario propietario){
+        this.setNombre(nombre);
+        this.setPrecio(precio);
+        this.setRuta(ruta);
+        this.setPropietario(propietario);
     }
 }
