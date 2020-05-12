@@ -48,4 +48,10 @@ public class Libro {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
+
+    public Libro(String nombre, Double precio, String ruta){
+        this.setNombre(nombre);
+        this.setPrecio(precio);
+        this.setRuta(ruta);
+    }
 }
