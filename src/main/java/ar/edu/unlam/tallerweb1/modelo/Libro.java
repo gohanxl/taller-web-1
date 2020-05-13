@@ -52,6 +52,9 @@ public class Libro {
         this.ruta = ruta;
     }
 
+    public Libro(){
+    }
+
     public Usuario getPropietario() {
         return propietario;
     }
