@@ -39,12 +39,18 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getRol() {
 		return rol;
 	}
-
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
+
+	public Usuario(String email, String password, String rol){
+		this.setEmail(email);
+		this.setPassword(password);
+		this.setRol(rol);
+	}
+
+	public Usuario(){}
 }

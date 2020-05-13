@@ -24,7 +24,7 @@ public class ControladorPublicar {
     }
 
     @RequestMapping(path = "/publicar", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ModelAndView publicarLibro(@RequestParam("file") MultipartFile archivo,
+    public ModelAndView publicarLibro(@RequestParam("archivo") MultipartFile archivo,
                              @RequestParam("nombre") String nombre,
                              @RequestParam("precio") Double precio) throws IOException {
         servicioPublicar.subirArchivo(nombre, precio, archivo);

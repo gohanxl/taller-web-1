@@ -95,7 +95,7 @@
     <div class="container dark-grey-text mt-5">
 
 
-        <form:form method="POST" action="publicar" modelAttribute="libro">
+        <form:form method="POST" action="publicar" enctype="multipart/form-data">
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" class="form-control">
 
@@ -103,11 +103,11 @@
             <input type="number" name="precio" class="form-control">
             <br>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
+                <input type="file" class="custom-file-input" name="archivo" id="customFile">
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
 
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form:form>
 
         <script>
