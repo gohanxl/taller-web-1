@@ -49,6 +49,9 @@ public class Libro {
         this.ruta = ruta;
     }
 
+    public Libro(){
+    }
+
     public Libro(String nombre, Double precio, String ruta){
         this.setNombre(nombre);
         this.setPrecio(precio);
