@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,14 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public void cargarCompra(Compra compra){
+    public void cargarCompra(Compra compra) {
         final Session session = sessionFactory.getCurrentSession();
         session.save(compra);
+    }
+
+    @Override
+    public void cargarPublicacion(Publicacion publicacion) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(publicacion);
     }
 }

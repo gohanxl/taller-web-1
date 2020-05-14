@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Compra {
 
     @Id
@@ -13,11 +11,9 @@ public class Compra {
     private Long id;
 
     @ManyToOne
-    @Column(name = "libro_id", nullable = false)
     private Libro libro_id;
 
     @ManyToOne
-    @Column(name = "usuario_id", nullable = false)
     private Usuario usuario_id;
 
     @Column(name = "fecha_compra", nullable = false)
