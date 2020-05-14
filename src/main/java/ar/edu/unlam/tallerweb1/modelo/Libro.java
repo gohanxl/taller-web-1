@@ -11,14 +11,8 @@ public class Libro {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "precio", nullable = false)
-    private Double precio;
-
     @Column(name = "ruta", nullable = false)
     private String ruta;
-
-    @ManyToOne()
-    private Usuario propietario;
 
     public Long getId() {
         return id;
@@ -36,14 +30,6 @@ public class Libro {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
     public String getRuta() {
         return ruta;
     }
@@ -52,18 +38,10 @@ public class Libro {
         this.ruta = ruta;
     }
 
-    public Usuario getPropietario() {
-        return propietario;
-    }
-
-    public void setPropietario(Usuario propietario) {
-        this.propietario = propietario;
-    }
-
-    public Libro(String nombre, Double precio, String ruta, Usuario propietario){
+    public Libro(String nombre, String ruta){
         this.setNombre(nombre);
-        this.setPrecio(precio);
         this.setRuta(ruta);
-        this.setPropietario(propietario);
     }
+
+    public Libro(){}
 }
