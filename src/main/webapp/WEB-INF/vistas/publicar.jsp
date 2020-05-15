@@ -8,7 +8,7 @@
             <h5 style="color:grey">Su libro ya se encuentra disponible para la venta</h5>
             <h6 class="card-text">Titulo: ${nombre}.</h6>
             <h6 class="card-text">Precio: ${precio}.</h6>
-            <a style="float: right" href="#" class="btn btn-success">Go home</a>
+            <a style="float: right" href="/base" class="btn btn-success">Go home</a>
         </div>
     </div>
 </main>
