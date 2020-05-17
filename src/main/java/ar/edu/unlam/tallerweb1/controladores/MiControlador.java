@@ -38,6 +38,11 @@ public class MiControlador {
         return new ModelAndView("saludar");
     }
 
+    @RequestMapping(path = "/test")
+    public ModelAndView test(){
+        return new ModelAndView("base");
+    }
+
     @RequestMapping(path = "/base", method = RequestMethod.GET)
     public ModelAndView base(){
         return new ModelAndView("base");
