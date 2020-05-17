@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -50,9 +51,11 @@
                 <li class="nav-item">
                     <a class="nav-link waves-effect" href="/publicar">Publicar</a>
                 </li>
-                <li class="nav-item">
-                    <input class="form-control" type="text" placeholder="Buscar" aria-label="Search">
-                </li>
+                <form:form method="GET" action="buscar">
+                    <li class="nav-item">
+                        <input class="form-control" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
+                    </li>
+                </form:form>
             </ul>
 
             <!-- Right -->
