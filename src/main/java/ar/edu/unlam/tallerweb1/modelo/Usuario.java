@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import jdk.nashorn.internal.runtime.regexp.joni.ast.StringNode;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,8 @@ public class Usuario {
 	private String email;
 	private String password;
 	private String rol;
-	
+	private String nombre;
+
 	public Long getId() {
 		return id;
 	}
@@ -42,14 +45,18 @@ public class Usuario {
 	public String getRol() {
 		return rol;
 	}
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setRol(String rol) { this.rol = rol; }
+	public String getNombre() {
+		return nombre;
 	}
+	public void setNombre(String nombre) { this.nombre = nombre; }
 
-	public Usuario(String email, String password, String rol){
+
+	public Usuario(String email, String password, String rol, String nombre){
 		this.setEmail(email);
 		this.setPassword(password);
 		this.setRol(rol);
+		this.setNombre(nombre);
 	}
 
 	public Usuario(){}

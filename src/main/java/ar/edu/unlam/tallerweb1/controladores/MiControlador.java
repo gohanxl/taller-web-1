@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Libro;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBuscarLibro;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,10 @@ public class MiControlador {
 
     @RequestMapping(path = "/buscar", method = RequestMethod.GET)
     public ModelAndView buscarLibro(@RequestParam("nombre") String nombre) throws IOException {
-        List<Libro> results = servicioBuscarLibro.buscarLibro(nombre);
+        List<Publicacion> results = servicioBuscarLibro.buscarLibro(nombre);
         ModelMap model = new ModelMap();
-        String titulo = results.get(0).getNombre();
-        model.put("nombre", titulo);
         model.put("buscado", nombre);
+        model.put("results", results);
         return new ModelAndView("resultadoBusqueda", model);
     }
 

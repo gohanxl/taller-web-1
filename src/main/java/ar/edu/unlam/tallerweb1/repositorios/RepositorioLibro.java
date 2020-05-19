@@ -9,5 +9,5 @@ public interface RepositorioLibro {
     Libro consultarLibro(Libro libro);
     void cargarLibro(Libro libro);
     void cargarPublicacion(Publicacion publicacion);
-    List<Libro> buscarLibro(String nombre);
+    List<Publicacion> buscarLibro(String nombre);
 }

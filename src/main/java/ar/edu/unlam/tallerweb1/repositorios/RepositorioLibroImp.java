@@ -39,11 +39,13 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public List <Libro> buscarLibro(String nombre) {
+    public List <Publicacion> buscarLibro(String nombre) {
         final Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Libro.class);
-        criteria.add(Restrictions.like("nombre", nombre));
-        List <Libro> libros = criteria.list();
-        return libros;
+        Criteria criteria = session.createCriteria(Publicacion.class)
+                .createAlias("libro", "l")
+                .createAlias("propietario", "p")
+                .add(Restrictions.like("l.nombre", "%" + nombre + "%"));
+        List <Publicacion> Publicacion = criteria.list();
+        return Publicacion;
     }
 }

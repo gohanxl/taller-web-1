@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Libro;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class ServicioBuscarLibroImp implements ServicioBuscarLibro {
     }
 
     @Override
-    public List<Libro> buscarLibro(String nombre) throws IOException {
-        List<Libro> results = servicioLibroDao.buscarLibro(nombre);
+    public List<Publicacion> buscarLibro(String nombre) throws IOException {
+        List<Publicacion> results = servicioLibroDao.buscarLibro(nombre);
         return results;
     }
 }
