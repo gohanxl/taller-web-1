@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,13 @@ public class ServicioPublicarImp implements ServicioPublicar {
 
     private RepositorioLibro servicioLibroDao;
     private RepositorioUsuario servicioUsuarioDao;
+    private RepositorioPublicacion servicioPublicacionDao;
+
     @Autowired
-    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao){
+    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao, RepositorioPublicacion servicioPublicacionDao){
         this.servicioUsuarioDao = servicioUsuarioDao;
         this.servicioLibroDao = servicioLibroDao;
+        this.servicioPublicacionDao = servicioPublicacionDao;
     }
 
     @Override
@@ -42,6 +46,6 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Libro libro = new Libro(nombre, path);
         Publicacion publicacion = new Publicacion(new Date(), libro, propiestario, precio);
         servicioLibroDao.cargarLibro(libro);
-        servicioLibroDao.cargarPublicacion(publicacion);
+        servicioPublicacionDao.cargarPublicacion(publicacion);
     }
 }

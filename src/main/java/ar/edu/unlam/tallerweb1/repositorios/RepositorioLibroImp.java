@@ -22,30 +22,8 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public Libro consultarLibro(Libro libro) {
-        return null;
-    }
-
-    @Override
     public void cargarLibro(Libro libro) {
         final Session session = sessionFactory.getCurrentSession();
         session.save(libro);
-    }
-
-    @Override
-    public void cargarPublicacion(Publicacion publicacion) {
-        final Session session = sessionFactory.getCurrentSession();
-        session.save(publicacion);
-    }
-
-    @Override
-    public List <Publicacion> buscarLibro(String nombre) {
-        final Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Publicacion.class)
-                .createAlias("libro", "l")
-                .createAlias("propietario", "p")
-                .add(Restrictions.like("l.nombre", "%" + nombre + "%"));
-        List <Publicacion> Publicacion = criteria.list();
-        return Publicacion;
     }
 }
