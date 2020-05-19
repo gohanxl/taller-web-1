@@ -12,4 +12,5 @@ public interface RepositorioLibro {
     void cargarCompra(Compra compra);
     void cargarPublicacion(Publicacion publicacion);
     List<Publicacion> buscarLibro(String nombre);
+    Libro buscarLibro(Long id);
 }

@@ -55,4 +55,13 @@ public class RepositorioLibroImp implements RepositorioLibro {
         List <Publicacion> Publicacion = criteria.list();
         return Publicacion;
     }
+
+    public Libro buscarLibro(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Libro.class)
+                .add(Restrictions.idEq(id));
+        List <Libro> libros = criteria.list();
+        Libro libro = libros.get(0);
+        return libro;
+    }
 }
