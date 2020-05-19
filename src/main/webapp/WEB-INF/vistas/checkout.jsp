@@ -110,7 +110,7 @@
                 <div class="card">
 
                     <!--Card content-->
-                    <form class="card-body" action="/procesar_pago.php" method="post" id="pay" name="pay">
+                    <form class="card-body" action="procesar_pago" method="post" id="pay" name="pay">
                         <fieldset>
                             <p class="md-form">
                                 <label for="description">Descripci&oacute;n</label>
@@ -125,7 +125,7 @@
                             <p class="md-form">
                                 <label for="cardNumber">N&uacute;mero de la tarjeta</label>
                                 <input class="form-control" type="text" id="cardNumber" data-checkout="cardNumber"
-                                       onselectstart="return false" onpaste="return false" onCopy="return false"
+                                       onselectstart="return false" onpaste="return true" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
                                        autocomplete=off/>
                             </p>
