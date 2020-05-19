@@ -21,3 +21,12 @@ body,
 /* Footer color for sake of consistency with Navbar */
 .page-footer {
   background-color: #929FBA; }
+
+.card-publicar{
+  width: 30rem;
+  margin: auto;
+  margin-top: 25px;
+}
+.success-title{
+  color: #399907;
+}
