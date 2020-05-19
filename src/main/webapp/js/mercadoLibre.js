@@ -1,5 +1,5 @@
 
-window.Mercadopago.setPublishableKey("ENV_PUBLIC_KEY");
+window.Mercadopago.setPublishableKey("TEST-0b83b351-97f4-4d81-a30a-4c8faeb2dfe4");
 
 window.Mercadopago.getIdentificationTypes();
 

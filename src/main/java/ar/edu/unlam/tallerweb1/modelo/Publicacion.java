@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
+@Entity
 public class Publicacion {
     public Publicacion(){}
 
@@ -21,12 +22,10 @@ public class Publicacion {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @OneToMany()
-    @Column(name = "id_libro", nullable = false)
+    @ManyToOne()
     private Libro libro;
 
-    @OneToMany()
-    @Column(name= "id_usuario", nullable = false)
+    @ManyToOne()
     private Usuario propietario;
 
     @Column(name = "precio", nullable = false)
