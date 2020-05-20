@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class ControladorPublicar {
@@ -40,6 +42,14 @@ public class ControladorPublicar {
 
         ModelMap model = new ModelMap();
         return new ModelAndView("publicarForm");
+    }
+
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    public ModelAndView irAHome() {
+        List<Publicacion> publicaciones = servicioPublicar.listarPubliacion();
+        ModelMap model = new ModelMap();
+        model.put("publicaciones", publicaciones);
+        return new ModelAndView("home", model);
     }
 
 

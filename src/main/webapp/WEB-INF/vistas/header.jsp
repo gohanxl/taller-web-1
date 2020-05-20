@@ -51,11 +51,12 @@
                 <li class="nav-item">
                     <a class="nav-link waves-effect" href="/publicar">Publicar</a>
                 </li>
-                <form:form method="GET" action="buscar">
-                    <li class="nav-item">
-                        <input class="form-control" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
-                    </li>
-                </form:form>
+                <li class="nav-item">
+                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0">
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </form:form>
+                </li>
             </ul>
 
             <!-- Right -->

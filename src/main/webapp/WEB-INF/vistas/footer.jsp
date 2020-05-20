@@ -39,7 +39,7 @@
     <!-- Social icons -->
 
     <!--Copyright-->
-    <div class="footer-copyright py-3">Powered by <span class="bold">404 NOT FOUND</span></div>
+    <div class="footer-copyright py-3 white-text">Powered by <span class="bold">404 NOT FOUND</span></div>
     <!--/.Copyright-->
 
 </footer>

@@ -28,8 +28,8 @@ public class ControladorBuscar {
         List<Publicacion> results = servicioBuscarLibro.buscarLibro(nombre);
         ModelMap model = new ModelMap();
         model.put("buscado", nombre);
-        model.put("results", results);
-        return new ModelAndView("resultadoBusqueda", model);
+        model.put("publicaciones", results);
+        return new ModelAndView("home", model);
     }
 
 }
