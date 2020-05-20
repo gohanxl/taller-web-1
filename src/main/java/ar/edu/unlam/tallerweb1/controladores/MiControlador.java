@@ -49,14 +49,4 @@ public class MiControlador {
         return new ModelAndView("base");
     }
 
-    @RequestMapping(path = "/buscar", method = RequestMethod.GET)
-    public ModelAndView buscarLibro(@RequestParam("nombre") String nombre) throws IOException {
-        List<Publicacion> results = servicioBuscarLibro.buscarLibro(nombre);
-        ModelMap model = new ModelMap();
-        model.put("buscado", nombre);
-        model.put("results", results);
-        return new ModelAndView("resultadoBusqueda", model);
-    }
-
-
 }

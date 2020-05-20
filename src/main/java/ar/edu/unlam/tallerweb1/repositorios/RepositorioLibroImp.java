@@ -23,11 +23,6 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public Libro consultarLibro(Libro libro) {
-        return null;
-    }
-
-    @Override
     public void cargarLibro(Libro libro) {
         final Session session = sessionFactory.getCurrentSession();
         session.save(libro);
