@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.List;
 
 @Service("servicioPublicar")
 @Transactional
@@ -47,5 +48,10 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Publicacion publicacion = new Publicacion(new Date(), libro, propiestario, precio);
         servicioLibroDao.cargarLibro(libro);
         servicioPublicacionDao.cargarPublicacion(publicacion);
+    }
+
+    @Override
+    public List<Publicacion> listarPubliacion() {
+        return servicioPublicacionDao.listarPublicaciones();
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface RepositorioPublicacion {
     void cargarPublicacion(Publicacion publicacion);
     List<Publicacion> buscarPublicacion(String nombre);
+    List<Publicacion> listarPublicaciones();
 }
