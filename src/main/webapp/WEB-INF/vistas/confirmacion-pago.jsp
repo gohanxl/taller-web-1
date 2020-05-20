@@ -1,12 +1,25 @@
 <%@ include file = "header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--Main layout-->
-<div class = "container" style="margin-top: 100px">
-    <h2>Confirmacion de pago</h2>
-    <h4>Descripcion: ${descripcion}</h4>
-    <h4>Precio: ${precio}</h4>
-    <h4>Metodo de pago: ${metodoDePago}</h4>
-    <h4>Estado de pago: ${estadoDePago}</h4>
+<div class = "container card col-3" style="margin-top: 100px">
+    <div class="card-body">
+        <h4 class="mb-4">
+            <span class="mr-2">Confirmacion de pago</span>
+            <c:choose>
+                <c:when test="${estadoDePago == 'approved'}">
+                    <i class="fas fa-check-circle" style="color: #36af3a;"></i>
+                </c:when>
+                <c:otherwise>
+                    <i class="fas fa-times-circle" style="color: #ef5656;}"></i></i>
+                </c:otherwise>
+            </c:choose>
+        </h4>
+        <p>Descripcion: ${descripcion}</p>
+        <p>Precio: $${precio}</p>
+        <p>Metodo de pago: ${metodoDePago}</p>
+        <a class="btn btn btn-primary float-right" href="/home">Home</a>
+    </div>
 </div>
 <!--Main layout-->
 
