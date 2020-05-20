@@ -6,8 +6,9 @@
         <div class="card-body">
             <h3 class="card-title success-title">Publicacion exitosa!</h3>
             <h5 style="color:grey">Su libro ya se encuentra disponible para la venta</h5>
-            <h6 class="card-text">Titulo: ${nombre}.</h6>
-            <h6 class="card-text">Precio: ${precio}.</h6>
+            <br>
+            <h5 style="color:grey">Titulo: ${nombre}</h5>
+            <h5 style="color:grey">Precio: ${precio}</h5>
             <a style="float: right" href="/home" class="btn btn-success">Go home</a>
         </div>
     </div>
