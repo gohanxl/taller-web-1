@@ -39,7 +39,7 @@
     <!-- Social icons -->
 
     <!--Copyright-->
-    <div class="footer-copyright py-3">Powered by <span class="bold">404 NOT FOUND</span></div>
+    <div class="footer-copyright py-3 white-text">Powered by <span class="bold">404 NOT FOUND</span></div>
     <!--/.Copyright-->
 
 </footer>
@@ -59,6 +59,25 @@
     // Animations initialization
     new WOW().init();
 
+</script>
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
 </script>
 </body>
 

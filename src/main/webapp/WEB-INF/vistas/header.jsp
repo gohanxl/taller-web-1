@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -14,6 +15,7 @@
     <link href="/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="/css/style.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,7 +52,10 @@
                     <a class="nav-link waves-effect" href="/publicar">Publicar</a>
                 </li>
                 <li class="nav-item">
-                    <input class="form-control" type="text" placeholder="Buscar" aria-label="Search">
+                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0">
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </form:form>
                 </li>
             </ul>
 
