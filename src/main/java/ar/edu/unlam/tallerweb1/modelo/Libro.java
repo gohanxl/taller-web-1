@@ -11,11 +11,16 @@ public class Libro {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "precio", nullable = false)
-    private Double precio;
-
     @Column(name = "ruta", nullable = false)
     private String ruta;
+
+    public Libro(){
+    }
+
+    public Libro(String nombre, String ruta){
+        this.setNombre(nombre);
+        this.setRuta(ruta);
+    }
 
     public Long getId() {
         return id;
@@ -33,14 +38,6 @@ public class Libro {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
     public String getRuta() {
         return ruta;
     }
@@ -48,4 +45,5 @@ public class Libro {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
+
 }
