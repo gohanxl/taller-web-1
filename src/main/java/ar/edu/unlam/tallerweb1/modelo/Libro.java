@@ -14,6 +14,14 @@ public class Libro {
     @Column(name = "ruta", nullable = false)
     private String ruta;
 
+    public Libro(){
+    }
+
+    public Libro(String nombre, String ruta){
+        this.setNombre(nombre);
+        this.setRuta(ruta);
+    }
+
     public Long getId() {
         return id;
     }
@@ -38,10 +46,4 @@ public class Libro {
         this.ruta = ruta;
     }
 
-    public Libro(String nombre, String ruta){
-        this.setNombre(nombre);
-        this.setRuta(ruta);
-    }
-
-    public Libro(){}
 }

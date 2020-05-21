@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import org.hibernate.Criteria;
@@ -25,5 +26,37 @@ public class RepositorioLibroImp implements RepositorioLibro {
     public void cargarLibro(Libro libro) {
         final Session session = sessionFactory.getCurrentSession();
         session.save(libro);
+    }
+
+    @Override
+    public void cargarCompra(Compra compra) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(compra);
+    }
+
+    @Override
+    public void cargarPublicacion(Publicacion publicacion) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(publicacion);
+    }
+
+    @Override
+    public List <Publicacion> buscarLibro(String nombre) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Publicacion.class)
+                .createAlias("libro", "l")
+                .createAlias("propietario", "p")
+                .add(Restrictions.like("l.nombre", "%" + nombre + "%"));
+        List <Publicacion> Publicacion = criteria.list();
+        return Publicacion;
+    }
+
+    public Libro buscarLibro(Long id) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Libro.class)
+                .add(Restrictions.idEq(id));
+        List <Libro> libros = criteria.list();
+        Libro libro = libros.get(0);
+        return libro;
     }
 }
