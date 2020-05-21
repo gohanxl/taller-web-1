@@ -16,6 +16,28 @@
     <!-- Your custom styles (optional) -->
     <link href="/css/style.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <style>
+        html {
+            margin:0 !important;
+            padding:0 !important;
+            height:100% !important;
+        }
+        body{
+            height: auto !important;
+            min-height: 100% !important;
+            position: relative !important;
+        }
+
+        main{
+            padding-bottom:200px !important;
+        }
+        footer{
+            width:100% !important;
+            position:absolute !important;
+            bottom:0 !important;
+            left:0 !important;
+        }
+    </style>
 </head>
 
 <body>
