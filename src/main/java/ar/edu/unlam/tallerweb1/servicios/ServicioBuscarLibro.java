@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ServicioBuscarLibro {
     List<Publicacion> buscarLibro(String nombre) throws IOException;
+    Publicacion buscarLibroPorId(Long id) throws IOException;
 }

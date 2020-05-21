@@ -28,4 +28,11 @@ public class ServicioBuscarLibroImp implements ServicioBuscarLibro {
         List<Publicacion> publicaciones = servicioPublicacionDao.buscarPublicacion(nombre);
         return publicaciones;
     }
+
+    @Override
+    public Publicacion buscarLibroPorId(Long id) throws IOException {
+        Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(id);
+        return publicacion;
+    }
+
 }
