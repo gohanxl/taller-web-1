@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPagar;
 import com.mercadopago.exceptions.MPException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorProcesarPago {
@@ -29,10 +32,11 @@ public class ControladorProcesarPago {
             @RequestParam("installments") Integer cuotas,
             @RequestParam("email") String mail,
             @RequestParam("description") String descripcion,
-            @PathVariable("libro_id") Long libro_id
-
+            @PathVariable("libro_id") Long libro_id,
+            HttpServletRequest request
     ) throws MPException {
-        String estadoDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, libro_id);
+        Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
+        String estadoDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, libro_id, comprador);
 
         ModelMap model = new ModelMap();
         model.put("descripcion", descripcion);

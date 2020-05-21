@@ -38,14 +38,12 @@ public class ServicioPublicarImp implements ServicioPublicar {
     }
 
     @Override
-    public void subirArchivo(String nombre, Double precio, MultipartFile archivo) throws IOException {
+    public void subirArchivo(String nombre, Double precio, MultipartFile archivo, Usuario propietario) throws IOException {
         Path ruta = Paths.get(context.getRealPath("/uploads/") + archivo.getOriginalFilename());
         String path = "/uploads/" + archivo.getOriginalFilename();
         Files.copy(archivo.getInputStream(), ruta, StandardCopyOption.REPLACE_EXISTING);
-        Usuario propiestario = new Usuario("email.com", "123", "Rol","User1");
-        servicioUsuarioDao.cargarUsuario(propiestario);
         Libro libro = new Libro(nombre, path);
-        Publicacion publicacion = new Publicacion(new Date(), libro, propiestario, precio);
+        Publicacion publicacion = new Publicacion(new Date(), libro, propietario, precio);
         servicioLibroDao.cargarLibro(libro);
         servicioPublicacionDao.cargarPublicacion(publicacion);
     }

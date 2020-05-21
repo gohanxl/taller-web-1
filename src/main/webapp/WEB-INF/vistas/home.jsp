@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file = "header.jsp" %>
 
 <!--Main layout-->
@@ -49,7 +47,8 @@
 
 						<!--Card image-->
 						<div class="view overlay">
-							<img src="/img/50s.jpg" class="card-img-top"
+							<c:url var="imgUrl" value="/img/50s.jpg" />
+							<img src="${imgUrl}" class="card-img-top"
 								 alt="">
 							<a>
 								<div class="mask rgba-white-slight"></div>
