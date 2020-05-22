@@ -14,6 +14,7 @@ public interface ServicioPagar {
             Integer cuotas,
             String mail,
             String descripcion,
-            Long libro_id)
+            Long libro_id,
+            Usuario comprador)
             throws MPException, MPConfException;
 }

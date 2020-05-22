@@ -1,4 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page session="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="es-AR">
 
@@ -67,12 +70,17 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <c:if test="${not empty USERNAME}">
                 <li class="nav-item">
-                    <a class="nav-link waves-effect" href="">Comprar</a>
+                    <a class="nav-link waves-effect" href="/biblioteca">Biblioteca</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect" href="/publicaciones">Publicaciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link waves-effect" href="/publicar">Publicar</a>
                 </li>
+                </c:if>
                 <li class="nav-item">
                     <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0">
                         <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
@@ -83,13 +91,29 @@
 
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect">
-                        <span class="badge red z-depth-1 mr-1"> 1 </span>
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="clearfix d-none d-sm-inline-block"> Cart </span>
-                    </a>
-                </li>
+                <c:choose>
+                    <c:when test="${not empty USERNAME}">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect">
+                                <span class="badge red z-depth-1 mr-1"> 1 </span>
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> <%= session.getAttribute("USERNAME") %> </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                <a class="dropdown-item" href="#">Mi cuenta</a>
+                                <a class="dropdown-item" href="#">Cerrar sesion</a>
+                            </div>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <a type="button" href="/login" class="btn btn-outline-info waves-effect">Login</a>
+                    </c:otherwise>
+                </c:choose>
             </ul>
 
         </div>
