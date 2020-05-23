@@ -47,7 +47,7 @@ public class Usuario {
 	}
 	public void setRol(String rol) { this.rol = rol; }
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 	public void setNombre(String nombre) { this.nombre = nombre; }
 

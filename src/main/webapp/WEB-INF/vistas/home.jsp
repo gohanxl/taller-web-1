@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file = "header.jsp" %>
 
 <!--Main layout-->
@@ -49,7 +47,7 @@
 
 						<!--Card image-->
 						<div class="view overlay">
-							<img src="/img/50s.jpg" class="card-img-top"
+							<img src="${publicacion.libro.imagen}" class="card-img-top" style="height:200px"
 								 alt="">
 							<a>
 								<div class="mask rgba-white-slight"></div>

@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file="header.jsp" %>
 
 <!--Main layout-->
@@ -37,7 +35,8 @@
                                 <input class="form-control" type="text" id="cardNumber" data-checkout="cardNumber"
                                        onselectstart="return false" onpaste="return true" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
-                                       autocomplete=off/>
+                                       autocomplete=off
+                                        value="3711 8030 3257 522"/>
                             </p>
                             <p class="md-form">
                                 <label for="cardholderName">Nombre y apellido</label>
@@ -50,6 +49,7 @@
                                        data-checkout="cardExpirationMonth"
                                        onselectstart="return false" onpaste="return false" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
+                                       value="11"
                                        autocomplete=off/>
                             </p>
                             <p class="md-form">
@@ -58,13 +58,15 @@
                                        data-checkout="cardExpirationYear"
                                        onselectstart="return false" onpaste="return false" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
+                                       value="25"
                                        autocomplete=off/>
                             </p>
                             <p class="md-form">
                                 <label for="securityCode">C&oacute;digo de seguridad</label>
-                                <input class="form-control" type="text" id="securityCode" data-checkout="securityCode"
+                                <input class="form-control" type="password" id="securityCode" data-checkout="securityCode"
                                        onselectstart="return false" onpaste="return false" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
+                                       value="1234"
                                        autocomplete=off/>
                             </p>
                             <p>
@@ -89,7 +91,8 @@
                             </p>
                             <p class="md-form">
                                 <label for="email">Email</label>
-                                <input class="form-control" type="email" id="email" name="email"/>
+                                <input class="form-control" type="email" id="email" name="email"
+                                value="test_user_53646357@testuser.com"/>
                             </p>
                             <input type="hidden" name="payment_method_id" id="payment_method_id"/>
                             <span class="float-right">

@@ -1,5 +1,4 @@
 <%@ include file = "header.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--Main layout-->
 <div class = "container card col-3" style="margin-top: 100px">
@@ -18,7 +17,7 @@
         <p>Descripcion: ${descripcion}</p>
         <p>Precio: $${precio}</p>
         <p>Metodo de pago: ${metodoDePago}</p>
-        <a class="btn btn btn-primary float-right" href="/home">Home</a>
+        <a class="btn btn btn-primary float-right" href="/">Home</a>
     </div>
 </div>
 <!--Main layout-->

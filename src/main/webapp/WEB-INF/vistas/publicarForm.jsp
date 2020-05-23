@@ -1,6 +1,3 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file = "header.jsp" %>
 
 
@@ -27,9 +24,16 @@
                 <label for="precio">Precio</label>
             </div>
 
-            <div class="custom-file">
-                <input type="file"  accept="application/pdf" class="custom-file-input" id="customFile" name="archivo" required>
-                <label class="custom-file-label" for="customFile">Cargar PDF</label>
+            <div class="container row justify-content-between load-files">
+                <div class="custom-file form-group  col-12 col-lg-5 py-1">
+                    <input type="file"  accept="application/pdf" class="custom-file-input" id="customFile" name="archivo" required>
+                    <label class="custom-file-label" for="customFile">Cargar PDF</label>
+                </div>
+
+                <div class="custom-file form-group  col-12 col-lg-5 py-1">
+                    <input type="file"  accept="image/*" class="custom-file-input" id="imagen" name="imagen" required>
+                    <label class="custom-file-label" for="imagen">Cargar Portada</label>
+                </div>
             </div>
             <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Publicar</button>
         </form:form>
