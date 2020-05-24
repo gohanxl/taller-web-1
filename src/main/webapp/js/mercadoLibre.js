@@ -76,3 +76,4 @@ function sdkResponseHandler(status, response) {
         form.submit();
     }
 };
+

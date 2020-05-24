@@ -6,7 +6,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioPublicar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +32,8 @@ public class ControladorPublicar {
                                       @RequestParam("precio") Double precio,
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
-        servicioPublicar.subirArchivo(nombre, precio, archivo, propietario);
+        String ruta = request.getSession().getServletContext().getRealPath("/uploads/");
+        servicioPublicar.subirArchivo(nombre, precio, archivo, ruta, propietario);
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);

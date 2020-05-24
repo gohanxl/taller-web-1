@@ -96,7 +96,7 @@
                             </p>
                             <input type="hidden" name="payment_method_id" id="payment_method_id"/>
                             <span class="float-right">
-                            <input class="btn btn-secondary btn-md waves-effect m-0" type="submit" value="Pagar"/>
+                            <input id="btnsubmit" class="btn btn-secondary btn-md waves-effect m-0" type="submit" value="Pagar"/>
                             </span>
                         </fieldset>
                     </form>

@@ -22,7 +22,7 @@ public class Publicacion {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @ManyToOne()
+    @OneToOne()
     private Libro libro;
 
     @ManyToOne()
