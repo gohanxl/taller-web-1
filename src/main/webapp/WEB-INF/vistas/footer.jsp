@@ -81,4 +81,33 @@
         }, false);
     })();
 </script>
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+<script>
+    $(function()
+    {
+        $('#form').submit(function(){
+            $("input[type='submit']", this)
+                .val("Procesando...")
+                .attr('disabled', 'disabled');
+            return true;
+        });
+    });
+</script>
+<script>
+    $(function()
+    {
+        $('#pay').submit(function(){
+            $("input[type='submit']", this)
+                .val("Procesando...")
+                .attr('disabled', 'disabled');
+            return true;
+        });
+    });
+</script>
 </html>

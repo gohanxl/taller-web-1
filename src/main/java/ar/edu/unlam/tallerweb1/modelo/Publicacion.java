@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
@@ -22,7 +24,8 @@ public class Publicacion {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @ManyToOne()
+    @OneToOne()
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Libro libro;
 
     @ManyToOne()

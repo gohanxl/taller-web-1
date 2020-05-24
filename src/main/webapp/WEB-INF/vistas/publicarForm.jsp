@@ -13,7 +13,7 @@
 
             <!--Card content-->
             <div class="card-body px-lg-5 pt-0">
-                <form:form method="POST" action="publicar" modelAttribute="libro" enctype="multipart/form-data" class="needs-validation">
+                <form:form id="form" method="POST" action="publicar" modelAttribute="libro" enctype="multipart/form-data" class="needs-validation">
             <div class="md-form">
                 <input type="text" id="nombre" name="nombre" class="form-control" required>
                 <label for="nombre">Nombre</label>
@@ -35,18 +35,13 @@
                     <label class="custom-file-label" for="imagen">Cargar Portada</label>
                 </div>
             </div>
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Publicar</button>
-        </form:form>
+            <div style="text-align: right;">
+                <a href="/"><input class="btn btn-outline-danger btn-rounded btn-block my-4 waves-effect z-depth-0" type="button" value="Cancelar"></a>
+                <input class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" value="Publicar"/>
+            </div>
+           </form:form>
             </div>
         </div>
-        <script>
-            // Add the following code if you want the name of the file appear on select
-            $(".custom-file-input").on("change", function() {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            });
-        </script>
-
     </div>
 </main>
 <!--Main layout-->

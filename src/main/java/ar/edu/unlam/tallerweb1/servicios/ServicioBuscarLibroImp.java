@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.List;
 
 @Service("servicioBuscarLibro")
 @Transactional
 public class ServicioBuscarLibroImp implements ServicioBuscarLibro {
-    @Autowired
-    ServletContext context;
 
     private RepositorioPublicacion servicioPublicacionDao;
 
