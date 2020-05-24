@@ -8,6 +8,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ServicioPublicar {
-    void subirArchivo(String nombre, Double precio, MultipartFile archivo, String ruta, Usuario propietario) throws IOException;
+    void subirArchivo(String nombre, Double precio, MultipartFile archivo, MultipartFile imagen, String ruta, Usuario propietario) throws IOException;
     List<Publicacion> listarPubliacion();
 }

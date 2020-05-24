@@ -35,13 +35,15 @@ public class ServicioPublicarImp implements ServicioPublicar {
     }
 
     @Override
-    public void subirArchivo(String nombre, Double precio, MultipartFile archivo, String ruta, Usuario propietario) throws IOException {
-        Path rutaCompleta = Paths.get(ruta+archivo.getOriginalFilename());
+    public void subirArchivo(String nombre, Double precio, MultipartFile archivo, MultipartFile imagen, String ruta, Usuario propietario) throws IOException {
+        Path rutaPdf = Paths.get(ruta + "/uploads/" + archivo.getOriginalFilename());
+        Path rutaImg = Paths.get(ruta + "/img/" + imagen.getOriginalFilename());
         String path = "/uploads/" + archivo.getOriginalFilename();
-        Files.copy(archivo.getInputStream(), rutaCompleta, StandardCopyOption.REPLACE_EXISTING);
-        Libro libro = new Libro(nombre, path);
+        String pathImg = "/img/" + imagen.getOriginalFilename();
+        Files.copy(archivo.getInputStream(), rutaPdf, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(imagen.getInputStream(), rutaImg, StandardCopyOption.REPLACE_EXISTING);
+        Libro libro = new Libro(nombre, path, pathImg);
         Publicacion publicacion = new Publicacion(new Date(), libro, propietario, precio);
-        servicioLibroDao.cargarLibro(libro);
         servicioPublicacionDao.cargarPublicacion(publicacion);
     }
 

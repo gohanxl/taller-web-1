@@ -28,12 +28,13 @@ public class ControladorPublicar {
 
     @RequestMapping(path = "/publicar", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ModelAndView publicarLibro(@RequestParam("archivo") MultipartFile archivo,
+                                      @RequestParam("imagen") MultipartFile imagen,
                                       @RequestParam("nombre") String nombre,
                                       @RequestParam("precio") Double precio,
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
-        String ruta = request.getSession().getServletContext().getRealPath("/uploads/");
-        servicioPublicar.subirArchivo(nombre, precio, archivo, ruta, propietario);
+        String ruta = request.getSession().getServletContext().getRealPath("/");
+        servicioPublicar.subirArchivo(nombre, precio, archivo, imagen, ruta, propietario);
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);

@@ -47,8 +47,7 @@
 
 						<!--Card image-->
 						<div class="view overlay">
-							<c:url var="imgUrl" value="/img/50s.jpg" />
-							<img src="${imgUrl}" class="card-img-top"
+							<img src="${publicacion.libro.imagen}" class="card-img-top" style="height:200px"
 								 alt="">
 							<a>
 								<div class="mask rgba-white-slight"></div>
