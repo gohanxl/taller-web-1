@@ -18,7 +18,7 @@ public class RepositorioLibroImp implements RepositorioLibro {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioLibroImp(SessionFactory sessionFactory){
+    public RepositorioLibroImp(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -35,28 +35,19 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public void cargarPublicacion(Publicacion publicacion) {
-        final Session session = sessionFactory.getCurrentSession();
-        session.save(publicacion);
-    }
-
-    @Override
-    public List <Publicacion> buscarLibro(String nombre) {
+    public List<Publicacion> buscarLibro(String nombre) {
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Publicacion.class)
                 .createAlias("libro", "l")
                 .createAlias("propietario", "p")
                 .add(Restrictions.like("l.nombre", "%" + nombre + "%"));
-        List <Publicacion> Publicacion = criteria.list();
+        List<Publicacion> Publicacion = criteria.list();
         return Publicacion;
     }
 
-    public Libro buscarLibro(Long id) {
+    public Libro buscarLibroPorId(Long id) {
         final Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Libro.class)
-                .add(Restrictions.idEq(id));
-        List <Libro> libros = criteria.list();
-        Libro libro = libros.get(0);
+        Libro libro = session.get(Libro.class, id);
         return libro;
     }
 }
