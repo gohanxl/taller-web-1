@@ -5,11 +5,16 @@ import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.servicios.ServicioComprar;
+import ar.edu.unlam.tallerweb1.servicios.ServicioComprarImp;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CompraTest extends SpringTest {
 
@@ -17,15 +22,19 @@ public class CompraTest extends SpringTest {
     @Transactional
     @Rollback
 
-    public void testRealizarCompra(){
-        
+    public void testRealizarCompra() {
+
         Usuario usuario = new Usuario();
+        session().save(usuario);
+
         Libro libro = new Libro("pepe", "null", "null");
-        Publicacion publicacion = new Publicacion(new Date(), libro, usuario, 420.69);
+        session().save(libro);
 
         Compra compra = new Compra(libro, usuario);
+        session().save(compra);
+
+        assertThat(compra.getId()).isNotNull();
+
     }
-
-
 
 }
