@@ -11,23 +11,23 @@ import java.util.List;
 
 @Service("servicioBuscarLibro")
 @Transactional
-public class ServicioBuscarLibroImp implements ServicioBuscarLibro {
+public class ServicioPublicacionImp implements ServicioPublicacion {
 
     private RepositorioPublicacion servicioPublicacionDao;
 
     @Autowired
-    public ServicioBuscarLibroImp(RepositorioPublicacion servicioPublicacionDao){
+    public ServicioPublicacionImp(RepositorioPublicacion servicioPublicacionDao){
         this.servicioPublicacionDao = servicioPublicacionDao;
     }
 
     @Override
-    public List<Publicacion> buscarLibro(String nombre) throws IOException {
+    public List<Publicacion> buscarPublicacion(String nombre) throws IOException {
         List<Publicacion> publicaciones = servicioPublicacionDao.buscarPublicacion(nombre);
         return publicaciones;
     }
 
     @Override
-    public Publicacion buscarLibroPorId(Long id) throws IOException {
+    public Publicacion buscarPublicacionPorId(Long id) throws IOException {
         Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(id);
         return publicacion;
     }
