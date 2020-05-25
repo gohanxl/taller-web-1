@@ -1,33 +1,23 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import ar.edu.unlam.tallerweb1.modelo.Libro;
-import ar.edu.unlam.tallerweb1.modelo.Publicacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioBuscarLibro;
-import ar.edu.unlam.tallerweb1.servicios.ServicioPublicar;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-
-import java.io.IOException;
-import java.util.List;
 
 
 @Controller
 public class MiControlador {
 
-    private ServicioBuscarLibro servicioBuscarLibro;
+    private ServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public MiControlador(ServicioBuscarLibro servicioBuscarLibro){
-        this.servicioBuscarLibro = servicioBuscarLibro;
+    public MiControlador(ServicioPublicacion servicioPublicacion){
+        this.servicioPublicacion = servicioPublicacion;
     }
 
     @RequestMapping(path = "/saludar/{nombre}", method = RequestMethod.GET)

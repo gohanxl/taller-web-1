@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
-import ar.edu.unlam.tallerweb1.servicios.ServicioBuscarLibro;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,16 +16,16 @@ import java.util.List;
 @Controller
 public class ControladorBuscar {
 
-    private ServicioBuscarLibro servicioBuscarLibro;
+    private ServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorBuscar(ServicioBuscarLibro servicioBuscarLibro){
-        this.servicioBuscarLibro = servicioBuscarLibro;
+    public ControladorBuscar(ServicioPublicacion servicioPublicacion){
+        this.servicioPublicacion = servicioPublicacion;
     }
 
     @RequestMapping(path = "/buscar", method = RequestMethod.GET)
     public ModelAndView buscarLibro(@RequestParam("nombre") String nombre) throws IOException {
-        List<Publicacion> results = servicioBuscarLibro.buscarLibro(nombre);
+        List<Publicacion> results = servicioPublicacion.buscarPublicacion(nombre);
         ModelMap model = new ModelMap();
         model.put("buscado", nombre);
         model.put("publicaciones", results);

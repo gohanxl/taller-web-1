@@ -47,8 +47,7 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
     @Override
     public Publicacion buscarPublicacionPorId(Long id) {
         final Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Publicacion.class).add(Restrictions.idEq(id));
-        Publicacion publicacion = (Publicacion) criteria.uniqueResult();
+        Publicacion publicacion = session.get(Publicacion.class, id);
         return publicacion;
     }
 }

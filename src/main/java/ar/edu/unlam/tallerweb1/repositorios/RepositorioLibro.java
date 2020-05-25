@@ -10,10 +10,8 @@ public interface RepositorioLibro {
     void cargarLibro(Libro libro);
 
     void cargarCompra(Compra compra);
-
-    void cargarPublicacion(Publicacion publicacion);
-
+    
     List<Publicacion> buscarLibro(String nombre);
 
-    Libro buscarLibro(Long id);
+    Libro buscarLibroPorId(Long id);
 }
