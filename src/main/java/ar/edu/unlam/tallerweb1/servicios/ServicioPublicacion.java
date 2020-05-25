@@ -5,7 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import java.io.IOException;
 import java.util.List;
 
-public interface ServicioBuscarLibro {
-    List<Publicacion> buscarLibro(String nombre) throws IOException;
-    Publicacion buscarLibroPorId(Long id) throws IOException;
+public interface ServicioPublicacion {
+    List<Publicacion> buscarPublicacion(String nombre) throws IOException;
+    Publicacion buscarPublicacionPorId(Long id) throws IOException;
 }
