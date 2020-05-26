@@ -43,7 +43,7 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Files.copy(archivo.getInputStream(), rutaPdf, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(imagen.getInputStream(), rutaImg, StandardCopyOption.REPLACE_EXISTING);
         Libro libro = new Libro(nombre, path, pathImg);
-        Publicacion publicacion = new Publicacion(new Date(), libro, propietario, precio);
+        Publicacion publicacion = new Publicacion(libro, propietario, precio);
         servicioPublicacionDao.cargarPublicacion(publicacion);
     }
 
