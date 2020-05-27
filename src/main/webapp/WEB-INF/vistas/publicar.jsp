@@ -9,7 +9,7 @@
             <br>
             <h5 style="color:grey">Titulo: ${nombre}</h5>
             <h5 style="color:grey">Precio: ${precio}</h5>
-            <a style="float: right" href="/" class="btn btn-success">Go home</a>
+            <a style="float: right" href="/" class="btn btn-success">Home</a>
         </div>
     </div>
 </main>

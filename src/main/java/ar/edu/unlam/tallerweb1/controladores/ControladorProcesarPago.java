@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPagar;
 import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,13 +37,23 @@ public class ControladorProcesarPago {
             HttpServletRequest request
     ) throws MPException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
-        String estadoDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, libro_id, comprador);
+        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, libro_id, comprador);
+
+        String estadoDePago = "bad request";
+        String numeroDeTarjeta = null;
+
+        if(detallesDePago.getStatus() != null){
+            Payment.Status estado = detallesDePago.getStatus();
+            estadoDePago = estado.toString();
+            numeroDeTarjeta = detallesDePago.getCard().getLastFourDigits();
+        }
 
         ModelMap model = new ModelMap();
         model.put("descripcion", descripcion);
         model.put("estadoDePago", estadoDePago);
         model.put("precio", precio);
         model.put("metodoDePago", metodoDePago);
+        model.put("numeroDeTarjeta", numeroDeTarjeta);
         return new ModelAndView("confirmacion-pago", model);
     }
 }

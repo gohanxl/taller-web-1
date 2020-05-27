@@ -82,7 +82,7 @@
                 </li>
                 </c:if>
                 <li class="nav-item">
-                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0">
+                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0 ml-3">
                         <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
                         <i class="fas fa-search" aria-hidden="true"></i>
                     </form:form>
@@ -97,7 +97,7 @@
                             <a class="nav-link waves-effect">
                                 <span class="badge red z-depth-1 mr-1"> 1 </span>
                                 <i class="fas fa-shopping-cart"></i>
-                                <span class="clearfix d-none d-sm-inline-block"> Cart </span>
+                                <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
                             </a>
                         </li>
                         <li class="nav-item dropdown">

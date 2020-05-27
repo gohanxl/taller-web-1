@@ -16,7 +16,7 @@
         </h4>
         <p>Descripcion: ${descripcion}</p>
         <p>Precio: $${precio}</p>
-        <p>Metodo de pago: ${metodoDePago}</p>
+        <p>Metodo de pago: ${metodoDePago} ****${numeroDeTarjeta}</p>
         <a class="btn btn btn-primary float-right" href="/">Home</a>
     </div>
 </div>
