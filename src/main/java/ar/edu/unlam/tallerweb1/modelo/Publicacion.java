@@ -10,8 +10,8 @@ import java.util.Date;
 public class Publicacion {
     public Publicacion(){}
 
-    public Publicacion(Date fecha, Libro libro, Usuario propietario, Double precio){
-        this.setFecha(fecha);
+    public Publicacion(Libro libro, Usuario propietario, Double precio){
+        this.setFecha(new Date());
         this.setLibro(libro);
         this.setPropietario(propietario);
         this.setPrecio(precio);

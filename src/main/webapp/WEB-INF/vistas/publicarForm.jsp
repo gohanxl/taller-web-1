@@ -20,7 +20,7 @@
             </div>
 
             <div class="md-form">
-                <input type="number" id="precio" name="precio" class="form-control" required>
+                <input type="number"  step="any" id="precio" name="precio" class="form-control" required>
                 <label for="precio">Precio</label>
             </div>
 
