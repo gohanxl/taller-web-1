@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Publicacion {
@@ -30,6 +31,12 @@ public class Publicacion {
 
     @ManyToOne()
     private Usuario propietario;
+
+    @JoinTable(name = "rel_publicacion_etiquetas",
+            joinColumns = @JoinColumn(name = "FK_PUBLICACION", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "FK_ETIQUETA", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Etiqueta> etiquetas;
 
     @Column(name = "precio", nullable = false)
     private Double precio;

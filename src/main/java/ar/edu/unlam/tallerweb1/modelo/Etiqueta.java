@@ -14,7 +14,7 @@ public class Etiqueta {
     private String descripcion;
 
     @ManyToMany(mappedBy = "etiquetas")
-    private Set<Libro> libros;
+    private Set<Publicacion> publicaciones;
 
     public Long getId() {
         return id;
@@ -32,11 +32,11 @@ public class Etiqueta {
         this.descripcion = descripcion;
     }
 
-    public Set<Libro> getLibros() {
-        return libros;
+    public Set<Publicacion> getPublicaciones() {
+        return publicaciones;
     }
 
-    public void setLibros(Set<Libro> libros) {
-        this.libros = libros;
+    public void setPublicaciones(Set<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
     }
 }

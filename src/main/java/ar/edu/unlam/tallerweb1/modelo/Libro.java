@@ -18,12 +18,6 @@ public class Libro {
     @Column(name = "imagen", nullable = false)
     private String imagen;
 
-    @JoinTable(name = "rel_libros_etiquetas",
-            joinColumns = @JoinColumn(name = "FK_LIBRO", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "FK_ETIQUETA", referencedColumnName = "id"))
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Etiqueta> etiquetas;
-
     public Libro() {
     }
 
@@ -63,14 +57,6 @@ public class Libro {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public Set<Etiqueta> getEtiquetas() {
-        return etiquetas;
-    }
-
-    public void setEtiquetas(Set<Etiqueta> etiquetas) {
-        this.etiquetas = etiquetas;
     }
 
 }

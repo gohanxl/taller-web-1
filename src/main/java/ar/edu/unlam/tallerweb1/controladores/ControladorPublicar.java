@@ -32,7 +32,7 @@ public class ControladorPublicar {
                                       @RequestParam("imagen") MultipartFile imagen,
                                       @RequestParam("nombre") String nombre,
                                       @RequestParam("precio") Double precio,
-                                      @RequestParam("etiquetas") List<Etiqueta> etiquetas,
+                                      //@RequestParam("etiquetas") List<Etiqueta> etiquetas,
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
         String ruta = request.getSession().getServletContext().getRealPath("/");
@@ -40,7 +40,7 @@ public class ControladorPublicar {
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);
-        model.put("etiquetas", etiquetas);
+        //model.put("etiquetas", etiquetas);
         model.put("archivo", archivo.getOriginalFilename());
         return new ModelAndView("publicar", model);
     }
@@ -48,7 +48,9 @@ public class ControladorPublicar {
     @RequestMapping(path = "/publicar", method = RequestMethod.GET)
     public ModelAndView publicarLibroGet() {
         ModelMap model = new ModelMap();
-        return new ModelAndView("publicarForm");
+        List<Etiqueta> etiquetas = servicioPublicar.listarEtiquetas();
+        model.put("etiquetas", etiquetas);
+        return new ModelAndView("publicarForm", model);
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)

@@ -40,23 +40,13 @@
                     </div>
                     <h4 class="pt-5">Etiquetas</h4>
                     <div class="container row col-12 p-5 justify-content-around">
-                            <%--                        <c:forEach var="etiquetas" items="${etiquetas}">--%>
+                    <c:forEach var="etiquetas" items="${etiquetas}">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="1"
+                            <input type="checkbox" class="custom-control-input" id="${etiquetas.id}"
                                    name="etiquetas">
-                            <label class="custom-control-label" for="1">Terror</label>
+                            <label class="custom-control-label" for="${etiquetas.id}">${etiquetas.descripcion}</label>
                         </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="2"
-                                   name="etiquetas">
-                            <label class="custom-control-label" for="2">Aventura</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="3"
-                                   name="etiquetas">
-                            <label class="custom-control-label" for="3">Fantasia</label>
-                        </div>
-                            <%--                        </c:forEach>--%>
+                    </c:forEach>
                     </div>
                     <div style="text-align: right;">
                         <a href="/"><input
