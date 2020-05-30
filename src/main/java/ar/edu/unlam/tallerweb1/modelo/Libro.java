@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Libro {
@@ -17,10 +18,16 @@ public class Libro {
     @Column(name = "imagen", nullable = false)
     private String imagen;
 
-    public Libro(){
+    @JoinTable(name = "rel_libros_etiquetas",
+            joinColumns = @JoinColumn(name = "FK_LIBRO", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "FK_ETIQUETA", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Etiqueta> etiquetas;
+
+    public Libro() {
     }
 
-    public Libro(String nombre, String ruta, String imagen){
+    public Libro(String nombre, String ruta, String imagen) {
         this.setNombre(nombre);
         this.setRuta(ruta);
         this.setImagen(imagen);
@@ -56,6 +63,14 @@ public class Libro {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public Set<Etiqueta> getEtiquetas() {
+        return etiquetas;
+    }
+
+    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 
 }
