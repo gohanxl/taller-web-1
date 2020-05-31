@@ -32,7 +32,7 @@ public class ControladorPublicar {
                                       @RequestParam("imagen") MultipartFile imagen,
                                       @RequestParam("nombre") String nombre,
                                       @RequestParam("precio") Double precio,
-                                      //@RequestParam("etiquetas") List<Etiqueta> etiquetas,
+                                      @RequestParam("etiquetas") String[] etiquetas,
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
         String ruta = request.getSession().getServletContext().getRealPath("/");
