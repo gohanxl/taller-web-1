@@ -17,7 +17,7 @@
                 <div class="card">
 
                     <!--Card content-->
-                    <form class="card-body" action="/procesar_pago/<c:out value="${publicacion.libro.id}"/>"
+                    <form class="card-body" action="/procesar_pago/<c:out value="${publicacion.id}"/>"
                           method="post" id="pay" name="pay">
                         <fieldset>
                             <p class="md-form">

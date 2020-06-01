@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Etiqueta;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEtiqueta;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
@@ -26,12 +28,14 @@ public class ServicioPublicarImp implements ServicioPublicar {
     private RepositorioLibro servicioLibroDao;
     private RepositorioUsuario servicioUsuarioDao;
     private RepositorioPublicacion servicioPublicacionDao;
+    private RepositorioEtiqueta servicioEtiquetaDao;
 
     @Autowired
-    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao, RepositorioPublicacion servicioPublicacionDao){
+    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao, RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao){
         this.servicioUsuarioDao = servicioUsuarioDao;
         this.servicioLibroDao = servicioLibroDao;
         this.servicioPublicacionDao = servicioPublicacionDao;
+        this.servicioEtiquetaDao = servicioEtiquetaDao;
     }
 
     @Override
@@ -45,5 +49,14 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Libro libro = new Libro(nombre, path, pathImg);
         Publicacion publicacion = new Publicacion(libro, propietario, precio);
         servicioPublicacionDao.cargarPublicacion(publicacion);
+    }
+  
+    @Override
+    public List<Publicacion> listarPubliacion() {
+        return servicioPublicacionDao.listarPublicaciones();
+    }
+
+    @Override
+    public List<Etiqueta> listarEtiquetas() {return servicioEtiquetaDao.listarEtiquetas();
     }
 }

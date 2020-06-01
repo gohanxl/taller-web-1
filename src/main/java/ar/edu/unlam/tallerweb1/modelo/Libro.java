@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.modelo;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Libro {
@@ -17,10 +18,10 @@ public class Libro {
     @Column(name = "imagen", nullable = false)
     private String imagen;
 
-    public Libro(){
+    public Libro() {
     }
 
-    public Libro(String nombre, String ruta, String imagen){
+    public Libro(String nombre, String ruta, String imagen) {
         this.setNombre(nombre);
         this.setRuta(ruta);
         this.setImagen(imagen);

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -49,5 +50,11 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
         final Session session = sessionFactory.getCurrentSession();
         Publicacion publicacion = session.get(Publicacion.class, id);
         return publicacion;
+    }
+
+    @Override
+    public void cargarCompra(Compra compra) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(compra);
     }
 }

@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Etiqueta;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ public class ControladorPublicar {
                                       @RequestParam("imagen") MultipartFile imagen,
                                       @RequestParam("nombre") String nombre,
                                       @RequestParam("precio") Double precio,
+                                      @RequestParam("etiquetas") String[] etiquetas,
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
         String ruta = request.getSession().getServletContext().getRealPath("/");
@@ -36,6 +39,7 @@ public class ControladorPublicar {
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);
+        //model.put("etiquetas", etiquetas);
         model.put("archivo", archivo.getOriginalFilename());
         return new ModelAndView("publicar", model);
     }
@@ -43,6 +47,8 @@ public class ControladorPublicar {
     @RequestMapping(path = "/publicar", method = RequestMethod.GET)
     public ModelAndView publicarLibroGet() {
         ModelMap model = new ModelMap();
-        return new ModelAndView("publicarForm");
+        List<Etiqueta> etiquetas = servicioPublicar.listarEtiquetas();
+        model.put("etiquetas", etiquetas);
+        return new ModelAndView("publicarForm", model);
     }
 }

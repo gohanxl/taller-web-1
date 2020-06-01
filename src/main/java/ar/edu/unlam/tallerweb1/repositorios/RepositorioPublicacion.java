@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 
@@ -10,4 +11,5 @@ public interface RepositorioPublicacion {
     List<Publicacion> buscarPublicacion(String nombre);
     List<Publicacion> listarPublicaciones();
     Publicacion buscarPublicacionPorId(Long id);
+    void cargarCompra(Compra compra);
 }

@@ -1,10 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
-import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import com.mercadopago.*;
 import com.mercadopago.exceptions.MPConfException;
@@ -22,19 +21,19 @@ import java.util.List;
 @Transactional
 public class ServicioPagarImp implements ServicioPagar{
 
-    private RepositorioLibro servicioLibroDao;
+    private RepositorioPublicacion servicioPublicacionDao;
     private RepositorioUsuario servicioUsuarioDao;
     private ServicioComprar servicioComprar;
 
     @Autowired
-    public ServicioPagarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao,ServicioComprar servicioComprar){
-        this.servicioLibroDao = servicioLibroDao;
+    public ServicioPagarImp(RepositorioPublicacion servicioPublicacionDao, RepositorioUsuario servicioUsuarioDao,ServicioComprar servicioComprar){
+        this.servicioPublicacionDao = servicioPublicacionDao;
         this.servicioUsuarioDao = servicioUsuarioDao;
         this.servicioComprar = servicioComprar;
     }
 
     @Override
-    public Payment pagarLibro(String token, Float precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long libro_id, Usuario comprador) throws MPException, MPConfException {
+    public Payment pagarLibro(String token, Float precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long publicacion_id, Usuario comprador) throws MPException, MPConfException {
         MercadoPago.SDK.setAccessToken("TEST-258421991393118-051723-0e688fa5657ce8baede14eb54e347cde-568420127");
         MercadoPago.SDK.setClientSecret(System.getenv("UnsrID9XHVEWNImkLs6jRw0KPBz2ZJb4"));
         MercadoPago.SDK.setClientId(System.getenv("258421991393118"));
@@ -57,9 +56,9 @@ public class ServicioPagarImp implements ServicioPagar{
         }
 
         if(estadoDePago.equals("approved")){
-            Libro libro = servicioLibroDao.buscarLibroPorId(libro_id);
-            Compra compra = new Compra(libro, comprador);
-            servicioLibroDao.cargarCompra(compra);
+            Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(publicacion_id);
+            Compra compra = new Compra(publicacion, comprador);
+            servicioPublicacionDao.cargarCompra(compra);
         }
 
         return payment;
