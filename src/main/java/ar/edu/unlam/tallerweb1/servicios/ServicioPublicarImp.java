@@ -46,9 +46,4 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Publicacion publicacion = new Publicacion(libro, propietario, precio);
         servicioPublicacionDao.cargarPublicacion(publicacion);
     }
-
-    @Override
-    public List<Publicacion> listarPubliacion() {
-        return servicioPublicacionDao.listarPublicaciones();
-    }
 }

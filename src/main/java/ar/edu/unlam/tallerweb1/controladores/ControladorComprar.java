@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller
@@ -23,13 +24,18 @@ public class ControladorComprar {
     }
 
     @RequestMapping(path = "/checkout", method = RequestMethod.GET)
-    public ModelAndView comprarLibro(@RequestParam("publicacionId") String id) throws IOException {
+    public ModelAndView comprarLibro(@RequestParam("publicacionId") String id,
+                                     HttpServletRequest request) throws IOException {
 
-        ModelMap model = new ModelMap();
+        if(request.getSession().getAttribute("USUARIO") != null){
+            ModelMap model = new ModelMap();
+            Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(Long.parseLong(id));
+            model.put("publicacion", publicacion);
+            return new ModelAndView("checkout", model);
+        }
+        else{
+            return new ModelAndView("redirect:/login?next=/checkout?publicacionId="+id);
+        }
 
-        Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(Long.parseLong(id));
-        model.put("publicacion", publicacion);
-
-        return new ModelAndView("checkout", model);
     }
 }
