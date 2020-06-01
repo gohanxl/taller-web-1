@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,12 +30,13 @@ public class ControladorLogin {
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
-	public ModelAndView irALogin() {
+	public ModelAndView irALogin(@RequestParam(value = "next", required = false) String next) {
 
 		ModelMap modelo = new ModelMap();
 		// Se agrega al modelo un objeto del tipo Usuario con key 'usuario' para que el mismo sea asociado
 		// al model attribute del form que esta definido en la vista 'login'
 		Usuario usuario = new Usuario();
+		modelo.put("next", next);
 		modelo.put("usuario", usuario);
 		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
 		// y se envian los datos a la misma  dentro del modelo
@@ -45,7 +47,9 @@ public class ControladorLogin {
 	// El metodo recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
 	// tag form:form
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario,
+									 @RequestParam(value = "next", required = false) String next,
+									 HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 
 		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
@@ -56,10 +60,17 @@ public class ControladorLogin {
 			request.getSession().setAttribute("USERNAME", usuarioBuscado.getNombre());
 			request.getSession().setAttribute("USUARIO_ID", usuarioBuscado.getId());
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-			return new ModelAndView("redirect:/");
+
+			if(next != null){
+				return new ModelAndView("redirect:"+next);
+			}
+			else{
+				return new ModelAndView("redirect:/");
+			}
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
+			model.put("next", next);
 		}
 		return new ModelAndView("login", model);
 	}

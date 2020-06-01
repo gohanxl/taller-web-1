@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class ControladorPublicar {
@@ -51,13 +50,5 @@ public class ControladorPublicar {
         List<Etiqueta> etiquetas = servicioPublicar.listarEtiquetas();
         model.put("etiquetas", etiquetas);
         return new ModelAndView("publicarForm", model);
-    }
-
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView irAHome(HttpServletRequest request) {
-        List<Publicacion> publicaciones = servicioPublicar.listarPubliacion();
-        ModelMap model = new ModelMap();
-        model.put("publicaciones", publicaciones);
-        return new ModelAndView("home", model);
     }
 }

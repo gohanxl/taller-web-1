@@ -32,4 +32,9 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         return publicacion;
     }
 
+    @Override
+    public List<Publicacion> listarPubliacion() {
+        return servicioPublicacionDao.listarPublicaciones();
+    }
+
 }
