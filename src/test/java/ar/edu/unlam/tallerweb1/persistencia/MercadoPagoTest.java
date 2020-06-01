@@ -1,25 +1,50 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.LinkedTreeMap;
 import com.mercadopago.MercadoPago;
+import com.mercadopago.core.MPApiResponse;
+import com.mercadopago.resources.Payment;
+import com.mercadopago.resources.datastructures.payment.Payer;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class MercadoPagoTest {
 
     @Test
-    public void attributesConfigurationTests() throws Exception {
+    public void pagoErroneoTest() throws Exception {
         MercadoPago.SDK.cleanConfiguration();
 
-        MercadoPago.SDK.setClientSecret("Zek56oXTfHzkD0od5U4UKWhQMcMxADzG");
-        MercadoPago.SDK.setClientId("511257988168082");
-        MercadoPago.SDK.setAccessToken("TEST-511257988168082-051223-b9cb322b4e4707a6c96a78b65242ae78-285177117");
+        MercadoPago.SDK.setAccessToken("TEST-258421991393118-051723-0e688fa5657ce8baede14eb54e347cde-568420128");
+        MercadoPago.SDK.setClientSecret(System.getenv("UnsrID9XHVEWNImkLs6jRw0KPBz2ZJb4"));
+        MercadoPago.SDK.setClientId(System.getenv("258421991393118"));
 
-        assertEquals("Client Secret must be \"CLIENT_SECRET\" at this point", MercadoPago.SDK.getClientSecret(), "Zek56oXTfHzkD0od5U4UKWhQMcMxADzG");
-        assertEquals("Client Id must be \"CLIENT_ID\" at this point", MercadoPago.SDK.getClientId(), "511257988168082");
-        assertEquals("Access Token must be \"ACCESS_TOKEN\" at this point", MercadoPago.SDK.getAccessToken(), "TEST-511257988168082-051223-b9cb322b4e4707a6c96a78b65242ae78-285177117");
+        String token = "751b15d080b4f37d9cd5a98e21795a83";
+        Float precio = 500F;
+        String metodoDePago = "visa";
+        Integer cuotas = 1;
+        String mail = "test_user_53646357@testuser.com";
+        String descripcion = "Harry Potter";
 
-        MercadoPago.SDK.setBaseUrl("https://overriden.mercadopago.com");
-        assertEquals("MPBase url must be default \"https://overriden.mercadopago.com\" at this point", MercadoPago.SDK.getBaseUrl(), "https://overriden.mercadopago.com");
+        String estadoDePago = "bad request";
+
+        Payment payment = new Payment()
+                .setTransactionAmount(precio)
+                .setToken(token)
+                .setDescription(descripcion)
+                .setInstallments(cuotas)
+                .setPaymentMethodId(metodoDePago)
+                .setPayer(new Payer()
+                        .setEmail(mail));
+        payment.save();
+
+        if(payment.getStatus() != null){
+            Payment.Status estado = payment.getStatus();
+            estadoDePago = estado.toString();
+        }
+
+        assertEquals("bad request", estadoDePago);
     }
 }
 
