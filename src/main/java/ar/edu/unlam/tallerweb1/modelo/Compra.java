@@ -11,7 +11,7 @@ public class Compra {
     private Long id;
 
     @ManyToOne
-    private Libro libro;
+    private Publicacion publicacion;
 
     @ManyToOne
     private Usuario usuario;
@@ -22,8 +22,8 @@ public class Compra {
     public Compra(){
     }
 
-    public Compra(Libro libro_id, Usuario usuario_id) {
-        this.setLibro(libro_id);
+    public Compra(Publicacion publicacion, Usuario usuario_id) {
+        this.setPublicacion(publicacion);
         this.setUsuario(usuario_id);
         this.setFecha_compra(new Date());
     }
@@ -44,12 +44,12 @@ public class Compra {
         this.id = id;
     }
 
-    public Libro getLibro() {
-        return libro;
+    public Publicacion getPublicacion() {
+        return publicacion;
     }
 
-    public void setLibro(Libro libro_id) {
-        this.libro = libro_id;
+    public void setPublicacion(Publicacion publicacion_id) {
+        this.publicacion = publicacion_id;
     }
 
     public Usuario getUsuario() {

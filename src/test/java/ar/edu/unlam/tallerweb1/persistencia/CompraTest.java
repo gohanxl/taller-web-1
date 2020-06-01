@@ -5,14 +5,10 @@ import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
-import ar.edu.unlam.tallerweb1.servicios.ServicioComprar;
-import ar.edu.unlam.tallerweb1.servicios.ServicioComprarImp;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +26,10 @@ public class CompraTest extends SpringTest {
         Libro libro = new Libro("pepe", "null", "null");
         session().save(libro);
 
-        Compra compra = new Compra(libro, usuario);
+        Publicacion publicacion = new Publicacion(libro, usuario, 500D);
+        session().save(publicacion);
+
+        Compra compra = new Compra(publicacion, usuario);
         session().save(compra);
 
         assertThat(compra.getId()).isNotNull();

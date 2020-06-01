@@ -2,8 +2,10 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Libro;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,17 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServicioComprarImp implements ServicioComprar{
 
-    private RepositorioLibro servicioLibroDao;
+    private RepositorioPublicacion servicioPublicacionDao;
 
     @Autowired
     public ServicioComprarImp(RepositorioLibro servicioLibroDao){
-        this.servicioLibroDao = servicioLibroDao;
+        this.servicioPublicacionDao = servicioPublicacionDao;
     }
 
     @Override
-    public void comprarLibro(Libro libro_id, Usuario usuario_id){
-        Compra compra = new Compra(libro_id, usuario_id);
+    public void comprarLibro(Publicacion publicacion_id, Usuario usuario_id){
+        Compra compra = new Compra(publicacion_id, usuario_id);
 
-        servicioLibroDao.cargarCompra(compra);
+        servicioPublicacionDao.cargarCompra(compra);
     }
 }

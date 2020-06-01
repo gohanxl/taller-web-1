@@ -25,7 +25,7 @@ public class ControladorProcesarPago {
         this.servicioPagar = servicioPagar;
     }
 
-    @RequestMapping(path = "/procesar_pago/{libro_id}", method = RequestMethod.POST)
+    @RequestMapping(path = "/procesar_pago/{publicacion_id}", method = RequestMethod.POST)
     public ModelAndView procesarPago(
             @RequestParam("token") String token,
             @RequestParam("transaction_amount") Float precio,
@@ -33,11 +33,11 @@ public class ControladorProcesarPago {
             @RequestParam("installments") Integer cuotas,
             @RequestParam("email") String mail,
             @RequestParam("description") String descripcion,
-            @PathVariable("libro_id") Long libro_id,
+            @PathVariable("publicacion_id") Long publicacion_id,
             HttpServletRequest request
     ) throws MPException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
-        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, libro_id, comprador);
+        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
 
         String estadoDePago = "bad request";
         String numeroDeTarjeta = null;

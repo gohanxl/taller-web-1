@@ -29,12 +29,6 @@ public class RepositorioLibroImp implements RepositorioLibro {
     }
 
     @Override
-    public void cargarCompra(Compra compra) {
-        final Session session = sessionFactory.getCurrentSession();
-        session.save(compra);
-    }
-
-    @Override
     public List<Publicacion> buscarLibro(String nombre) {
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Publicacion.class)
