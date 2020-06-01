@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -43,7 +44,8 @@ public class RepositorioPuntajeImp implements RepositorioPuntaje {
 	public List<Puntaje> listarPuntajes(Publicacion publicacion) {
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Puntaje.class)
-				.add(Restrictions.eq("publicacion.id", publicacion.getId()));
+				.add(Restrictions.eq("publicacion.id", publicacion.getId()))
+				.addOrder(Order.desc("fecha"));
 		List <Puntaje> puntajes = criteria.list();
 		return puntajes;
 	}

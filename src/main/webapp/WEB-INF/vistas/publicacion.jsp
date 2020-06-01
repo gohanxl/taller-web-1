@@ -1,5 +1,7 @@
+
 <%@ include file = "header.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Main layout-->
 <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
@@ -19,7 +21,7 @@
             <div class="col-md-6 mb-4">
 
                 <!--Content-->
-                <div class="p-4">
+                <div class="">
 
                     <div class="mb-3">
                         <a href="">
@@ -32,40 +34,42 @@
                             <span class="badge red mr-1">Etiqueta 3</span>
                         </a>
                     </div>
-                    <p>
-                        ${promedio}
-                    </p>
-                    <p class="lead">
-                        <span>$ ${publicacion.precio}</span>
-                    </p>
-
+                    <p>${promedio}</p>
                     <p class="lead font-weight-bold">${publicacion.libro.nombre}</p>
-
+                    <!--
                     <p>${publicacion.propietario.nombre}</p>
+                    -->
+                    <c:choose>
+                        <c:when test="${comprado}">
+                            <p class="lead">
+                                <span>$ ${publicacion.precio}</span>
+                            </p>
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al carrito
+                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                </button>
 
-                    <form action="/checkout" class="d-flex justify-content-left">
-                        <!-- Default input -->
-                        <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                        <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                        <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al carrito
-                            <i class="fas fa-shopping-cart ml-1"></i>
-                        </button>
-
-                    </form>
-                    <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
-                        <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
-                            <span id="rateMe"  class="mdb-rating empty-stars"></span>
-                        </div>
-                        <div class="md-form mb-4 info-textarea active-info-textarea">
-                            <form:textarea path="comentario" id="comentario" class="md-textarea form-control" name="comentario" rows="3" />
-                            <label for="comentario">Comentario</label>
-                        </div>
-
-                        <form:input path="valor" type="hidden" name="valor" id="valor" />
-                        <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}" />
-                        <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
-                        <button class="btn btn-primary my-0" type="submit">Enviar
-                    </form:form>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
+                                <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
+                                    <span id="rateMe"  class="mdb-rating empty-stars"></span>
+                                </div>
+                                <div class="md-form mb-4 info-textarea active-info-textarea">
+                                    <form:textarea path="comentario" id="comentario" class="md-textarea form-control" name="comentario" rows="3" />
+                                    <label for="comentario">Comentario</label>
+                                </div>
+                                <form:input path="valor" type="hidden" name="valor" id="valor" required="" />
+                                <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
+                                <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
+                                <button class="btn btn-primary my-0" type="submit">Enviar
+                            </form:form>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <!--Content-->
 
@@ -96,8 +100,8 @@
 
             <!--Grid column-->
             <div class="col-lg-4 col-md-12 mb-4">
-                <p>${puntaje.fecha}</p>
                 <p>${puntaje.usuario.nombre}</p>
+                <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy" /></p>
             </div>
             <!--Grid column-->
 

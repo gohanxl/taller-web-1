@@ -84,7 +84,7 @@
                 </li>
                 </c:if>
                 <li class="nav-item">
-                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0 ml-3">
+                    <form:form method="GET" action="/buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0 ml-3">
                         <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
                         <i class="fas fa-search" aria-hidden="true"></i>
                     </form:form>

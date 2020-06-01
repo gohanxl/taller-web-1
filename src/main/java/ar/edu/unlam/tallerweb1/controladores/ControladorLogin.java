@@ -30,7 +30,7 @@ public class ControladorLogin {
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
-	public ModelAndView irALogin(@RequestParam("next") String next) {
+	public ModelAndView irALogin(@RequestParam(value = "next", required = false) String next) {
 
 		ModelMap modelo = new ModelMap();
 		// Se agrega al modelo un objeto del tipo Usuario con key 'usuario' para que el mismo sea asociado
@@ -48,7 +48,7 @@ public class ControladorLogin {
 	// tag form:form
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario,
-									 @RequestParam("next") String next,
+									 @RequestParam(value = "next", required = false) String next,
 									 HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 

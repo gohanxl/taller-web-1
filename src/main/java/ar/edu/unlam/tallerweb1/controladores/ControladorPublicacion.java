@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,7 @@ public class ControladorPublicacion {
     @RequestMapping(path = "/puntuar", method = RequestMethod.POST)
     public ModelAndView puntuar(@ModelAttribute("puntaje") Puntaje puntaje){
         ModelMap model = new ModelMap();
+        puntaje.setFecha(new Date());
         this.servicioPuntaje.puntuarPublicacion(puntaje);
         return new ModelAndView("");
     }
@@ -43,12 +45,14 @@ public class ControladorPublicacion {
         Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
         Double promedio = this.servicioPuntaje.calcularPromedio(publicacion);
         List<Puntaje> puntajes = this.servicioPuntaje.listarPuntaje(publicacion);
+        Boolean comprado = false;
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);
         model.put("puntajes", puntajes);
         model.put("promedio", promedio);
         model.put("puntaje", puntaje);
+        model.put("comprado", comprado);
         return new ModelAndView("publicacion", model);
     }
 }
