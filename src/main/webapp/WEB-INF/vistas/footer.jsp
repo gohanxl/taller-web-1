@@ -110,4 +110,10 @@
         });
     });
 </script>
+<script src="/js/addons/rating.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#rateMe').mdbRate();
+    });
+</script>
 </html>
