@@ -27,6 +27,7 @@ public class PuntuarTest extends SpringTest {
         session().save(publicacion);
 
         Puntaje puntaje = new Puntaje(publicacion, 3, "comentario", usuario);
+        session().save(puntaje);
 
         assertThat(puntaje.getId()).isNotNull();
     }
