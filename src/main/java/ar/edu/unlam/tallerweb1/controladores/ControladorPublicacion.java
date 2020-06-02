@@ -45,7 +45,7 @@ public class ControladorPublicacion {
         Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
         Double promedio = this.servicioPuntaje.calcularPromedio(publicacion);
         List<Puntaje> puntajes = this.servicioPuntaje.listarPuntaje(publicacion);
-        Boolean comprado = false;
+        Boolean comprado = true;
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);

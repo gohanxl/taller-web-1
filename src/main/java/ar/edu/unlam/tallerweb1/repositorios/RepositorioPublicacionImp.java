@@ -40,7 +40,8 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
     @Override
     public List<Publicacion> listarPublicaciones() {
         final Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Publicacion.class);
+        Criteria criteria = session.createCriteria(Publicacion.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List <Publicacion> publicaciones = criteria.list();
         return publicaciones;
     }

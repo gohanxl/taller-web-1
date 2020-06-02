@@ -69,6 +69,11 @@
 							<h4 class="font-weight-bold blue-text">
 								<strong>$ <c:out value="${publicacion.precio}"/></strong>
 							</h4>
+							<c:forEach var="etiqueta" items="${publicacion.etiquetas}">
+								<h6 class="font-weight-bold blue-text">
+									<strong>${etiqueta.descripcion}</strong>
+								</h6>
+							</c:forEach>
 							<!--
 							<div class="card-footer" style="background-color: transparent !important;">
 								<a data-toggle="tooltip" data-placement="top" title="Agregar al carrito" class="btn-lg" href="/checkout?publicacionId=${publicacion.id}"><i class="fas fa-shopping-cart mr-3 teal-text"></i></a>
