@@ -36,6 +36,5 @@ public class ControladorComprar {
         else{
             return new ModelAndView("redirect:/login?next=/checkout?publicacionId="+id);
         }
-
     }
 }
