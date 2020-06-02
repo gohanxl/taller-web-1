@@ -13,4 +13,5 @@ public interface ServicioPublicar {
     void subirArchivo(String nombre, Double precio, MultipartFile archivo, MultipartFile imagen, String ruta, Usuario propietario) throws IOException;
     List<Publicacion> listarPubliacion();
     List<Etiqueta> listarEtiquetas();
+    List<Etiqueta> recomendarPublicaciones(Usuario user);
 }

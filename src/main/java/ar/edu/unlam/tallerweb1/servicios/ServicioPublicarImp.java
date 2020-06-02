@@ -59,4 +59,9 @@ public class ServicioPublicarImp implements ServicioPublicar {
     @Override
     public List<Etiqueta> listarEtiquetas() {return servicioEtiquetaDao.listarEtiquetas();
     }
+
+    @Override
+    public List<Etiqueta> recomendarPublicaciones(Usuario user) {
+        return servicioEtiquetaDao.recomendarPublicaciones(user);
+    }
 }
