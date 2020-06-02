@@ -10,5 +10,6 @@ public interface RepositorioUsuario {
 	void cargarUsuario(Usuario usuario);
 	Usuario consultarUsuario (Usuario usuario);
 	List <Compra> getCompras (Usuario usuario);
+	List <Compra> getVentas (Usuario usuario);
 	Boolean tieneCompra(Long id);
 }

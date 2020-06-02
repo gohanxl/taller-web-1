@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,21 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 				.add(Restrictions.eq("usuario", usuario));
 		List <Compra> compras = criteria.list();
 		return compras;
+	}
+
+	@Override
+	public List<Compra> getVentas(Usuario usuario){
+		final Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Compra.class)
+				.createAlias("publicacion", "p")
+				.add(Restrictions.eq("p.propietario.id", usuario.getId()));
+
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.groupProperty("publicacion"))
+				.add(Projections.rowCount()));
+		List <Compra> ventas = criteria.list();
+
+		return ventas;
 	}
 
 	@Override

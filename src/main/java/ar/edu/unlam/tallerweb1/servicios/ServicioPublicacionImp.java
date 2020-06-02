@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     @Override
     public List<Publicacion> listarPubliacion() {
         return servicioPublicacionDao.listarPublicaciones();
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionDeUsuario(Usuario usuario) {
+        return servicioPublicacionDao.listarPublicacionesDeUsuario(usuario);
     }
 
 }
