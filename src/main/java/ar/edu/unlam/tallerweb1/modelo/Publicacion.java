@@ -12,11 +12,12 @@ import java.util.Set;
 public class Publicacion {
     public Publicacion(){}
 
-    public Publicacion(Libro libro, Usuario propietario, Double precio){
+    public Publicacion(Libro libro, Usuario propietario, Double precio, List<Etiqueta> etiquetas){
         this.setFecha(new Date());
         this.setLibro(libro);
         this.setPropietario(propietario);
         this.setPrecio(precio);
+        this.setEtiquetas(etiquetas);
     }
 
     @Id
@@ -37,7 +38,7 @@ public class Publicacion {
             joinColumns = @JoinColumn(name = "FK_PUBLICACION", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "FK_ETIQUETA", referencedColumnName = "id"))
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Etiqueta> etiquetas;
+    private List<Etiqueta> etiquetas;
 
     @Column(name = "precio", nullable = false)
     private Double precio;
@@ -82,11 +83,11 @@ public class Publicacion {
         this.precio = precio;
     }
 
-    public Set<Etiqueta> getEtiquetas() {
+    public List<Etiqueta> getEtiquetas() {
         return etiquetas;
     }
 
-    public void setEtiquetas(Set<Etiqueta> etiquetas) {
+    public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
 }

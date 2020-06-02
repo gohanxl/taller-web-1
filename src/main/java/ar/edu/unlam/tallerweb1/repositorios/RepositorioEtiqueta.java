@@ -11,4 +11,5 @@ public interface RepositorioEtiqueta {
     void cargarEtiqueta(Etiqueta etiqueta);
 
     List<Etiqueta> listarEtiquetas();
+    List<Etiqueta> parsearEtiquetas(String[] etiquetas);
 }

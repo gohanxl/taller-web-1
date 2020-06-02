@@ -36,11 +36,12 @@ public class ControladorPublicar {
                                       HttpServletRequest request) throws IOException {
         Usuario propietario = (Usuario) request.getSession().getAttribute("USUARIO");
         String ruta = request.getSession().getServletContext().getRealPath("/");
-        servicioPublicar.subirArchivo(nombre, precio, archivo, imagen, ruta, propietario);
+        List<Etiqueta> etiquetasList = servicioPublicar.parsearEtiquetas(etiquetas);
+        servicioPublicar.subirArchivo(nombre, precio, archivo, imagen, ruta, propietario, etiquetasList);
         ModelMap model = new ModelMap();
         model.put("nombre", nombre);
         model.put("precio", precio);
-        //model.put("etiquetas", etiquetas);
+        model.put("etiquetas", etiquetasList);
         model.put("archivo", archivo.getOriginalFilename());
         return new ModelAndView("publicar", model);
     }

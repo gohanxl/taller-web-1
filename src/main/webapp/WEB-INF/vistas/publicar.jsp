@@ -1,4 +1,4 @@
-<%@ include file = "header.jsp" %>
+<%@ include file="header.jsp" %>
 
 <!--Main layout-->
 <main class="mt-5 pt-4">
@@ -9,10 +9,13 @@
             <br>
             <h5 style="color:grey">Titulo: ${nombre}</h5>
             <h5 style="color:grey">Precio: ${precio}</h5>
+            <c:forEach var="etiqueta" items="${etiquetas}">
+                <h5 style="color:grey">Etiquetas: ${etiqueta.descripcion}</h5>
+            </c:forEach>
             <a style="float: right" href="/" class="btn btn-success">Home</a>
         </div>
     </div>
 </main>
 <!--Main layout-->
 
-<%@ include file = "footer.jsp" %>
+<%@ include file="footer.jsp" %>

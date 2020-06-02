@@ -31,7 +31,7 @@ public class ServicioPublicarImp implements ServicioPublicar {
     private RepositorioEtiqueta servicioEtiquetaDao;
 
     @Autowired
-    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao, RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao){
+    public ServicioPublicarImp(RepositorioLibro servicioLibroDao, RepositorioUsuario servicioUsuarioDao, RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao) {
         this.servicioUsuarioDao = servicioUsuarioDao;
         this.servicioLibroDao = servicioLibroDao;
         this.servicioPublicacionDao = servicioPublicacionDao;
@@ -39,7 +39,7 @@ public class ServicioPublicarImp implements ServicioPublicar {
     }
 
     @Override
-    public void subirArchivo(String nombre, Double precio, MultipartFile archivo, MultipartFile imagen, String ruta, Usuario propietario) throws IOException {
+    public void subirArchivo(String nombre, Double precio, MultipartFile archivo, MultipartFile imagen, String ruta, Usuario propietario, List<Etiqueta> etiquetas) throws IOException {
         Path rutaPdf = Paths.get(ruta + "/uploads/" + archivo.getOriginalFilename());
         Path rutaImg = Paths.get(ruta + "/img/" + imagen.getOriginalFilename());
         String path = "/uploads/" + archivo.getOriginalFilename();
@@ -47,16 +47,22 @@ public class ServicioPublicarImp implements ServicioPublicar {
         Files.copy(archivo.getInputStream(), rutaPdf, StandardCopyOption.REPLACE_EXISTING);
         Files.copy(imagen.getInputStream(), rutaImg, StandardCopyOption.REPLACE_EXISTING);
         Libro libro = new Libro(nombre, path, pathImg);
-        Publicacion publicacion = new Publicacion(libro, propietario, precio);
+        Publicacion publicacion = new Publicacion(libro, propietario, precio, etiquetas);
         servicioPublicacionDao.cargarPublicacion(publicacion);
     }
-  
+
     @Override
     public List<Publicacion> listarPubliacion() {
         return servicioPublicacionDao.listarPublicaciones();
     }
 
     @Override
-    public List<Etiqueta> listarEtiquetas() {return servicioEtiquetaDao.listarEtiquetas();
+    public List<Etiqueta> listarEtiquetas() {
+        return servicioEtiquetaDao.listarEtiquetas();
+    }
+
+    @Override
+    public List<Etiqueta> parsearEtiquetas(String[] etiquetas) {
+        return servicioEtiquetaDao.parsearEtiquetas(etiquetas);
     }
 }
