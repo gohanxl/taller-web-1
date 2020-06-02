@@ -1,14 +1,15 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
-import ar.edu.unlam.tallerweb1.modelo.Libro;
+import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
+import java.util.List;
 
 // implelemtacion del repositorio de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.dao
@@ -40,5 +41,24 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	public void cargarUsuario(Usuario usuario) {
 		final Session session = sessionFactory.getCurrentSession();
 		session.save(usuario);
+	}
+
+	@Override
+	public List<Compra> getCompras(Usuario usuario){
+		final Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Compra.class)
+				.add(Restrictions.eq("usuario", usuario));
+		List <Compra> compras = criteria.list();
+		return compras;
+	}
+
+	@Override
+	public Boolean tieneCompra(Long id){
+		final Session session = sessionFactory.getCurrentSession();
+		Compra compra = session.get(Compra.class, id);
+		if(compra != null){
+			return true;
+		}
+		return false;
 	}
 }
