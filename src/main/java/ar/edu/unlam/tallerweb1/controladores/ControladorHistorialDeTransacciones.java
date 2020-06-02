@@ -33,7 +33,7 @@ public class ControladorHistorialDeTransacciones {
     public ModelAndView historialDeTransacciones(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
         List<Compra> compras = servicioUsuario.getCompras(usuario);
-        List<Compra> ventas = servicioUsuario.getVentas(usuario);
+        List<Publicacion> ventas = servicioUsuario.getVentas(usuario);
 
         ModelMap model = new ModelMap();
         model.put("compras", compras);

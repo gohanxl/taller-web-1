@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.hibernate.Criteria;
@@ -35,7 +36,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	}
 
 	@Override
-	public List<Compra> getVentas(Usuario usuario) {
+	public List<Publicacion> getVentas(Usuario usuario) {
 		return servicioUsuarioDao.getVentas(usuario);
 	}
 

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -54,7 +55,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	}
 
 	@Override
-	public List<Compra> getVentas(Usuario usuario){
+	public List<Publicacion> getVentas(Usuario usuario){
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Compra.class)
 				.createAlias("publicacion", "p")
@@ -63,7 +64,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("publicacion"))
 				.add(Projections.rowCount()));
-		List <Compra> ventas = criteria.list();
+		List <Publicacion> ventas = criteria.list();
 
 		return ventas;
 	}
