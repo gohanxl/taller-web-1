@@ -39,7 +39,7 @@
                             <p class="md-form">
                                 <label for="cardholderName">Nombre y apellido</label>
                                 <input class="form-control" type="text" id="cardholderName"
-                                       data-checkout="cardholderName"/>
+                                       data-checkout="cardholderName" required/>
                             </p>
                             <p class="md-form">
                                 <label for="cardExpirationMonth">Mes de vencimiento</label>

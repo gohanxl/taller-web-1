@@ -40,7 +40,7 @@
                     <p>${publicacion.propietario.nombre}</p>
                     -->
                     <c:choose>
-                        <c:when test="${comprado}">
+                        <c:when test="${!comprado}">
                             <p class="lead">
                                 <span>$ ${publicacion.precio}</span>
                             </p>
