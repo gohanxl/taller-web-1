@@ -1,14 +1,14 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
-import ar.edu.unlam.tallerweb1.modelo.Compra;
-import ar.edu.unlam.tallerweb1.modelo.Libro;
-import ar.edu.unlam.tallerweb1.modelo.Publicacion;
-import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.modelo.*;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,7 +26,13 @@ public class CompraTest extends SpringTest {
         Libro libro = new Libro("pepe", "null", "null");
         session().save(libro);
 
-        Publicacion publicacion = new Publicacion(libro, usuario, 500D);
+        Etiqueta etiqueta = new Etiqueta();
+        etiqueta.setDescripcion("Terror");
+
+        List<Etiqueta> etiquetas = new ArrayList<>();
+        etiquetas.add(etiqueta);
+
+        Publicacion publicacion = new Publicacion(libro, usuario, 500D, etiquetas);
         session().save(publicacion);
 
         Compra compra = new Compra(publicacion, usuario);
