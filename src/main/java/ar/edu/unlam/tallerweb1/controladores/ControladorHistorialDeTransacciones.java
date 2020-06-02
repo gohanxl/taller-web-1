@@ -32,13 +32,18 @@ public class ControladorHistorialDeTransacciones {
     @RequestMapping(path = "/historial-de-transacciones", method = RequestMethod.GET)
     public ModelAndView historialDeTransacciones(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
-        List<Compra> compras = servicioUsuario.getCompras(usuario);
-        List<Publicacion> ventas = servicioUsuario.getVentas(usuario);
+        if(usuario != null) {
+            List<Compra> compras = servicioUsuario.getCompras(usuario);
+            List<Publicacion> ventas = servicioUsuario.getVentas(usuario);
 
-        ModelMap model = new ModelMap();
-        model.put("compras", compras);
-        model.put("ventas", ventas);
-        return new ModelAndView("historial-de-transacciones", model);
+            ModelMap model = new ModelMap();
+            model.put("compras", compras);
+            model.put("ventas", ventas);
+            return new ModelAndView("historial-de-transacciones", model);
+        }
+        else {
+            return new ModelAndView("redirect:/");
+        }
     }
 
 
