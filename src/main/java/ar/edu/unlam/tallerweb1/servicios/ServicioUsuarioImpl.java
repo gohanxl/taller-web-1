@@ -41,7 +41,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	}
 
 	@Override
-	public Boolean tieneCompra(Long id) {
-		return servicioUsuarioDao.tieneCompra(id);
+	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
+		return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
 	}
 }

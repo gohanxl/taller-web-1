@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Etiqueta;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
@@ -11,4 +12,5 @@ public interface ServicioPublicacion {
     Publicacion buscarPublicacionPorId(Long id) throws IOException;
     List<Publicacion> listarPubliacion();
     List<Publicacion> listarPublicacionDeUsuario(Usuario usuario);
+    List<Publicacion> recomendarPublicaciones(Usuario user);
 }

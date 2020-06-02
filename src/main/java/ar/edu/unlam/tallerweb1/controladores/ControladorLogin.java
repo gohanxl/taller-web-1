@@ -43,6 +43,12 @@ public class ControladorLogin {
 		return new ModelAndView("login", modelo);
 	}
 
+	@RequestMapping(path = "/cerrar-sesion")
+	public ModelAndView cerrarSesion(HttpServletRequest request){
+		request.getSession().invalidate();
+		return new ModelAndView("cerrar-sesion");
+	}
+
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
 	// El metodo recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
 	// tag form:form
