@@ -13,7 +13,7 @@ public class Etiqueta {
 
     private String descripcion;
 
-    @ManyToMany(mappedBy = "etiquetas")
+    @ManyToMany(mappedBy = "etiquetas",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Publicacion> publicaciones;
 
     public Long getId() {

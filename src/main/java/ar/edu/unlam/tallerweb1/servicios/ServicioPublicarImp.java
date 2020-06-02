@@ -59,4 +59,5 @@ public class ServicioPublicarImp implements ServicioPublicar {
     @Override
     public List<Etiqueta> listarEtiquetas() {return servicioEtiquetaDao.listarEtiquetas();
     }
+
 }
