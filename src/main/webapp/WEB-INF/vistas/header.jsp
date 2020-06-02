@@ -108,6 +108,7 @@
                                 <i class="fas fa-user"></i> <%= session.getAttribute("USERNAME") %> </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                                 <a class="dropdown-item" href="#">Mi cuenta</a>
+                                <a class="dropdown-item" href="/historial-de-transacciones">Historial de transacciones</a>
                                 <a class="dropdown-item" href="#">Cerrar sesion</a>
                             </div>
                         </li>
