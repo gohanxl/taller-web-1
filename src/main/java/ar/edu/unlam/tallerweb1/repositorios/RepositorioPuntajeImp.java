@@ -45,7 +45,8 @@ public class RepositorioPuntajeImp implements RepositorioPuntaje {
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Puntaje.class)
 				.add(Restrictions.eq("publicacion.id", publicacion.getId()))
-				.addOrder(Order.desc("fecha"));
+				.addOrder(Order.desc("fecha"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List <Puntaje> puntajes = criteria.list();
 		return puntajes;
 	}

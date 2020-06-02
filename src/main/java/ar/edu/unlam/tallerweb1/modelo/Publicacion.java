@@ -36,7 +36,7 @@ public class Publicacion {
     @JoinTable(name = "rel_publicacion_etiquetas",
             joinColumns = @JoinColumn(name = "FK_PUBLICACION", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "FK_ETIQUETA", referencedColumnName = "id"))
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Etiqueta> etiquetas;
 
     @Column(name = "precio", nullable = false)

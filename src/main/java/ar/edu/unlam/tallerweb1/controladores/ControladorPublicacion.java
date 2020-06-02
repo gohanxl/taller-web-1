@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPuntaje;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,11 +24,13 @@ public class ControladorPublicacion {
 
     private ServicioPublicacion servicioPublicacion;
     private ServicioPuntaje servicioPuntaje;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorPublicacion(ServicioPublicacion servicioPublicacion, ServicioPuntaje servicioPuntaje) {
+    public ControladorPublicacion(ServicioPublicacion servicioPublicacion, ServicioPuntaje servicioPuntaje, ServicioUsuario servicioUsuario) {
         this.servicioPublicacion = servicioPublicacion;
         this.servicioPuntaje = servicioPuntaje;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(path = "/puntuar", method = RequestMethod.POST)
@@ -35,7 +38,7 @@ public class ControladorPublicacion {
         ModelMap model = new ModelMap();
         puntaje.setFecha(new Date());
         this.servicioPuntaje.puntuarPublicacion(puntaje);
-        return new ModelAndView("");
+        return new ModelAndView("redirect:/publicacion/"+puntaje.getPublicacion().getId());
     }
 
     @RequestMapping(path = "/publicacion/{publicacion_id}", method = RequestMethod.GET)
@@ -45,7 +48,7 @@ public class ControladorPublicacion {
         Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
         Double promedio = this.servicioPuntaje.calcularPromedio(publicacion);
         List<Puntaje> puntajes = this.servicioPuntaje.listarPuntaje(publicacion);
-        Boolean comprado = false;
+        Boolean comprado = this.servicioUsuario.tieneCompra((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);

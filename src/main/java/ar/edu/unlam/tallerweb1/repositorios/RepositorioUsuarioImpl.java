@@ -53,9 +53,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	}
 
 	@Override
-	public Boolean tieneCompra(Long id){
+	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
 		final Session session = sessionFactory.getCurrentSession();
-		Compra compra = session.get(Compra.class, id);
+		Compra compra = (Compra) session.createCriteria(Compra.class)
+				.add(Restrictions.eq("usuario.id", usuarioId))
+				.add(Restrictions.eq("publicacion.id", publicacionId))
+				.uniqueResult();
 		if(compra != null){
 			return true;
 		}

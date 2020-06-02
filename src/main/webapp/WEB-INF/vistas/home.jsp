@@ -60,13 +60,13 @@
 							</span>
 							<h5>
 								<strong>
-									<span class="dark-grey-text"><c:out value="${publicacion.libro.nombre}"/>
-										<span class="badge badge-pill danger-color">NEW</span>
-									</span>
+									<span class="dark-grey-text"><c:out value="${publicacion.libro.nombre}"/></span>
 								</strong>
 							</h5>
-
-							<h4 class="font-weight-bold blue-text">
+							<c:forEach var="etiqueta" items="${publicacion.etiquetas}">
+								<span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
+							</c:forEach>
+							<h4 class="font-weight-bold blue-text mt-2">
 								<strong>$ <c:out value="${publicacion.precio}"/></strong>
 							</h4>
 							<!--
