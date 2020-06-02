@@ -1,8 +1,12 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +36,12 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	}
 
 	@Override
+	public List<Publicacion> getVentas(Usuario usuario) {
+		return servicioUsuarioDao.getVentas(usuario);
+	}
+
+	@Override
 	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
 		return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
 	}
-
 }

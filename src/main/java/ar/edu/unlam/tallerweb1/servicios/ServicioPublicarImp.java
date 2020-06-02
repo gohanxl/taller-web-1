@@ -65,4 +65,5 @@ public class ServicioPublicarImp implements ServicioPublicar {
     public List<Etiqueta> parsearEtiquetas(String[] etiquetas) {
         return servicioEtiquetaDao.parsearEtiquetas(etiquetas);
     }
+
 }

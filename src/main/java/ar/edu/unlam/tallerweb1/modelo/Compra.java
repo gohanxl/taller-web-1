@@ -7,7 +7,7 @@ import java.util.Date;
 public class Compra {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
