@@ -43,14 +43,6 @@ public class MiControlador {
         return new ModelAndView("base");
     }
 
-    @RequestMapping(path = "/eti")
-    public ModelAndView eti(HttpServletRequest request
-    ){
-        Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
-
-        List<Etiqueta> etiquetas = servicioPublicar.recomendarPublicaciones(user);
-        return new ModelAndView("base");
-    }
 
     @RequestMapping(path = "/base", method = RequestMethod.GET)
     public ModelAndView base(){

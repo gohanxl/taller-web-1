@@ -8,5 +8,5 @@ public interface RepositorioEtiqueta {
     void cargarEtiqueta(Etiqueta etiqueta);
 
     List<Etiqueta> listarEtiquetas();
-    List<Etiqueta> recomendarPublicaciones(Usuario user);
+    List<Publicacion> recomendarPublicaciones(Usuario user);
 }
