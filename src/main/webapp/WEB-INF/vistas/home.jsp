@@ -1,5 +1,5 @@
 <%@ include file = "header.jsp" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!--Main layout-->
 <main style="margin-top: 100px !important;">
 	<div class="container mt-5">
@@ -8,7 +8,7 @@
 		<nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-5 mb-5">
 
 			<!-- Navbar brand -->
-			<span class="navbar-brand">Categorias:</span>
+			<span class="navbar-brand">Categorías:</span>
 
 			<!-- Collapse button -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -43,43 +43,43 @@
 				<!--Grid column-->
 				<div class="col-lg-3 col-md-6 mb-4">
 					<!--Card-->
-					<div class="card">
-
+					<a href="/publicacion/${publicacion.id}">
+						<div class="card">
 						<!--Card image-->
-						<div class="view overlay">
+						<div class="view overlay" style="cursor: pointer">
 							<img src="${publicacion.libro.imagen}" class="card-img-top" style="height:200px"
 								 alt="">
-							<a>
-								<div class="mask rgba-white-slight"></div>
-							</a>
 						</div>
 						<!--Card image-->
 
 						<!--Card content-->
 						<div class="card-body text-center">
 							<!--Category & Title-->
-							<a href="" class="grey-text">
+							<span class="grey-text">
 								<h5><c:out value="${publicacion.propietario.nombre}"/></h5>
-							</a>
+							</span>
 							<h5>
 								<strong>
-									<a href="" class="dark-grey-text"><c:out value="${publicacion.libro.nombre}"/>
+									<span class="dark-grey-text"><c:out value="${publicacion.libro.nombre}"/>
 										<span class="badge badge-pill danger-color">NEW</span>
-									</a>
+									</span>
 								</strong>
 							</h5>
 
 							<h4 class="font-weight-bold blue-text">
-								<strong><c:out value="${publicacion.precio}"/>$</strong>
+								<strong>$ <c:out value="${publicacion.precio}"/></strong>
 							</h4>
+							<!--
 							<div class="card-footer" style="background-color: transparent !important;">
 								<a data-toggle="tooltip" data-placement="top" title="Agregar al carrito" class="btn-lg" href="/checkout?publicacionId=${publicacion.id}"><i class="fas fa-shopping-cart mr-3 teal-text"></i></a>
 								<a data-toggle="tooltip" data-placement="top" title="Leer" class="btn-lg" href="<c:out value="${publicacion.libro.ruta}"/>" target="_blank"><i class="fas fa-book mr-3 text-info"></i></a>
 							</div>
+							-->
 						</div>
 						<!--Card content-->
 
 					</div>
+					</a>
 					<!--Card-->
 				</div>
 				<!--Grid column-->
@@ -129,7 +129,6 @@
 			</ul>
 		</nav>
 		<!--Pagination-->
-
 	</div>
 </main>
 <!--Main layout-->

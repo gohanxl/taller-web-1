@@ -52,12 +52,4 @@ public class ControladorPublicar {
         model.put("etiquetas", etiquetas);
         return new ModelAndView("publicarForm", model);
     }
-
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ModelAndView irAHome(HttpServletRequest request) {
-        List<Publicacion> publicaciones = servicioPublicar.listarPubliacion();
-        ModelMap model = new ModelMap();
-        model.put("publicaciones", publicaciones);
-        return new ModelAndView("home", model);
-    }
 }

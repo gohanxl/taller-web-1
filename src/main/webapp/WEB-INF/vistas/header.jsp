@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="es-AR">
@@ -19,6 +20,7 @@
     <!-- Your custom styles (optional) -->
     <link href="/css/style.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/addons/rating.css" rel="stylesheet">
     <style>
         html {
             margin:0 !important;
@@ -82,7 +84,7 @@
                 </li>
                 </c:if>
                 <li class="nav-item">
-                    <form:form method="GET" action="buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0 ml-3">
+                    <form:form method="GET" action="/buscar" class="form-inline d-flex justify-content-center md-form form-sm my-0 ml-3">
                         <input class="form-control form-control-sm mr-3 w-75" type="text" name="nombre" placeholder="Buscar" aria-label="Search">
                         <i class="fas fa-search" aria-hidden="true"></i>
                     </form:form>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,64 +29,121 @@
 					<div class="card">
 
 					<h5 class="card-header info-color white-text text-center py-4">
-						<strong>Iniciar sesion</strong>
+						<strong>Inicio de sesion</strong>
 					</h5>
 
 					<!--Card content-->
 					<div class="card-body px-lg-5 pt-0">
 
 						<!-- Form -->
-						<form:form class="text-center" style="color: #757575;" action="validar-login" method="POST" modelAttribute="usuario">
-							<!-- Email -->
-							<div class="md-form">
-								<form:input path="email" type="email" id="materialLoginFormEmail" class="form-control" />
-								<label for="materialLoginFormEmail">E-mail</label>
-							</div>
+							<c:choose>
+								<c:when test="${not empty next}">
+									<form:form class="text-center" style="color: #757575;" action="validar-login?next=${next}" method="POST" modelAttribute="usuario">
+										<!-- Email -->
+										<div class="md-form">
+											<form:input path="email" type="email" id="materialLoginFormEmail" class="form-control" />
+											<label for="materialLoginFormEmail">E-mail</label>
+										</div>
 
-							<!-- Password -->
-							<div class="md-form">
-								<form:input path="password" type="password" id="materialLoginFormPassword" class="form-control"/>
-								<label for="materialLoginFormPassword">Password</label>
-							</div>
+										<!-- Password -->
+										<div class="md-form">
+											<form:input path="password" type="password" id="materialLoginFormPassword" class="form-control"/>
+											<label for="materialLoginFormPassword">Password</label>
+										</div>
 
-							<div class="d-flex justify-content-around">
-								<div>
-									<!-- Remember me -->
-									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
-										<label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
-									</div>
-								</div>
-								<div>
-									<!-- Forgot password -->
-									<a href="">Forgot password?</a>
-								</div>
-							</div>
+										<div class="d-flex justify-content-around">
+											<div>
+												<!-- Remember me -->
+												<div class="form-check">
+													<input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+													<label class="form-check-label" for="materialLoginFormRemember">Remember me</label>
+												</div>
+											</div>
+											<div>
+												<!-- Forgot password -->
+												<a href="">Forgot password?</a>
+											</div>
+										</div>
 
-							<!-- Sign in button -->
-							<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+										<!-- Sign in button -->
+										<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
 
-							<!-- Register -->
-							<p>Not a member?
-								<a href="">Register</a>
-							</p>
+										<!-- Register -->
+										<p>Not a member?
+											<a href="">Register</a>
+										</p>
 
-							<!-- Social login -->
-							<p>or sign in with:</p>
-							<a type="button" class="btn-floating btn-fb btn-sm">
-								<i class="fab fa-facebook-f"></i>
-							</a>
-							<a type="button" class="btn-floating btn-tw btn-sm">
-								<i class="fab fa-twitter"></i>
-							</a>
-							<a type="button" class="btn-floating btn-li btn-sm">
-								<i class="fab fa-linkedin-in"></i>
-							</a>
-							<a type="button" class="btn-floating btn-git btn-sm">
-								<i class="fab fa-github"></i>
-							</a>
+										<!-- Social login -->
+										<p>or sign in with:</p>
+										<a type="button" class="btn-floating btn-fb btn-sm">
+											<i class="fab fa-facebook-f"></i>
+										</a>
+										<a type="button" class="btn-floating btn-tw btn-sm">
+											<i class="fab fa-twitter"></i>
+										</a>
+										<a type="button" class="btn-floating btn-li btn-sm">
+											<i class="fab fa-linkedin-in"></i>
+										</a>
+										<a type="button" class="btn-floating btn-git btn-sm">
+											<i class="fab fa-github"></i>
+										</a>
 
-						</form:form>
+									</form:form>
+								</c:when>
+								<c:otherwise>
+									<form:form class="text-center" style="color: #757575;" action="validar-login" method="POST" modelAttribute="usuario">
+										<!-- Email -->
+										<div class="md-form">
+											<form:input path="email" type="email" id="materialLoginFormEmail" class="form-control" />
+											<label for="materialLoginFormEmail">E-mail</label>
+										</div>
+
+										<!-- Password -->
+										<div class="md-form">
+											<form:input path="password" type="password" id="materialLoginFormPassword" class="form-control"/>
+											<label for="materialLoginFormPassword">Password</label>
+										</div>
+
+										<div class="d-flex justify-content-around">
+											<div>
+												<!-- Remember me -->
+												<div class="form-check">
+													<input type="checkbox" class="form-check-input" id="materialLoginFormRemember">
+													<label class="form-check-label" for="materialLoginFormRemember">Recordarme</label>
+												</div>
+											</div>
+											<div>
+												<!-- Forgot password -->
+												<a href="">olvidaste la contraseña?</a>
+											</div>
+										</div>
+
+										<!-- Sign in button -->
+										<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Iniciar sessión</button>
+
+										<!-- Register -->
+										<p>No estas registrado?
+											<a href="">Reistrar</a>
+										</p>
+
+										<!-- Social login -->
+										<p>o inciar con:</p>
+										<a type="button" class="btn-floating btn-fb btn-sm">
+											<i class="fab fa-facebook-f"></i>
+										</a>
+										<a type="button" class="btn-floating btn-tw btn-sm">
+											<i class="fab fa-twitter"></i>
+										</a>
+										<a type="button" class="btn-floating btn-li btn-sm">
+											<i class="fab fa-linkedin-in"></i>
+										</a>
+										<a type="button" class="btn-floating btn-git btn-sm">
+											<i class="fab fa-github"></i>
+										</a>
+									</form:form>
+								</c:otherwise>
+							</c:choose>
+
 						<!-- Form -->
 
 					</div>
