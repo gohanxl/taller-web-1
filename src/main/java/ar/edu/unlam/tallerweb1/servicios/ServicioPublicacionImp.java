@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import ar.edu.unlam.tallerweb1.modelo.Etiqueta;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEtiqueta;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +17,12 @@ import java.util.List;
 public class ServicioPublicacionImp implements ServicioPublicacion {
 
     private RepositorioPublicacion servicioPublicacionDao;
+    private RepositorioEtiqueta servicioEtiquetaDao;
 
     @Autowired
-    public ServicioPublicacionImp(RepositorioPublicacion servicioPublicacionDao){
+    public ServicioPublicacionImp(RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao){
         this.servicioPublicacionDao = servicioPublicacionDao;
+        this.servicioEtiquetaDao = servicioEtiquetaDao;
     }
 
     @Override
@@ -36,7 +41,10 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     public List<Publicacion> listarPubliacion() {
         return servicioPublicacionDao.listarPublicaciones();
     }
-
+    @Override
+    public List<Publicacion> recomendarPublicaciones(Usuario user) {
+        return servicioEtiquetaDao.recomendarPublicaciones(user);
+    }
 
 
 }
