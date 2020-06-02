@@ -47,4 +47,9 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     }
 
 
+    @Override
+    public List<Publicacion> listarPublicacionDeUsuario(Usuario usuario) {
+        return servicioPublicacionDao.listarPublicacionesDeUsuario(usuario);
+    }
+
 }
