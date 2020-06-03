@@ -118,25 +118,15 @@
 									<h5>
 										<strong>
 									<span class="dark-grey-text"><c:out value="${recomendacion.libro.nombre}"/>
-										<span class="badge badge-pill danger-color">NEW</span>
 									</span>
 										</strong>
 									</h5>
-
-									<h4 class="font-weight-bold blue-text">
+									<c:forEach var="etiqueta" items="${recomendacion.etiquetas}">
+										<span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
+									</c:forEach>
+									<h4 class="font-weight-bold blue-text mt-2">
 										<strong>$ <c:out value="${recomendacion.precio}"/></strong>
 									</h4>
-									<c:forEach var="etiqueta" items="${recomendacion.etiquetas}">
-										<h6 class="font-weight-bold blue-text">
-											<strong>${etiqueta.descripcion}</strong>
-										</h6>
-									</c:forEach>
-									<!--
-							<div class="card-footer" style="background-color: transparent !important;">
-								<a data-toggle="tooltip" data-placement="top" title="Agregar al carrito" class="btn-lg" href="/checkout?publicacionId=${publicacion.id}"><i class="fas fa-shopping-cart mr-3 teal-text"></i></a>
-								<a data-toggle="tooltip" data-placement="top" title="Leer" class="btn-lg" href="<c:out value="${publicacion.libro.ruta}"/>" target="_blank"><i class="fas fa-book mr-3 text-info"></i></a>
-							</div>
-							-->
 								</div>
 								<!--Card content-->
 
