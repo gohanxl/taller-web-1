@@ -24,16 +24,11 @@
                 <div class="">
 
                     <div class="mb-3">
-                        <a href="">
-                            <span class="badge purple mr-1">Etiqueta 1</span>
-                        </a>
-                        <a href="">
-                            <span class="badge blue mr-1">Etiqueta 2</span>
-                        </a>
-                        <a href="">
-                            <span class="badge red mr-1">Etiqueta 3</span>
-                        </a>
+                        <c:forEach var="etiqueta" items="${publicacion.etiquetas}">
+                            <span class="badge purple mr-1">${etiqueta.descripcion}</span>
+                        </c:forEach>
                     </div>
+
                     <p>${promedio}</p>
                     <p class="lead font-weight-bold">${publicacion.libro.nombre}</p>
                     <!--

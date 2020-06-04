@@ -51,7 +51,7 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
         }
         return etiquetasList;
     }
-    
+
     @Override
     public List<Publicacion> recomendarPublicaciones(Usuario user) {
 
@@ -77,7 +77,6 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
                 .createAlias("publicacion", "pu")
                 .createAlias("usuario", "u")
                 .createAlias("pu.etiquetas", "e")
-                .add(Restrictions.not(Restrictions.eq("u.id", user.getId())))
                 .add(Restrictions.in("e.descripcion", etiquetas))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List<Publicacion> publicaciones = result.list();
