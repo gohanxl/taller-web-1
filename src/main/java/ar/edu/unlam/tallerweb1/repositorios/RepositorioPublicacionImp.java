@@ -34,7 +34,9 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
         Criteria criteria = session.createCriteria(Publicacion.class)
                 .createAlias("libro", "l")
                 .createAlias("propietario", "p")
-                .add(Restrictions.like("l.nombre", "%" + nombre + "%"));
+                .add(Restrictions.like("l.nombre", "%" + nombre + "%"))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
         List <Publicacion> publicaciones = criteria.list();
         return publicaciones;
     }

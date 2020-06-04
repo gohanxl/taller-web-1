@@ -49,7 +49,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	public List<Compra> getCompras(Usuario usuario){
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Compra.class)
-				.add(Restrictions.eq("usuario", usuario));
+				.add(Restrictions.eq("usuario", usuario))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List <Compra> compras = criteria.list();
 		return compras;
 	}
