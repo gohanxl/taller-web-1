@@ -29,8 +29,29 @@
                         </c:forEach>
                     </div>
 
-                    <p>${promedio}</p>
-                    <p class="lead font-weight-bold">${publicacion.libro.nombre}</p>
+                    <c:if test="${not empty promedio}">
+                        ${promedio}
+                        <c:forEach var="contador" begin="1" end="5">
+                            <c:set var="contadorMitad" value="${contador - 0.5}" />
+                            <c:choose>
+                                <c:when test="${contador le promedio}">
+                                    <span style="color: #f3cb06" class="fa fa-star"></span>
+                                </c:when>
+                                <c:when test="${contador gt promedio}">
+                                    <c:choose>
+                                        <c:when test="${contadorMitad le promedio}">
+                                            <span style="color: #f3cb06" class="fa fa-star-half"></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="fa fa-star empty-stars"></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:if>
+
+                    <h3>${publicacion.libro.nombre}</h3>
                     <!--
                     <p>${publicacion.propietario.nombre}</p>
                     -->
@@ -49,7 +70,7 @@
 
                             </form>
                         </c:when>
-                        <c:otherwise>
+                        <c:when test="${comprado && !puntuado}">
                             <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
                                 <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
                                     <span id="rateMe"  class="mdb-rating empty-stars"></span>
@@ -63,6 +84,9 @@
                                 <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
                                 <button class="btn btn-primary my-0" type="submit">Enviar
                             </form:form>
+                        </c:when>
+                        <c:otherwise>
+                            <h4>Gracias por puntuar este libro.</h4>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -102,7 +126,16 @@
 
             <!--Grid column-->
             <div class="col-lg-4 col-md-6 mb-4">
-                <p>${puntaje.valor}</p>
+                <c:forEach var="contador" begin="1" end="5">
+                    <c:choose>
+                        <c:when test="${contador le puntaje.valor}">
+                            <span style="color: #f3cb06" class="fa fa-star"></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="fa fa-star empty-stars"></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
                 <p>${puntaje.comentario}</p>
             </div>
             <!--Grid column-->

@@ -34,4 +34,9 @@ public class ServicioPuntajeImp implements ServicioPuntaje {
 	public List<Puntaje> listarPuntaje(Publicacion publicacion) {
 		return this.servicioPuntajeDao.listarPuntajes(publicacion);
 	}
+
+	@Override
+	public Boolean puntuoPublicacion(Long usuarioId, Long publicacionId){
+		return this.servicioPuntajeDao.puntuoPublicacion(usuarioId, publicacionId);
+	}
 }
