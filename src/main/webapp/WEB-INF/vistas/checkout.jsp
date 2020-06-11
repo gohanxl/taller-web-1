@@ -34,7 +34,7 @@
                                        onselectstart="return false" onpaste="return true" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
                                        autocomplete=off
-                                       value="3711 8030 3257 522"/>
+                                        value="4509 9535 6623 3704"/>
                             </p>
                             <p class="md-form">
                                 <label for="cardholderName">Nombre y apellido</label>
@@ -65,7 +65,7 @@
                                        data-checkout="securityCode"
                                        onselectstart="return false" onpaste="return false" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
-                                       value="1234"
+                                       value="123"
                                        autocomplete=off/>
                             </p>
                             <p>
