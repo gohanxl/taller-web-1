@@ -66,7 +66,6 @@
                                 <button class="btn btn-primary btn-md m-0" type="submit">Agregar al carrito
                                     <i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
-
                             </form>
                         </c:when>
                         <c:when test="${comprado && !puntuado}">
