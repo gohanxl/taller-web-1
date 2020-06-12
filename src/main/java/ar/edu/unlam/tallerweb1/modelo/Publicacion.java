@@ -27,8 +27,7 @@ public class Publicacion {
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
-    @OneToOne()
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Libro libro;
 
     @ManyToOne()
