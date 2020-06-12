@@ -1,6 +1,5 @@
-
-<%@ include file = "header.jsp" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Main layout-->
 <main class="mt-5 pt-4">
@@ -35,36 +34,45 @@
                     <p>${publicacion.propietario.nombre}</p>
                     -->
                     <c:choose>
-                        <c:when test="${!comprado}">
-                            <p class="lead">
-                                <span>$ ${publicacion.precio}</span>
-                            </p>
-                            <form action="/checkout" class="d-flex justify-content-left">
-                                <!-- Default input -->
-                                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al carrito
-                                    <i class="fas fa-shopping-cart ml-1"></i>
-                                </button>
-
-                            </form>
-                        </c:when>
-                        <c:otherwise>
-                            <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
-                                <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
-                                    <span id="rateMe"  class="mdb-rating empty-stars"></span>
-                                </div>
-                                <div class="md-form mb-4 info-textarea active-info-textarea">
-                                    <form:textarea path="comentario" id="comentario" class="md-textarea form-control" name="comentario" rows="3" />
-                                    <label for="comentario">Comentario</label>
-                                </div>
-                                <form:input path="valor" type="hidden" name="valor" id="valor" required="" />
-                                <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
-                                <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
-                                <button class="btn btn-primary my-0" type="submit">Enviar
-                            </form:form>
+                    <c:when test="${!comprado}">
+                        <p class="lead">
+                            <span>$ ${publicacion.precio}</span>
+                        </p>
+                        <form action="/checkout" class="d-flex justify-content-left">
+                            <!-- Default input -->
+                            <input type="number" value="1" aria-label="Search" class="form-control"
+                                   style="width: 100px">
+                            <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                            <input type="">
+                            <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al carrito
+                                <i class="fas fa-shopping-cart ml-1"></i>
+                            </button>
+                        </form>
+                        <form action="/checkout" class="d-flex justify-content-left">
+                            <!-- Default input -->
+                            <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                            <input type="hidden" name="regalo" value="true">
+                            <button class="btn btn-primary btn-md my-0 p" type="submit">Comprar como regalo
+                            </button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                    <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
+                    <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
+                        <span id="rateMe" class="mdb-rating empty-stars"></span>
+                    </div>
+                    <div class="md-form mb-4 info-textarea active-info-textarea">
+                        <form:textarea path="comentario" id="comentario" class="md-textarea form-control"
+                                       name="comentario" rows="3"/>
+                        <label for="comentario">Comentario</label>
+                    </div>
+                    <form:input path="valor" type="hidden" name="valor" id="valor" required=""/>
+                    <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
+                    <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}"/>
+                    <button class="btn btn-primary my-0" type="submit">Enviar
+                        </form:form>
                         </c:otherwise>
-                    </c:choose>
+                        </c:choose>
                 </div>
                 <!--Content-->
 
@@ -90,27 +98,27 @@
         <!--Grid row-->
 
         <c:forEach var="puntaje" items="${puntajes}">
-        <!--Grid row-->
-        <div class="row wow fadeIn">
+            <!--Grid row-->
+            <div class="row wow fadeIn">
 
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-12 mb-4">
-                <p>${puntaje.usuario.nombre}</p>
-                <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy" /></p>
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <p>${puntaje.usuario.nombre}</p>
+                    <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy"/></p>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <p>${puntaje.valor}</p>
+                    <p>${puntaje.comentario}</p>
+                </div>
+                <!--Grid column-->
+
             </div>
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <p>${puntaje.valor}</p>
-                <p>${puntaje.comentario}</p>
-            </div>
-            <!--Grid column-->
-
-        </div>
-        <!--Grid row-->
+            <!--Grid row-->
         </c:forEach>
     </div>
 </main>
 <!--Main layout-->
-<%@ include file = "footer.jsp" %>
+<%@ include file="footer.jsp" %>
