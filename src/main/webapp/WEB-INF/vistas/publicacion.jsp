@@ -1,6 +1,5 @@
-
-<%@ include file = "header.jsp" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    <%@ include file="header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Main layout-->
 <main class="mt-5 pt-4">
@@ -67,6 +66,13 @@
                                     <i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
                             </form>
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <input type="hidden" name="regalo" value="true">
+                                <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                                </button>
+                            </form>
                         </c:when>
                         <c:when test="${comprado && !puntuado}">
                             <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
@@ -86,7 +92,7 @@
                         <c:otherwise>
                             <h4>Gracias por puntuar este libro.</h4>
                         </c:otherwise>
-                    </c:choose>
+                        </c:choose>
                 </div>
                 <!--Content-->
 
@@ -112,15 +118,15 @@
         <!--Grid row-->
 
         <c:forEach var="puntaje" items="${puntajes}">
-        <!--Grid row-->
-        <div class="row wow fadeIn">
+            <!--Grid row-->
+            <div class="row wow fadeIn">
 
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-12 mb-4">
-                <p>${puntaje.usuario.nombre}</p>
-                <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy" /></p>
-            </div>
-            <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <p>${puntaje.usuario.nombre}</p>
+                    <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy"/></p>
+                </div>
+                <!--Grid column-->
 
             <!--Grid column-->
             <div class="col-lg-4 col-md-6 mb-4">
@@ -138,10 +144,10 @@
             </div>
             <!--Grid column-->
 
-        </div>
-        <!--Grid row-->
+            </div>
+            <!--Grid row-->
         </c:forEach>
     </div>
 </main>
 <!--Main layout-->
-<%@ include file = "footer.jsp" %>
+<%@ include file="footer.jsp" %>

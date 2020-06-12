@@ -25,12 +25,14 @@ public class ControladorComprar {
 
     @RequestMapping(path = "/checkout", method = RequestMethod.GET)
     public ModelAndView comprarLibro(@RequestParam("publicacionId") String id,
+                                     @RequestParam(value = "regalo", required = false) Boolean comoRegalo,
                                      HttpServletRequest request) throws IOException {
 
         if(request.getSession().getAttribute("USUARIO") != null){
             ModelMap model = new ModelMap();
             Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(Long.parseLong(id));
             model.put("publicacion", publicacion);
+            model.put("regalo", comoRegalo);
             return new ModelAndView("checkout", model);
         }
         else{

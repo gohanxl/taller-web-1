@@ -36,7 +36,7 @@ public class ControladorProcesarPago {
             @RequestParam("installments") Integer cuotas,
             @RequestParam("email") String mail,
             @RequestParam("description") String descripcion,
-            @RequestParam("regalo") String email_regalo,
+            @RequestParam(value = "regalo", required = false) String email_regalo,
             @PathVariable("publicacion_id") Long publicacion_id,
             HttpServletRequest request
     ) throws MPException {
