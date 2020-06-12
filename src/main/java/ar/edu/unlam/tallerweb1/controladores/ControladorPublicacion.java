@@ -38,7 +38,7 @@ public class ControladorPublicacion {
         ModelMap model = new ModelMap();
         puntaje.setFecha(new Date());
         this.servicioPuntaje.puntuarPublicacion(puntaje);
-        return new ModelAndView("redirect:/publicacion/"+puntaje.getPublicacion().getId());
+        return new ModelAndView("redirect:/biblioteca");
     }
 
     @RequestMapping(path = "/publicacion/{publicacion_id}", method = RequestMethod.GET)

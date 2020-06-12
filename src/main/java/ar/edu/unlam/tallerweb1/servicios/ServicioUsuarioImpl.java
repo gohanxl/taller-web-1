@@ -44,4 +44,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
 		return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
 	}
+
+	@Override
+	public Usuario getUsuarioRegalo(String email){
+		return servicioUsuarioDao.getUsuarioRegalo(email);
+	}
 }

@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPagar;
+import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorProcesarPago {
 
     private final ServicioPagar servicioPagar;
+    private final ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorProcesarPago(ServicioPagar servicioPagar) {
+    public ControladorProcesarPago(ServicioPagar servicioPagar, ServicioUsuario servicioUsuario) {
         this.servicioPagar = servicioPagar;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(path = "/procesar_pago/{publicacion_id}", method = RequestMethod.POST)
@@ -33,10 +36,15 @@ public class ControladorProcesarPago {
             @RequestParam("installments") Integer cuotas,
             @RequestParam("email") String mail,
             @RequestParam("description") String descripcion,
+            @RequestParam("regalo") String email_regalo,
             @PathVariable("publicacion_id") Long publicacion_id,
             HttpServletRequest request
     ) throws MPException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
+        if(email_regalo != null){
+            Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
+            comprador = usuarioRegalo;
+        }
         Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
 
         String estadoDePago = "bad request";

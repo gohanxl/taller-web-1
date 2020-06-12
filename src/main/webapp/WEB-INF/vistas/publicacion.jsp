@@ -40,7 +40,7 @@
                                 <c:when test="${contador gt promedio}">
                                     <c:choose>
                                         <c:when test="${contadorMitad le promedio}">
-                                            <span style="color: #f3cb06" class="fa fa-star-half"></span>
+                                            <span style="color: #f3cb06" class="fa fa-star-half-alt"></span>
                                         </c:when>
                                         <c:otherwise>
                                             <span class="fa fa-star empty-stars"></span>
@@ -62,9 +62,8 @@
                             </p>
                             <form action="/checkout" class="d-flex justify-content-left">
                                 <!-- Default input -->
-                                <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
                                 <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                <button class="btn btn-primary btn-md my-0 p" type="submit">Agregar al carrito
+                                <button class="btn btn-primary btn-md m-0" type="submit">Agregar al carrito
                                     <i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
 
