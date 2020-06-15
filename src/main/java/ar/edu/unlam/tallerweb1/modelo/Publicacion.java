@@ -43,6 +43,10 @@ public class Publicacion {
     @Column(name = "precio", nullable = false)
     private Double precio;
 
+    @OneToMany(mappedBy="publicacion")
+    private Set<Puntaje> puntaje;
+
+
     public Long getId() {
         return id;
     }
@@ -90,4 +94,9 @@ public class Publicacion {
     public void setEtiquetas(List<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
+
+    public Set<Puntaje> getPuntaje() { return puntaje; }
+
+    public void setPuntaje(Set<Puntaje> puntaje) { this.puntaje = puntaje;}
+
 }

@@ -85,12 +85,23 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
                 .createAlias("publicacion", "pu")
                 .createAlias("usuario", "u")
                 .createAlias("pu.etiquetas", "e")
+                .createAlias("pu.puntaje", "punt")
                 .add(Restrictions.ne("usuario", user))
                 .add(Restrictions.not(Restrictions.in("id", publicacionesIds)))
                 .add(Restrictions.in("e.descripcion", etiquetas))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List<Publicacion> publicaciones = result.list();
 
-        return publicaciones;
+        List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+
+        for (int i = 0; i < publicaciones.size(); i++){
+            int finalI = i;
+            publicaciones.get(i).getPuntaje().forEach(puntaje -> {
+                    if(puntaje.getValor() == 3 || puntaje.getValor() == 4 || puntaje.getValor() == 5){
+                        publicacionesPorPuntaje.add(publicaciones.get(finalI));
+                    }
+                });
+        }
+        return publicacionesPorPuntaje;
     }
 }
