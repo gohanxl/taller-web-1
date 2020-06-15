@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.hibernate.Criteria;
@@ -23,30 +24,36 @@ import java.util.List;
 @Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario {
 
-	private RepositorioUsuario servicioUsuarioDao;
+    private RepositorioUsuario servicioUsuarioDao;
 
-	@Autowired
-	public ServicioUsuarioImpl(RepositorioUsuario servicioLoginDao){
-		this.servicioUsuarioDao = servicioLoginDao;
-	}
+    @Autowired
+    public ServicioUsuarioImpl(RepositorioUsuario servicioLoginDao) {
+        this.servicioUsuarioDao = servicioLoginDao;
+    }
 
-	@Override
-	public List<Compra> getCompras(Usuario usuario) {
-		return servicioUsuarioDao.getCompras(usuario);
-	}
+    @Override
+    public List<Compra> getCompras(Usuario usuario) {
+        return servicioUsuarioDao.getCompras(usuario);
+    }
 
-	@Override
-	public List<Publicacion> getVentas(Usuario usuario) {
-		return servicioUsuarioDao.getVentas(usuario);
-	}
+    @Override
+    public List<Publicacion> getVentas(Usuario usuario) {
+        return servicioUsuarioDao.getVentas(usuario);
+    }
 
-	@Override
-	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
-		return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
-	}
+    @Override
+    public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
+        return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
+    }
 
-	@Override
-	public Usuario getUsuarioRegalo(String email){
-		return servicioUsuarioDao.getUsuarioRegalo(email);
-	}
+    @Override
+    public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
+        return servicioUsuarioDao.listarComprasConPuntajePorUsuario(usuario);
+    }
+
+    @Override
+    public Usuario getUsuarioRegalo(String email) {
+        return servicioUsuarioDao.getUsuarioRegalo(email);
+    }
 }
+

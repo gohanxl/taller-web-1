@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class ControladorBiblioteca {
         if(usuario != null) {
             List<Compra> compras = servicioUsuario.getCompras(usuario);
 
+            List<Puntaje> comprasConPuntaje = servicioUsuario.listarComprasConPuntajePorUsuario(usuario);
+
             ModelMap model = new ModelMap();
+            model.put("comprasConPuntaje", comprasConPuntaje);
             model.put("compras", compras);
             return new ModelAndView("biblioteca", model);
         }
