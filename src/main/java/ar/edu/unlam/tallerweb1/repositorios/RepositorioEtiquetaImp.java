@@ -97,7 +97,6 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
         List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
         for (int i = 0; i < publicaciones.size(); i++){
-            int finalI = i;
            double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
             if (promedio >= 3)
                 publicacionesPorPuntaje.add(publicaciones.get(i));
