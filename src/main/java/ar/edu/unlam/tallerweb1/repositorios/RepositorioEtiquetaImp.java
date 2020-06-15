@@ -21,11 +21,13 @@ import java.util.stream.Collectors;
 public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
     private SessionFactory sessionFactory;
     private RepositorioUsuario repositorioUsuarioDao;
+    private RepositorioPuntaje repositorioPuntajeDao;
 
     @Autowired
-    public RepositorioEtiquetaImp(SessionFactory sessionFactory, RepositorioUsuario repositorioUsuarioDao) {
+    public RepositorioEtiquetaImp(SessionFactory sessionFactory, RepositorioUsuario repositorioUsuarioDao, RepositorioPuntaje repositorioPuntajeDao) {
         this.sessionFactory = sessionFactory;
         this.repositorioUsuarioDao = repositorioUsuarioDao;
+        this.repositorioPuntajeDao = repositorioPuntajeDao;
     }
 
     @Override
@@ -95,12 +97,9 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
         List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
         for (int i = 0; i < publicaciones.size(); i++){
-            int finalI = i;
-            publicaciones.get(i).getPuntaje().forEach(puntaje -> {
-                    if(puntaje.getValor() == 3 || puntaje.getValor() == 4 || puntaje.getValor() == 5){
-                        publicacionesPorPuntaje.add(publicaciones.get(finalI));
-                    }
-                });
+           double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
+            if (promedio >= 3)
+                publicacionesPorPuntaje.add(publicaciones.get(i));
         }
         return publicacionesPorPuntaje;
     }
