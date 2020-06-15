@@ -51,16 +51,16 @@
                                         <i class="fas fa-book mr-3"></i>
                                         <span>Leer</span>
                                     </a>
-                                    <div class="container p-3">
+                                    <div class="container mt-3">
                                         <c:if test="${not empty comprasConPuntaje}">
                                             <c:forEach var="puntaje" items="${comprasConPuntaje}">
                                                 <c:if test="${puntaje.publicacion.id == compra.publicacion.id}">
                                                     <c:choose>
                                                         <c:when test="${not empty puntaje.comentario}">
-                                                            <span class="badge badge-pill badge-dark p-3">Comentario: ${puntaje.comentario}</span>
+                                                            <span class="badge badge-pill badge-dark">Comentario: ${puntaje.comentario}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="badge badge-pill badge-dark p-3">Puntuacion: ${puntaje.valor}</span>
+                                                            <span class="badge badge-pill badge-dark">Puntuacion: ${puntaje.valor}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </c:if>
