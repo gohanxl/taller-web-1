@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface ServicioUsuario {
 	List<Publicacion> getVentas(Usuario usuario);
 	List<Compra> getCompras(Usuario usuario);
 	Boolean tieneCompra(Long usuarioId, Long publicacionId);
+	List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario);
 }
