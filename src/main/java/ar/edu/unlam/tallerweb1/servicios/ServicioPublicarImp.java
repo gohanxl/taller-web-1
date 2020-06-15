@@ -52,8 +52,8 @@ public class ServicioPublicarImp implements ServicioPublicar {
     }
 
     @Override
-    public List<Publicacion> listarPubliacion() {
-        return servicioPublicacionDao.listarPublicaciones();
+    public List<Publicacion> listarPubliacion(Usuario user) {
+        return servicioPublicacionDao.listarPublicaciones(user);
     }
 
     @Override
