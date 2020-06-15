@@ -74,6 +74,16 @@
                                 </button>
                             </form>
                         </c:when>
+                        <c:when test="${comprado && puntuado}">
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <input type="hidden" name="regalo" value="true">
+                                <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                                </button>
+                            </form>
+                            <h4 class="mt-3">Gracias por puntuar este libro.</h4>
+                        </c:when>
                         <c:when test="${comprado && !puntuado}">
                             <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
                                 <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
@@ -89,9 +99,6 @@
                                 <button class="btn btn-primary my-0" type="submit">Enviar
                             </form:form>
                         </c:when>
-                        <c:otherwise>
-                            <h4>Gracias por puntuar este libro.</h4>
-                        </c:otherwise>
                         </c:choose>
                 </div>
                 <!--Content-->
