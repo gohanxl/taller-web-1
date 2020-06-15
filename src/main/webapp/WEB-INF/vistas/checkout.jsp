@@ -34,7 +34,7 @@
                                        onselectstart="return false" onpaste="return true" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
                                        autocomplete=off
-                                        value="4509 9535 6623 3704"/>
+                                       value="4509 9535 6623 3704"/>
                             </p>
                             <p class="md-form">
                                 <label for="cardholderName">Nombre y apellido</label>
@@ -61,7 +61,8 @@
                             </p>
                             <p class="md-form">
                                 <label for="securityCode">C&oacute;digo de seguridad</label>
-                                <input class="form-control" type="password" id="securityCode" data-checkout="securityCode"
+                                <input class="form-control" type="password" id="securityCode"
+                                       data-checkout="securityCode"
                                        onselectstart="return false" onpaste="return false" onCopy="return false"
                                        onCut="return false" onDrag="return false" onDrop="return false"
                                        value="123"
@@ -80,7 +81,7 @@
                                 <select class="custom-select d-block w-100" id="docType" data-checkout="docType">
                                     <option>DNI</option>
                                     <option>Pasaporte</option>
-                                    <option>Documento Extranjero (?</option>
+                                    <option>Documento Extranjero</option>
                                 </select>
                             </p>
                             <p class="md-form">
@@ -90,11 +91,19 @@
                             <p class="md-form">
                                 <label for="email">Email</label>
                                 <input class="form-control" type="email" id="email" name="email"
-                                value="test_user_53646357@testuser.com"/>
+                                       value="test_user_53646357@testuser.com"/>
                             </p>
-                            <input type="hidden" name="payment_method_id" id="payment_method_id"/>
+                            <c:if test="${regalo}">
+                                <p class="md-form">
+                                    <label for="regalo">Comprar como regalo</label>
+                                    <input type="text" name="regalo" id="regalo" class="form-control"
+                                           placeholder="Ingrese el email del usuario"/>
+                                </p>
+                            </c:if>
+                            <input type="hidden" name="payment_method_id" id="payment_method_id">
                             <span class="float-right">
-                            <input id="btnsubmit" class="btn btn-secondary btn-md waves-effect m-0" type="submit" value="Pagar"/>
+                            <input id="btnsubmit" class="btn btn-secondary btn-md waves-effect m-0" type="submit"
+                                   value="Pagar"/>
                             </span>
                         </fieldset>
                     </form>

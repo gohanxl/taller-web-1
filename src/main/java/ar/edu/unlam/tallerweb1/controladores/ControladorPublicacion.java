@@ -38,7 +38,7 @@ public class ControladorPublicacion {
         ModelMap model = new ModelMap();
         puntaje.setFecha(new Date());
         this.servicioPuntaje.puntuarPublicacion(puntaje);
-        return new ModelAndView("redirect:/publicacion/"+puntaje.getPublicacion().getId());
+        return new ModelAndView("redirect:/biblioteca");
     }
 
     @RequestMapping(path = "/publicacion/{publicacion_id}", method = RequestMethod.GET)
@@ -49,6 +49,7 @@ public class ControladorPublicacion {
         Double promedio = this.servicioPuntaje.calcularPromedio(publicacion);
         List<Puntaje> puntajes = this.servicioPuntaje.listarPuntaje(publicacion);
         Boolean comprado = this.servicioUsuario.tieneCompra((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
+        Boolean puntuado = this.servicioPuntaje.puntuoPublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);
@@ -56,6 +57,7 @@ public class ControladorPublicacion {
         model.put("promedio", promedio);
         model.put("puntaje", puntaje);
         model.put("comprado", comprado);
+        model.put("puntuado", puntuado);
         return new ModelAndView("publicacion", model);
     }
 }

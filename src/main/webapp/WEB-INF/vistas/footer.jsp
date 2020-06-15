@@ -104,7 +104,6 @@
     {
         $('#pay').submit(function(){
             $("input[type='submit']", this)
-                .val("Procesando...")
                 .attr('disabled', 'disabled');
             return true;
         });
