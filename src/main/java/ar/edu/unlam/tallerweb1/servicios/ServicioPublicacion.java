@@ -10,7 +10,8 @@ import java.util.List;
 public interface ServicioPublicacion {
     List<Publicacion> buscarPublicacion(String nombre) throws IOException;
     Publicacion buscarPublicacionPorId(Long id) throws IOException;
-    List<Publicacion> listarPubliacion();
+    List<Publicacion> listarPubliacion(Usuario user);
+    List<Publicacion> listarPubliacionGenerico();
     List<Publicacion> listarPublicacionDeUsuario(Usuario usuario);
     List<Publicacion> recomendarPublicaciones(Usuario user);
 }

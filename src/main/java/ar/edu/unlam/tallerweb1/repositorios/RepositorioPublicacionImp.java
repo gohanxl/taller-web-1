@@ -49,11 +49,20 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones() {
+    public List<Publicacion> listarPublicaciones(Usuario user) {
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Publicacion.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-                .setMaxResults(8);
+                .add(Restrictions.ne("propietario", user));
+        List <Publicacion> publicaciones = criteria.list();
+        return publicaciones;
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesGenerico() {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Publicacion.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List <Publicacion> publicaciones = criteria.list();
         return publicaciones;
     }
