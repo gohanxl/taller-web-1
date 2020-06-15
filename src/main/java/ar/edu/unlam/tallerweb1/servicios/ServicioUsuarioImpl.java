@@ -50,5 +50,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
         return servicioUsuarioDao.listarComprasConPuntajePorUsuario(usuario);
     }
+
+    @Override
+    public Usuario getUsuarioRegalo(String email) {
+        return servicioUsuarioDao.getUsuarioRegalo(email);
+    }
 }
 

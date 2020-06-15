@@ -10,6 +10,7 @@ import java.util.List;
 // Interface que define los metodos del Servicio de Usuarios.
 public interface ServicioUsuario {
 	List<Publicacion> getVentas(Usuario usuario);
+	Usuario getUsuarioRegalo (String email);
 	List<Compra> getCompras(Usuario usuario);
 	Boolean tieneCompra(Long usuarioId, Long publicacionId);
 	List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario);

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -49,5 +50,18 @@ public class RepositorioPuntajeImp implements RepositorioPuntaje {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List <Puntaje> puntajes = criteria.list();
 		return puntajes;
+	}
+
+	@Override
+	public Boolean puntuoPublicacion(Long usuarioId, Long publicacionId) {
+		final Session session = sessionFactory.getCurrentSession();
+		Puntaje puntaje = (Puntaje) session.createCriteria(Puntaje.class)
+				.add(Restrictions.eq("usuario.id", usuarioId))
+				.add(Restrictions.eq("publicacion.id", publicacionId))
+				.uniqueResult();
+		if(puntaje != null){
+			return true;
+		}
+		return false;
 	}
 }

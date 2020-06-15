@@ -9,4 +9,5 @@ public interface RepositorioPuntaje {
 	void cargarPuntaje(Puntaje puntaje);
 	Double consultarPuntajePromedio(Publicacion publicacion);
 	List<Puntaje> listarPuntajes(Publicacion publicacion);
+	Boolean puntuoPublicacion(Long usuarioId, Long publicacionId);
 }

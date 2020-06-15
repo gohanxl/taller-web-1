@@ -11,6 +11,7 @@ import java.util.List;
 public interface RepositorioUsuario {
 	void cargarUsuario(Usuario usuario);
 	Usuario consultarUsuario (Usuario usuario);
+	Usuario getUsuarioRegalo (String email);
 	List <Compra> getCompras (Usuario usuario);
 	List <Publicacion> getVentas (Usuario usuario);
 	Boolean tieneCompra(Long usuarioId, Long publicacionId);

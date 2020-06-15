@@ -48,6 +48,14 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	}
 
 	@Override
+	public Usuario getUsuarioRegalo(String email) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
+	}
+
+	@Override
 	public List<Compra> getCompras(Usuario usuario){
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Compra.class)
