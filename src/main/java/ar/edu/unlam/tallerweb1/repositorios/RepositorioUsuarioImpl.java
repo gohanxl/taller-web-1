@@ -2,10 +2,12 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +91,15 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Puntaje.class, "punt")
+				.add(Restrictions.eq("punt.usuario", usuario))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List <Puntaje> puntajes = criteria.list();
+		return puntajes;
 	}
 }
