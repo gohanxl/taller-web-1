@@ -93,7 +93,7 @@
                                     <form:textarea path="comentario" id="comentario" class="md-textarea form-control" name="comentario" rows="3" />
                                     <label for="comentario">Comentario</label>
                                 </div>
-                                <form:input path="valor" type="hidden" name="valor" id="valor" required="" />
+                                <form:input path="valor" type="hidden" name="valor" id="valor" required="" value="1" />
                                 <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
                                 <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
                                 <button class="btn btn-primary my-0" type="submit">Enviar
