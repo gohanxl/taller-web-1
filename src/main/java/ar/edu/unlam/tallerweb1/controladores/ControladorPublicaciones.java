@@ -31,7 +31,7 @@ public class ControladorPublicaciones {
     public ModelAndView publicaciones(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
         if(usuario != null) {
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionDeUsuario(usuario);
+            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDeUsuario(usuario);
 
             ModelMap model = new ModelMap();
             model.put("publicaciones", publicaciones);

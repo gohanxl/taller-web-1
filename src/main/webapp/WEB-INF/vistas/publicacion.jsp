@@ -1,4 +1,4 @@
-    <%@ include file="header.jsp" %>
+<%@ include file="header.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Main layout-->
@@ -55,7 +55,7 @@
                     <p>${publicacion.propietario.nombre}</p>
                     -->
                     <c:choose>
-                        <c:when test="${!comprado}">
+                        <c:when test="${!comprado && !usuarioEsPropietario}">
                             <p class="lead">
                                 <span>$ ${publicacion.precio}</span>
                             </p>
@@ -98,6 +98,15 @@
                                 <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
                                 <button class="btn btn-primary my-0" type="submit">Enviar
                             </form:form>
+                        </c:when>
+                        <c:when test="${usuarioEsPropietario}">
+                        <form action="/checkout" class="d-flex justify-content-left">
+                            <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                            <input type="hidden" name="regalo" value="true">
+                            <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                            </button>
+                        </form>
+                        <h5 class="mt-5">Cantidad de ventas: ${cantidadDeVentas}</h5>
                         </c:when>
                         </c:choose>
                 </div>

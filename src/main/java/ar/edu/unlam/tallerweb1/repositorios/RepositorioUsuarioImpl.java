@@ -90,4 +90,17 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		}
 		return false;
 	}
+
+	@Override
+	public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
+		final Session session = sessionFactory.getCurrentSession();
+		Publicacion publicacion = (Publicacion) session.createCriteria(Publicacion.class)
+				.add(Restrictions.eq("propietario.id", usuarioId))
+				.add(Restrictions.eq("id", publicacionId))
+				.uniqueResult();
+		if(publicacion != null){
+			return true;
+		}
+		return false;
+	}
 }

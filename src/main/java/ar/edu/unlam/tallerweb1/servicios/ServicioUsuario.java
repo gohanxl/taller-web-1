@@ -12,4 +12,5 @@ public interface ServicioUsuario {
 	Usuario getUsuarioRegalo (String email);
 	List<Compra> getCompras(Usuario usuario);
 	Boolean tieneCompra(Long usuarioId, Long publicacionId);
+	Boolean tienePublicacion(Long usuarioId, Long publicacionId);
 }
