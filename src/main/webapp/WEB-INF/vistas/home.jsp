@@ -47,7 +47,7 @@
 						<div class="card">
 						<!--Card image-->
 						<div class="view overlay" style="cursor: pointer">
-							<img src="${publicacion.libro.imagen}" class="card-img-top" style="height:200px"
+							<img src="${publicacion.libro.imagen}" class="card-img-top portada-libro"
 								 alt="">
 						</div>
 						<!--Card image-->
@@ -104,7 +104,7 @@
 							<div class="card">
 								<!--Card image-->
 								<div class="view overlay" style="cursor: pointer">
-									<img src="${recomendacion.libro.imagen}" class="card-img-top" style="height:200px"
+									<img src="${recomendacion.libro.imagen}" class="card-img-top portada-libro"
 										 alt="">
 								</div>
 								<!--Card image-->

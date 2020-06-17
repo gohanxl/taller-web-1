@@ -20,6 +20,7 @@
     <!-- Your custom styles (optional) -->
     <link href="/css/style.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-general.css" rel="stylesheet">
     <link href="/css/addons/rating.css" rel="stylesheet">
     <style>
         html {

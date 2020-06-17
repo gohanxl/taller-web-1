@@ -1,6 +1,5 @@
 <%@ include file="header.jsp" %>
 
-
 <!--Main layout-->
 <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
@@ -39,12 +38,13 @@
                         </div>
                     </div>
                     <h4 class="pt-5">Etiquetas</h4>
-                    <div class="container row col-12 p-5 justify-content-around">
+                    <div class="container row col-12 py-4 px-0 m-auto">
                    <c:forEach var="etiquetas" items="${etiquetas}">
-                       <input id="${etiquetas.id}" name="etiquetas" type="checkbox" value="${etiquetas.descripcion}"/>
-                       <label for="${etiquetas.id}">${etiquetas.descripcion}</label>
+                       <div class="mr-4">
+                           <input id="${etiquetas.id}" name="etiquetas" type="checkbox" value="${etiquetas.descripcion}"/>
+                           <label for="${etiquetas.id}">${etiquetas.descripcion}</label>
+                       </div>
                     </c:forEach>
-
                     </div>
                     <div style="text-align: right;">
                         <a href="/"><input

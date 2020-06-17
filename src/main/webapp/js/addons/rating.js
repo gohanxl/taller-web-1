@@ -12,7 +12,7 @@
 
     for (var i = 0; i < 5; i++) {
       $container.append(`<i class="py-2 px-1 mdb-rating rate-popover" data-index="${i}" data-html="true" data-toggle="popover"
-      data-placement="top" title="${titles[i]}"></i>`);
+      data-placement="bottom" title="${titles[i]}"></i>`);
     }
 
     $stars = $container.children();

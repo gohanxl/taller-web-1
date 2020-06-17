@@ -29,9 +29,7 @@
                         <a href="/publicacion/${compra.publicacion.id}">
                             <div class="card">
                                 <div class="view overlay" style="cursor: pointer">
-                                    <img src="${compra.publicacion.libro.imagen}" class="card-img-top"
-                                         style="height:200px"
-                                         alt="">
+                                    <img src="${compra.publicacion.libro.imagen}" class="card-img-top portada-libro" alt="">
                                 </div>
                                 <div class="card-body text-center">
                                     <h5>

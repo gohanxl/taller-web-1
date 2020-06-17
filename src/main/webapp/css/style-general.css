@@ -1,0 +1,8 @@
+.portada-libro{
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.tooltip{
+    margin-top: -50px;
+}

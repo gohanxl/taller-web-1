@@ -11,7 +11,7 @@
             <!--Grid column-->
             <div class="col-md-6 mb-4">
 
-                <img src="${publicacion.libro.imagen}" class="img-fluid" alt="">
+                <img src="${publicacion.libro.imagen}" class="img-fluid" alt="" style="width: 75%">
 
             </div>
             <!--Grid column-->
@@ -90,8 +90,8 @@
                                     <span id="rateMe"  class="mdb-rating empty-stars"></span>
                                 </div>
                                 <div class="md-form mb-4 info-textarea active-info-textarea">
-                                    <form:textarea path="comentario" id="comentario" class="md-textarea form-control" name="comentario" rows="3" />
-                                    <label for="comentario">Comentario</label>
+                                    <form:textarea path="comentario" id="comentario" class="md-textarea form-control pb-2" name="comentario" cssStyle="height: 20px;" />
+                                    <label for="comentario" class="mb-0">Comentario</label>
                                 </div>
                                 <form:input path="valor" type="hidden" name="valor" id="valor" required="" value="1" />
                                 <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
@@ -134,34 +134,39 @@
         <!--Grid row-->
 
         <c:forEach var="puntaje" items="${puntajes}">
-            <!--Grid row-->
-            <div class="row wow fadeIn">
 
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <p>${puntaje.usuario.nombre}</p>
-                    <p><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy"/></p>
+            <div class="card mb-4">
+                <!--Grid row-->
+                <div class="card-body row wow fadeIn">
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12">
+                        <p>${puntaje.usuario.nombre}</p>
+                        <p class="mb-0"><fmt:formatDate value="${puntaje.fecha}" pattern="dd/MM/yyyy"/></p>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                            <c:forEach var="contador" begin="1" end="5">
+                                <c:choose>
+                                    <c:when test="${contador le puntaje.valor}">
+                                        <span style="color: #f3cb06" class="fa fa-star"></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="fa fa-star empty-stars"></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                        <p class="mb-0">${puntaje.comentario}</p>
+                    </div>
+                    <!--Grid column-->
+
                 </div>
-                <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <c:forEach var="contador" begin="1" end="5">
-                    <c:choose>
-                        <c:when test="${contador le puntaje.valor}">
-                            <span style="color: #f3cb06" class="fa fa-star"></span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="fa fa-star empty-stars"></span>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <p>${puntaje.comentario}</p>
+                <!--Grid row-->
             </div>
-            <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
         </c:forEach>
     </div>
 </main>
