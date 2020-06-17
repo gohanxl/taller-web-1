@@ -16,4 +16,4 @@ public interface RepositorioUsuario {
 	List <Publicacion> getVentas (Usuario usuario);
 	Boolean tieneCompra(Long usuarioId, Long publicacionId);
 	List <Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario);
-}
+	Boolean tienePublicacion(Long usuarioId, Long publicacionId);}

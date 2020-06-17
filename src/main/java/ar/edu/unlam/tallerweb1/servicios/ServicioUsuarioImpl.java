@@ -46,7 +46,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
         return servicioUsuarioDao.tieneCompra(usuarioId, publicacionId);
     }
 
-    @Override
+	@Override
     public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
         return servicioUsuarioDao.listarComprasConPuntajePorUsuario(usuario);
     }
@@ -55,5 +55,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
     public Usuario getUsuarioRegalo(String email) {
         return servicioUsuarioDao.getUsuarioRegalo(email);
     }
-}
+
+	@Override
+	public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
+		return servicioUsuarioDao.tienePublicacion(usuarioId, publicacionId);
+	}}
 

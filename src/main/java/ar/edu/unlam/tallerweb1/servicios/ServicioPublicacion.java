@@ -12,6 +12,7 @@ public interface ServicioPublicacion {
     Publicacion buscarPublicacionPorId(Long id) throws IOException;
     List<Publicacion> listarPubliacion(Usuario user);
     List<Publicacion> listarPubliacionGenerico();
-    List<Publicacion> listarPublicacionDeUsuario(Usuario usuario);
+    List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario);
     List<Publicacion> recomendarPublicaciones(Usuario user);
+    Integer cantidadDeVentas(Long id, Usuario usuario);
 }

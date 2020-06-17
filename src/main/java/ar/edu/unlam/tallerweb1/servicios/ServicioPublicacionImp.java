@@ -88,8 +88,13 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         }
 
     @Override
-    public List<Publicacion> listarPublicacionDeUsuario(Usuario usuario) {
+    public List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario) {
         return servicioPublicacionDao.listarPublicacionesDeUsuario(usuario);
+    }
+
+    @Override
+    public Integer cantidadDeVentas(Long id, Usuario usuario) {
+        return servicioPublicacionDao.cantidadDeVentas(id, usuario);
     }
 
 }
