@@ -7,6 +7,10 @@
 						http://www.springframework.org/schema/mvc
 						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    </bean>
+
     <!--Configuracion para indicarle al MVC de spring como resolver las vistas-->
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -19,9 +23,13 @@
         <!--De esta manera al devolver home como nombre de vista, resuelve /WEB-INF/vistas/home.jsp-->
     </bean>
 
-    <!--Excluye de las URL validas para Spring MVC los recursos estáticos de la aplicación Web: estilos, java script y fuentes-->
-    <!--Si se agregaran, por ejemplo, imagenes, es; es necesario agregar ese path acá-->
+    <!--Excluye de las URL validas para Spring MVC los recursos estticos de la aplicacin Web: estilos, java script y fuentes-->
+    <!--Si se agregaran, por ejemplo, imagenes, es; es necesario agregar ese path ac-->
+    <mvc:resources mapping="/img/**" location="/img/" />
+    <mvc:resources mapping="/font/**" location="/font/" />
+    <mvc:resources mapping="/scss/**" location="/scss/" />
     <mvc:resources mapping="/css/**" location="/css/" />
     <mvc:resources mapping="/js/**" location="/js/" />
     <mvc:resources mapping="/fonts/**" location="/fonts/" />
+    <mvc:resources mapping="/uploads/**" location="/uploads/" />
 </beans>
