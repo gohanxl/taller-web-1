@@ -50,7 +50,7 @@
                         </c:forEach>
                     </c:if>
 
-                    <h3>${publicacion.libro.nombre}</h3>
+                    <h3 class="mt-5 mb-3">${publicacion.libro.nombre}</h3>
                     <!--
                     <p>${publicacion.propietario.nombre}</p>
                     -->
@@ -62,7 +62,7 @@
                             <form action="/checkout" class="d-flex justify-content-left">
                                 <!-- Default input -->
                                 <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                <button class="btn btn-primary btn-md m-0" type="submit">Agregar al carrito
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar
                                     <i class="fas fa-shopping-cart ml-1"></i>
                                 </button>
                             </form>
@@ -70,7 +70,7 @@
                                 <!-- Default input -->
                                 <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
                                 <input type="hidden" name="regalo" value="true">
-                                <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
                                 </button>
                             </form>
                         </c:when>
@@ -79,7 +79,7 @@
                                 <!-- Default input -->
                                 <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
                                 <input type="hidden" name="regalo" value="true">
-                                <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
                                 </button>
                             </form>
                             <h4 class="mt-3">Gracias por puntuar este libro.</h4>
@@ -103,7 +103,7 @@
                         <form action="/checkout" class="d-flex justify-content-left">
                             <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
                             <input type="hidden" name="regalo" value="true">
-                            <button class="btn btn-primary btn-md m-0 mt-2" type="submit">Comprar como regalo
+                            <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
                             </button>
                         </form>
                         <h5 class="mt-5">Cantidad de ventas: ${cantidadDeVentas}</h5>

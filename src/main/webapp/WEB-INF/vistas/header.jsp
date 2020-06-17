@@ -96,13 +96,6 @@
             <ul class="navbar-nav nav-flex-icons">
                 <c:choose>
                     <c:when test="${not empty USERNAME}">
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect">
-                                <span class="badge red z-depth-1 mr-1"> 1 </span>
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">

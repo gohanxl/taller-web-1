@@ -1,4 +1,5 @@
 <%@ include file="header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!--Main layout-->
 <main class="mt-5 pt-4">

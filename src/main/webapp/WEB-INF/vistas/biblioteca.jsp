@@ -53,7 +53,9 @@
                                         <c:if test="${not empty comprasConPuntaje}">
                                             <c:forEach var="puntaje" items="${comprasConPuntaje}">
                                                 <c:if test="${puntaje.publicacion.id == compra.publicacion.id}">
-                                                    <span class="badge badge-pill badge-dark">Calificado</span>
+                                                    <span class="badge badge-pill" style="background-color: #652194!important">
+                                                        Calificado
+                                                    </span>
                                                 </c:if>
                                             </c:forEach>
                                         </c:if>
