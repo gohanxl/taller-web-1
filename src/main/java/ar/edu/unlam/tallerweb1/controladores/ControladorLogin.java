@@ -46,7 +46,7 @@ public class ControladorLogin {
 	@RequestMapping(path = "/cerrar-sesion")
 	public ModelAndView cerrarSesion(HttpServletRequest request){
 		request.getSession().invalidate();
-		return new ModelAndView("cerrar-sesion");
+		return new ModelAndView("redirect:/");
 	}
 
 	// Este metodo escucha la URL validar-login siempre y cuando se invoque con metodo http POST
