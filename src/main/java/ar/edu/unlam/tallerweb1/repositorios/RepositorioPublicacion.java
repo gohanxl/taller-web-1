@@ -11,7 +11,9 @@ public interface RepositorioPublicacion {
     void cargarPublicacion(Publicacion publicacion);
     List<Publicacion> buscarPublicacion(String nombre);
     Publicacion buscarPublicacionPorId(Long id);
-    List<Publicacion> listarPublicaciones();
+    List<Publicacion> listarPublicacionesGenerico();
+    List<Publicacion> listarPublicaciones(Usuario usuario);
     List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario);
     void cargarCompra(Compra compra);
+    Integer cantidadDeVentas(Long id, Usuario usuario);
 }

@@ -1,8 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
-import ar.edu.unlam.tallerweb1.modelo.Puntaje;
+import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,27 +16,26 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class ControladorBiblioteca {
+public class ControladorPublicaciones {
 
     private ServicioUsuario servicioUsuario;
+    private ServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorBiblioteca(ServicioUsuario servicioUsuario){
+    public ControladorPublicaciones(ServicioUsuario servicioUsuario, ServicioPublicacion servicioPublicacion){
         this.servicioUsuario = servicioUsuario;
+        this.servicioPublicacion = servicioPublicacion;
     }
 
-    @RequestMapping(path = "/biblioteca", method = RequestMethod.GET)
-    public ModelAndView biblioteca(HttpServletRequest request) {
+    @RequestMapping(path = "/publicaciones", method = RequestMethod.GET)
+    public ModelAndView publicaciones(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
         if(usuario != null) {
-            List<Compra> compras = servicioUsuario.getCompras(usuario);
-
-            List<Puntaje> comprasConPuntaje = servicioUsuario.listarComprasConPuntajePorUsuario(usuario);
+            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDeUsuario(usuario);
 
             ModelMap model = new ModelMap();
-            model.put("comprasConPuntaje", comprasConPuntaje);
-            model.put("compras", compras);
-            return new ModelAndView("biblioteca", model);
+            model.put("publicaciones", publicaciones);
+            return new ModelAndView("publicaciones", model);
         }
         else {
             return new ModelAndView("redirect:/");

@@ -10,4 +10,5 @@ public interface ServicioPuntaje {
 	Double calcularPromedio(Publicacion publicacion);
 	void puntuarPublicacion(Puntaje puntaje);
 	List<Puntaje> listarPuntaje(Publicacion publicacion);
+	Boolean puntuoPublicacion(Long usuarioId, Long publicacionId);
 }

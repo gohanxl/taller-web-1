@@ -9,5 +9,6 @@ public interface RepositorioEtiqueta {
 
     List<Etiqueta> listarEtiquetas();
     List<Etiqueta> parsearEtiquetas(String[] etiquetas);
-    List<Publicacion> recomendarPublicaciones(Usuario user);
+    List<Etiqueta> listarEtiquetasporUsuario(Usuario user);
+    List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Etiqueta> etiquetas, List<Long> publicacionesIds);
 }

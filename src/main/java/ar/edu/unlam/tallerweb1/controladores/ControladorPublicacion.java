@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPuntaje;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
@@ -38,7 +39,7 @@ public class ControladorPublicacion {
         ModelMap model = new ModelMap();
         puntaje.setFecha(new Date());
         this.servicioPuntaje.puntuarPublicacion(puntaje);
-        return new ModelAndView("redirect:/publicacion/"+puntaje.getPublicacion().getId());
+        return new ModelAndView("redirect:/biblioteca");
     }
 
     @RequestMapping(path = "/publicacion/{publicacion_id}", method = RequestMethod.GET)
@@ -49,6 +50,14 @@ public class ControladorPublicacion {
         Double promedio = this.servicioPuntaje.calcularPromedio(publicacion);
         List<Puntaje> puntajes = this.servicioPuntaje.listarPuntaje(publicacion);
         Boolean comprado = this.servicioUsuario.tieneCompra((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
+        Boolean usuarioEsPropietario = this.servicioUsuario.tienePublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
+        Boolean puntuado = this.servicioPuntaje.puntuoPublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
+        Integer cantidadDeVentas = 0;
+
+        if(usuarioEsPropietario){
+            cantidadDeVentas = this.servicioPublicacion.cantidadDeVentas(publicacionId ,(Usuario) request.getSession().getAttribute("USUARIO"));
+        }
+
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);
@@ -56,6 +65,9 @@ public class ControladorPublicacion {
         model.put("promedio", promedio);
         model.put("puntaje", puntaje);
         model.put("comprado", comprado);
+        model.put("puntuado", puntuado);
+        model.put("usuarioEsPropietario", usuarioEsPropietario);
+        model.put("cantidadDeVentas", cantidadDeVentas);
         return new ModelAndView("publicacion", model);
     }
 }

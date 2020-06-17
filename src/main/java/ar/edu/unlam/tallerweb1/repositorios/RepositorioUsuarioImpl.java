@@ -2,10 +2,12 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
+import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,14 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	}
 
 	@Override
+	public Usuario getUsuarioRegalo(String email) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
+	}
+
+	@Override
 	public List<Compra> getCompras(Usuario usuario){
 		final Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Compra.class)
@@ -82,4 +92,26 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		}
 		return false;
 	}
-}
+
+	@Override
+	public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Puntaje.class, "punt")
+				.add(Restrictions.eq("punt.usuario", usuario))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List <Puntaje> puntajes = criteria.list();
+		return puntajes;
+	}
+
+	@Override
+	public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
+		final Session session = sessionFactory.getCurrentSession();
+		Publicacion publicacion = (Publicacion) session.createCriteria(Publicacion.class)
+				.add(Restrictions.eq("propietario.id", usuarioId))
+				.add(Restrictions.eq("id", publicacionId))
+				.uniqueResult();
+		if(publicacion != null){
+			return true;
+		}
+		return false;
+	}}

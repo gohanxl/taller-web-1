@@ -34,9 +34,15 @@ public class ControladorInicio {
             List<Publicacion> recomendaciones = servicioPublicacion.recomendarPublicaciones(user);
             if(recomendaciones != null)
             model.put("recomendaciones", recomendaciones);
+
+            List<Publicacion> publicaciones = servicioPublicacion.listarPubliacion(user);
+            model.put("publicaciones", publicaciones);
         }
-        List<Publicacion> publicaciones = servicioPublicacion.listarPubliacion();
-        model.put("publicaciones", publicaciones);
+        else{
+            List<Publicacion> publicaciones = servicioPublicacion.listarPubliacionGenerico();
+            model.put("publicaciones", publicaciones);
+        }
+
         return new ModelAndView("home", model);
     }
 
