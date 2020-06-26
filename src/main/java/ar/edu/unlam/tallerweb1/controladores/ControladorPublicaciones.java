@@ -27,7 +27,7 @@ public class ControladorPublicaciones {
         this.servicioPublicacion = servicioPublicacion;
     }
 
-    @RequestMapping(path = "/publicaciones", method = RequestMethod.GET)
+    @RequestMapping(path = {"/publicaciones", "/testPublicaciones"}, method = RequestMethod.GET)
     public ModelAndView publicaciones(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
         if(usuario != null) {
