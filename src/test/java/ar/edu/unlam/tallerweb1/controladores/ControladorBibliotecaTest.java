@@ -60,7 +60,7 @@ public class ControladorBibliotecaTest {
 
         session.setAttribute("USUARIO", usuario);
 
-        this.mockMvc.perform(get("/biblioteca").session(session)
+        this.mockMvc.perform(get("/testBiblioteca").session(session)
                 .param("request", "mockedRequest")
                 .accept(MediaType.ALL))
                 .andExpect(status().is2xxSuccessful());
@@ -69,7 +69,7 @@ public class ControladorBibliotecaTest {
     @Test
     public void testQueChequeaQueSiHayUsuarioVayaARedirect() throws Exception {
 
-        this.mockMvc.perform(get("/biblioteca").session(session)
+        this.mockMvc.perform(get("/testBiblioteca").session(session)
                 .param("request", "mockedRequest")
                 .accept(MediaType.ALL))
                 .andExpect(status().is3xxRedirection());

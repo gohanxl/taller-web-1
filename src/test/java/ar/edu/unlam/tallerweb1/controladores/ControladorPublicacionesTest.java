@@ -71,17 +71,6 @@ public class ControladorPublicacionesTest extends SpringTest {
                 .accept(MediaType.ALL))
                 .andExpect(status().is3xxRedirection());
     }
-
-    /*
-    ServicioPublicacion servicioPublicacion = mock(ServicioPublicacion.class);
-    when(servicioPublicacion.listarPublicacionesDeUsuario(usuario)).thenReturn(publicaciones);
-    Assert.assertNotNull(publicaciones);
-    */
-
-    /*
-    ServicioPublicacion servicioPublicacion = mock(ServicioPublicacion.class);
-    when(servicioPublicacion.listarPublicacionesDeUsuario(null)).thenReturn(null);
-    */
 }
 
 
