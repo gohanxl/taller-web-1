@@ -59,7 +59,7 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
     }
 
     @Override
-    public List<Etiqueta> listarEtiquetasporUsuario(Usuario user) {
+    public List<Object> listarEtiquetasporUsuario(Usuario user) {
 
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Compra.class)
@@ -69,13 +69,13 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
                 .createAlias("pu.etiquetas", "e")
                 .add(Restrictions.eq("u.id", user.getId()))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        List<Etiqueta> etiquetas = criteria.list();
+        List<Object> etiquetas = criteria.list();
 
         return etiquetas;
     }
 
         @Override
-        public List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Etiqueta> etiquetas, List<Long> publicacionesIds) {
+        public List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> publicacionesIds) {
             final Session session = sessionFactory.getCurrentSession();
             Criteria result = session.createCriteria(Compra.class)
                     .setProjection(Projections.property("publicacion"))
