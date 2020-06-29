@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Etiqueta;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -53,6 +54,9 @@ public class ControladorPublicacion {
         Boolean usuarioEsPropietario = this.servicioUsuario.tienePublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Boolean puntuado = this.servicioPuntaje.puntuoPublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Integer cantidadDeVentas = 0;
+        Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
+        List<Etiqueta> etiquetas = publicacion.getEtiquetas();
+        List<Publicacion> publicacionesRelacionadas = this.servicioPublicacion.recomendarPublicacionesPorCategoria(user,etiquetas, publicacionId);
 
         if(usuarioEsPropietario){
             cantidadDeVentas = this.servicioPublicacion.cantidadDeVentas(publicacionId ,(Usuario) request.getSession().getAttribute("USUARIO"));
@@ -68,6 +72,7 @@ public class ControladorPublicacion {
         model.put("puntuado", puntuado);
         model.put("usuarioEsPropietario", usuarioEsPropietario);
         model.put("cantidadDeVentas", cantidadDeVentas);
+        model.put("publicacionesRelacionadas", publicacionesRelacionadas);
         return new ModelAndView("publicacion", model);
     }
 }
