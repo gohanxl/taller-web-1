@@ -83,15 +83,14 @@
 </script>
 <script>
     // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function() {
+    $(".custom-file-input").on("change", function () {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
 <script>
-    $(function()
-    {
-        $('#form').submit(function(){
+    $(function () {
+        $('#form').submit(function () {
             $("input[type='submit']", this)
                 .val("Procesando...")
                 .attr('disabled', 'disabled');
@@ -100,9 +99,8 @@
     });
 </script>
 <script>
-    $(function()
-    {
-        $('#pay').submit(function(){
+    $(function () {
+        $('#pay').submit(function () {
             $("input[type='submit']", this)
                 .attr('disabled', 'disabled');
             return true;
@@ -111,8 +109,12 @@
 </script>
 <script src="/js/addons/rating.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rateMe').mdbRate();
     });
 </script>
+<script type='text/javascript'
+        src='http://www.bing.com/api/maps/mapcontrol?key=Ai_KF8afanFf4bWmXjsFzj0tBgWAYKPyyLqjCyYRKzLUcVr1AmjdElPKAQ2_ednr&setLang=es&callback=GetMap'
+ async defer></script>
+<script src="/js/mapaAPI.js"></script>
 </html>
