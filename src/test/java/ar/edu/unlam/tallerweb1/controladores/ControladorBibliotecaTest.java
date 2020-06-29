@@ -10,20 +10,18 @@ import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({
-        "classpath:/applicationContext.xml"
-})
 public class ControladorBibliotecaTest {
 
     private MockMvc mockMvc;
@@ -55,7 +53,7 @@ public class ControladorBibliotecaTest {
         jsonString = gson.toJson(usuario);
     }
 
-    @Test
+    @Test @Transactional @Rollback(true)
     public void testQueChequeaQueSiHayUsuarioVayaABiblioteca() throws Exception {
 
         session.setAttribute("USUARIO", usuario);
@@ -66,7 +64,7 @@ public class ControladorBibliotecaTest {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    @Test
+    @Test @Transactional @Rollback(true)
     public void testQueChequeaQueSiHayUsuarioVayaARedirect() throws Exception {
 
         this.mockMvc.perform(get("/testBiblioteca").session(session)
