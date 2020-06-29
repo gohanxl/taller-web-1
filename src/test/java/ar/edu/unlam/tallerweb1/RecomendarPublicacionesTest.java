@@ -24,6 +24,7 @@ public class RecomendarPublicacionesTest {
     private Puntaje puntaje = new Puntaje();
     private Compra compra = new Compra();
     private List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
+    private List<Object> etiquetasObj = new ArrayList<Object>();
     private List<Publicacion> publicacionesList = new ArrayList<Publicacion>();
     private List<Compra> compras = new ArrayList<Compra>();
 
@@ -52,10 +53,10 @@ public class RecomendarPublicacionesTest {
 
     @Test
     public void recomendarPublicacacionesDevuelvaPublicacionesConMismaEtiqueta(){
-        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario)).thenReturn(etiquetas);
-        List<Etiqueta> etiquetas = repositorioEtiqueta.listarEtiquetasporUsuario(usuario);
+        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario)).thenReturn(etiquetasObj);
+        List<Object> etiquetas = repositorioEtiqueta.listarEtiquetasporUsuario(usuario);
 
-        Set<Etiqueta> hashSet = new HashSet<Etiqueta>(etiquetas);
+        Set<Object> hashSet = new HashSet<Object>(etiquetas);
         etiquetas.clear();
         etiquetas.addAll(hashSet);
 
