@@ -24,7 +24,7 @@ public class ControladorBiblioteca {
         this.servicioUsuario = servicioUsuario;
     }
 
-    @RequestMapping(path = {"/biblioteca", "testBiblioteca"}, method = RequestMethod.GET)
+    @RequestMapping(path = {"/biblioteca", "/testBiblioteca"}, method = RequestMethod.GET)
     public ModelAndView biblioteca(HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
         if(usuario != null) {
