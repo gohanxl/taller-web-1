@@ -57,8 +57,7 @@ public class ServicioPagarImp implements ServicioPagar{
 
         if(estadoDePago.equals("approved")){
             Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(publicacion_id);
-            Compra compra = new Compra(publicacion, comprador);
-            servicioPublicacionDao.cargarCompra(compra);
+            servicioComprar.comprarLibro(publicacion, comprador);
         }
 
         return payment;
