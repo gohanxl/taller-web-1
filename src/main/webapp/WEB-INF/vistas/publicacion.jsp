@@ -115,17 +115,17 @@
 
             </div>
             <!--Grid column-->
-
-            <div class="col-12 d-flex flex-row">
-                <div id="directionsInputContainer">
+            <c:if test="${!comprado}">
+                <div class="col-12 d-flex flex-row">
+                    <div id="directionsInputContainer">
+                    </div>
+                    <div id="myMap" style="width: 100%; height: 500px" class="flex"></div>
                 </div>
-                <div id="myMap" style="width: 100%; height: 500px" class="flex"></div>
-            </div>
-            <div class="col-12 d-flex flex-row">
-                <%--                <div id="printoutPanel"></div>--%>
-                <div id="routeInfoPanel" style="padding: 15px"></div>
-            </div>
-
+                <div class="col-12 d-flex flex-row">
+                        <%--                <div id="printoutPanel"></div>--%>
+                    <div id="routeInfoPanel" style="padding: 15px"></div>
+                </div>
+            </c:if>
         </div>
         <!--Grid row-->
 

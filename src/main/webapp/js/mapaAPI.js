@@ -1,20 +1,36 @@
+// window.addEventListener('load', function () {
+//
+// })
+
 let map;
 let directionManager;
+
+window.addEventListener('load', function () {
+    let waypoint = document.getElementsByClassName('dirWp')[0].getElementsByTagName('input')[0]
+
+    waypoint.disabled = true
+
+    waypoint.className = "disabled"
+})
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap', {
         credentials: 'Ai_KF8afanFf4bWmXjsFzj0tBgWAYKPyyLqjCyYRKzLUcVr1AmjdElPKAQ2_ednr',
-        center: new Microsoft.Maps.Location(-34.606525, -58.437384),
-        zoom: 10
+        center: new Microsoft.Maps.Location(-34.668856, -58.565657),
+        zoom: 13
     });
     Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
         directionManager = new Microsoft.Maps.Directions.DirectionsManager(map);
         directionManager.setRenderOptions({itineraryContainer: document.getElementById('printoutPanel')});
+        let depositWaypoint = new Microsoft.Maps.Directions.Waypoint({
+            address: 'Deposito',
+            location: new Microsoft.Maps.Location(-34.668856, -58.565657)
+        });
+        directionManager.addWaypoint(depositWaypoint);
         directionManager.showInputPanel('directionsInputContainer');
 
         Microsoft.Maps.Events.addHandler(directionManager, 'directionsUpdated', directionsUpdated)
     });
-
 
 }
 
@@ -43,7 +59,7 @@ function directionsUpdated(e) {
 
     document.getElementById('routeInfoPanel').innerHTML = 'Distancia: ' + distance + ' ' + distanceUnits + '<br/>Precio del envio: ' + finalPrice;
 
-    if(finalPrice){
+    if (finalPrice) {
         priceElement.textContent = `$ ${finalPrice}`;
 
         localStorage.setItem('price', finalPrice);

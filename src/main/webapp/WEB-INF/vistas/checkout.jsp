@@ -20,6 +20,7 @@
                     <form class="card-body" action="/procesar_pago/<c:out value="${publicacion.id}"/>"
                           method="post" id="pay" name="pay">
                         <fieldset>
+<%--                            <input type="hidden" value="${price ? price : null}" name="precioConEnvio"/>--%>
                             <p class="md-form">
                                 <input class="form-control" type="hidden" name="description" id="description"
                                        value="<c:out value="${publicacion.libro.nombre}"/>"/>
@@ -159,7 +160,6 @@
     </div>
 </main>
 <!--Main layout-->
-
 <script>
     let price = localStorage.getItem('price');
     let transactionAmount = document.getElementById('transaction_amount');
@@ -170,5 +170,4 @@
         priceSummary.textContent = '$ ' + price;
     }
 </script>
-
 <%@ include file="footer.jsp" %>
