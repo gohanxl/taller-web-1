@@ -23,6 +23,7 @@ public class Usuario {
 	private String password;
 	private String rol;
 	private String nombre;
+	private Integer puntos;
 
 	public Long getId() {
 		return id;
@@ -50,13 +51,17 @@ public class Usuario {
 		return this.nombre;
 	}
 	public void setNombre(String nombre) { this.nombre = nombre; }
+	public Integer getPuntos() {
+		return this.puntos;
+	}
+	public void setPuntos(Integer puntos) { this.puntos = puntos; }
 
-
-	public Usuario(String email, String password, String rol, String nombre){
+	public Usuario(String email, String password, String rol, String nombre, Integer puntos){
 		this.setEmail(email);
 		this.setPassword(password);
 		this.setRol(rol);
 		this.setNombre(nombre);
+		this.setPuntos(puntos);
 	}
 
 	public Usuario(){}

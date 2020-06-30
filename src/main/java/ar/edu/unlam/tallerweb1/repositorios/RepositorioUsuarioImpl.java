@@ -41,6 +41,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 				.add(Restrictions.eq("password", usuario.getPassword()))
 				.uniqueResult();
 	}
+
 	@Override
 	public void cargarUsuario(Usuario usuario) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -114,4 +115,38 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 			return true;
 		}
 		return false;
-	}}
+	}
+
+	@Override
+	public void setPuntosPorCompra(Long usuarioId, Double precioCompra) {
+		final Session session = sessionFactory.getCurrentSession();
+		Usuario usuario = session.get(Usuario.class, usuarioId);
+
+		Integer puntosActuales = usuario.getPuntos();
+		// Cada 50 pesos, se suman 10 puntos
+		Integer puntos = (int) (precioCompra / 50) * 10;
+		usuario.setPuntos(puntos + puntosActuales);
+		session.merge(usuario);
+	}
+
+	@Override
+	public void setPuntosPorVenta(Usuario usuario) {
+		final Session session = sessionFactory.getCurrentSession();
+
+		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
+		usuario.setPuntos(20 + puntosActuales);
+		session.merge(usuario);
+	}
+
+	@Override
+	public void setPuntosPorPuntuar(Long usuarioId) {
+		final Session session = sessionFactory.getCurrentSession();
+		Usuario usuario = session.get(Usuario.class, usuarioId);
+
+		Integer puntosActuales = usuario.getPuntos();
+		usuario.setPuntos(15 + puntosActuales);
+		session.merge(usuario);
+	}
+}
+
+

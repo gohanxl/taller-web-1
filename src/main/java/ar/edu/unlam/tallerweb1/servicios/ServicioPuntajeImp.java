@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Puntaje;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPuntaje;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +15,12 @@ import java.util.List;
 public class ServicioPuntajeImp implements ServicioPuntaje {
 
 	private RepositorioPuntaje servicioPuntajeDao;
+	private RepositorioUsuario servicioUsuarioDao;
 
 	@Autowired
-	public ServicioPuntajeImp(RepositorioPuntaje servicioPuntajeDao){
+	public ServicioPuntajeImp(RepositorioPuntaje servicioPuntajeDao, RepositorioUsuario servicioUsuarioDao){
 		this.servicioPuntajeDao = servicioPuntajeDao;
+		this.servicioUsuarioDao = servicioUsuarioDao;
 	}
 
 	@Override
@@ -28,6 +31,7 @@ public class ServicioPuntajeImp implements ServicioPuntaje {
 	@Override
 	public void puntuarPublicacion(Puntaje puntaje) {
 		this.servicioPuntajeDao.cargarPuntaje(puntaje);
+		this.servicioUsuarioDao.setPuntosPorPuntuar(puntaje.getUsuario().getId());
 	}
 
 	@Override
