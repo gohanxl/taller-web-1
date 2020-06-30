@@ -130,11 +130,10 @@
                             <h6 class="my-0">${publicacion.libro.nombre}</h6>
                             <small class="text-muted">Vendedor: ${publicacion.propietario.nombre}</small>
                         </div>
-                        <span class="text-muted">$${publicacion.precio}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>$${publicacion.precio}</strong>
+                        <strong id="price-summary">$${publicacion.precio}</strong>
                     </li>
                 </ul>
                 <!-- Cart -->
@@ -160,5 +159,16 @@
     </div>
 </main>
 <!--Main layout-->
+
+<script>
+    let price = localStorage.getItem('price');
+    let transactionAmount = document.getElementById('transaction_amount');
+    let priceSummary = document.getElementById('price-summary');
+
+    if (price) {
+        transactionAmount.value = price;
+        priceSummary.textContent = '$ ' + price;
+    }
+</script>
 
 <%@ include file="footer.jsp" %>

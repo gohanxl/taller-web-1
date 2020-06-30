@@ -181,10 +181,6 @@
 				</li>
 			</ul>
 		</nav>
-		<div id="printoutPanel"></div>
-		<div id="directionsInputContainer"></div>
-		<div id="myMap" style="position:relative;width:600px;height:400px;"></div>
-		<div id="routeInfoPanel"></div>
 	</div>
 </main>
 <!--Main layout-->
