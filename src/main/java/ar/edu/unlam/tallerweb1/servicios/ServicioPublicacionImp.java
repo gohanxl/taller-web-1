@@ -30,9 +30,8 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     private RepositorioPuntaje repositorioPuntajeDao;
 
 
-
     @Autowired
-    public ServicioPublicacionImp(RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao, RepositorioUsuario repositorioUsuarioDao, RepositorioPuntaje repositorioPuntajeDao){
+    public ServicioPublicacionImp(RepositorioPublicacion servicioPublicacionDao, RepositorioEtiqueta servicioEtiquetaDao, RepositorioUsuario repositorioUsuarioDao, RepositorioPuntaje repositorioPuntajeDao) {
         this.servicioPublicacionDao = servicioPublicacionDao;
         this.servicioEtiquetaDao = servicioEtiquetaDao;
         this.repositorioUsuarioDao = repositorioUsuarioDao;
@@ -73,22 +72,28 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         etiquetas.addAll(hashSet);
         List<Object> etiquetasDescripcion = new ArrayList<>();
 
-
         List<Compra> compras = repositorioUsuarioDao.getCompras(user);
-        List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-        List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-        List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetas, publicacionesIds);
+        if (compras != null) {
+            List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
+            List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-        List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+            List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetas, publicacionesIds);
 
-        for (int i = 0; i < publicaciones.size(); i++){
-            double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
-            if (promedio >= 3)
-                publicacionesPorPuntaje.add(publicaciones.get(i));
+            List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+
+            for (int i = 0; i < publicaciones.size(); i++) {
+                double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
+                if (promedio >= 3)
+                    publicacionesPorPuntaje.add(publicaciones.get(i));
+            }
+            return publicacionesPorPuntaje;
+        } else {
+            List<Publicacion> nullList = new ArrayList<>();
+            return nullList;
         }
-        return publicacionesPorPuntaje;
-        }
+
+    }
 
     @Override
     public List<Publicacion> recomendarPublicacionesPorCategoria(Usuario user, List<Etiqueta> etiquetas, Long publicacionId) {
@@ -98,28 +103,34 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
             etiquetasDescripcion.add(etiqueta.getDescripcion());
         });
 
-        List<Compra> compras = repositorioUsuarioDao.getCompras(user);
-        List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-        List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+        List<Compra> compras = servicioEtiquetaDao.getComprasPorCategoria(etiquetasDescripcion);
 
-        List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetasDescripcion, publicacionesIds);
+        if (compras.size() > 0) {
+            List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
+            List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-        List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+            List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetasDescripcion, publicacionesIds);
 
-        for (int i = 0; i < publicaciones.size(); i++){
-            double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
-            if (promedio >= 3)
-                publicacionesPorPuntaje.add(publicaciones.get(i));
-        }
+            List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
-        for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
-            if (publicacionesPorPuntaje.get(i).getId() == publicacionId) {
-                publicacionesPorPuntaje.remove(i);
-                i--;
+            for (int i = 0; i < publicaciones.size(); i++) {
+                double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
+                if (promedio >= 3)
+                    publicacionesPorPuntaje.add(publicaciones.get(i));
             }
+
+            for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
+                if (publicacionesPorPuntaje.get(i).getId() == publicacionId) {
+                    publicacionesPorPuntaje.remove(i);
+                    i--;
+                }
+            }
+
+            return publicacionesPorPuntaje;
+        } else {
+            return new ArrayList<>();
         }
 
-        return publicacionesPorPuntaje;
     }
 
     @Override

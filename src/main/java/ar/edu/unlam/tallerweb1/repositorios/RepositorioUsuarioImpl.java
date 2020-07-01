@@ -122,7 +122,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		final Session session = sessionFactory.getCurrentSession();
 		Usuario usuario = session.get(Usuario.class, usuarioId);
 
-		Integer puntosActuales = usuario.getPuntos();
+		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
 		// Cada 50 pesos, se suman 10 puntos
 		Integer puntos = (int) (precioCompra / 50) * 10;
 		usuario.setPuntos(puntos + puntosActuales);
@@ -143,7 +143,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 		final Session session = sessionFactory.getCurrentSession();
 		Usuario usuario = session.get(Usuario.class, usuarioId);
 
-		Integer puntosActuales = usuario.getPuntos();
+		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
 		usuario.setPuntos(15 + puntosActuales);
 		session.merge(usuario);
 	}

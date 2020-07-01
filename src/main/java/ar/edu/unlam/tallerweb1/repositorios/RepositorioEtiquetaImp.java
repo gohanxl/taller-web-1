@@ -74,20 +74,32 @@ public class RepositorioEtiquetaImp implements RepositorioEtiqueta {
         return etiquetas;
     }
 
-        @Override
-        public List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> publicacionesIds) {
-            final Session session = sessionFactory.getCurrentSession();
-            Criteria result = session.createCriteria(Compra.class)
-                    .setProjection(Projections.property("publicacion"))
-                    .createAlias("publicacion", "pu")
-                    .createAlias("usuario", "u")
-                    .createAlias("pu.etiquetas", "e")
-                    .createAlias("pu.puntaje", "punt")
-                    .add(Restrictions.ne("usuario", user))
-                    .add(Restrictions.not(Restrictions.in("id", publicacionesIds)))
-                    .add(Restrictions.in("e.descripcion", etiquetas))
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-            List<Publicacion> publicaciones = result.list();
-            return publicaciones;
-        }
+    @Override
+    public List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> publicacionesIds) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria result = session.createCriteria(Compra.class)
+                .setProjection(Projections.property("publicacion"))
+                .createAlias("publicacion", "pu")
+                .createAlias("usuario", "u")
+                .createAlias("pu.etiquetas", "e")
+                .createAlias("pu.puntaje", "punt")
+                .add(Restrictions.ne("usuario", user))
+                .add(Restrictions.not(Restrictions.in("id", publicacionesIds)))
+                .add(Restrictions.in("e.descripcion", etiquetas))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Publicacion> publicaciones = result.list();
+        return publicaciones;
+    }
+
+    @Override
+    public List<Compra> getComprasPorCategoria(List<Object> etiquetas) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria result = session.createCriteria(Compra.class)
+                .createAlias("publicacion", "pu")
+                .createAlias("pu.etiquetas", "e")
+                .add(Restrictions.in("e.descripcion", etiquetas))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Compra> compras = result.list();
+        return compras;
+    }
 }

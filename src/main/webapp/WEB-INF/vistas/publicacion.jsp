@@ -27,11 +27,10 @@
                                 <span class="badge purple mr-1">${etiqueta.descripcion}</span>
                             </c:forEach>
                         </div>
-
                         <c:if test="${not empty promedio}">
                             ${promedio}
                             <c:forEach var="contador" begin="1" end="5">
-                                <c:set var="contadorMitad" value="${contador - 0.5}" />
+                                <c:set var="contadorMitad" value="${contador - 0.5}"/>
                                 <c:choose>
                                     <c:when test="${contador le promedio}">
                                         <span style="color: #f3cb06" class="fa fa-star"></span>
@@ -52,52 +51,53 @@
 
                         <h3 class="mt-5 mb-3">${publicacion.libro.nombre}</h3>
                         <!--
-                        <p>${publicacion.propietario.nombre}</p>
-                        -->
+                    <p>${publicacion.propietario.nombre}</p>
+                    -->
                         <c:choose>
-                            <c:when test="${!comprado && !usuarioEsPropietario}">
-                                <p class="lead">
-                                    <span>$ ${publicacion.precio}</span>
-                                </p>
-                                <form action="/checkout" class="d-flex justify-content-left">
-                                    <!-- Default input -->
-                                    <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                    <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar
-                                        <i class="fas fa-shopping-cart ml-1"></i>
-                                    </button>
-                                </form>
-                                <form action="/checkout" class="d-flex justify-content-left">
-                                    <!-- Default input -->
-                                    <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                    <input type="hidden" name="regalo" value="true">
-                                    <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
-                                    </button>
-                                </form>
-                            </c:when>
-                            <c:when test="${comprado && puntuado}">
-                                <form action="/checkout" class="d-flex justify-content-left">
-                                    <!-- Default input -->
-                                    <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
-                                    <input type="hidden" name="regalo" value="true">
-                                    <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
-                                    </button>
-                                </form>
-                                <h4 class="mt-3">Gracias por puntuar este libro.</h4>
-                            </c:when>
-                            <c:when test="${comprado && !puntuado}">
-                                <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
-                                    <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
-                                        <span id="rateMe"  class="mdb-rating empty-stars"></span>
-                                    </div>
-                                    <div class="md-form mb-4 info-textarea active-info-textarea">
-                                        <form:textarea path="comentario" id="comentario" class="md-textarea form-control pb-2" name="comentario" cssStyle="height: 20px;" />
-                                        <label for="comentario" class="mb-0">Comentario</label>
-                                    </div>
-                                    <form:input path="valor" type="hidden" name="valor" id="valor" required="" value="1" />
-                                    <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
-                                    <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}" />
-                                    <button class="btn btn-primary my-0" type="submit">Enviar
-                                </form:form>
+                        <c:when test="${!comprado && !usuarioEsPropietario}">
+                            <p class="lead">
+                                <span id="price">$ ${publicacion.precio}</span>
+                            </p>
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar
+                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                </button>
+                            </form>
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <input type="hidden" name="regalo" value="true">
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
+                                </button>
+                            </form>
+                        </c:when>
+                        <c:when test="${comprado && puntuado}">
+                            <form action="/checkout" class="d-flex justify-content-left">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <input type="hidden" name="regalo" value="true">
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
+                                </button>
+                            </form>
+                            <h4 class="mt-3">Gracias por puntuar este libro.</h4>
+                        </c:when>
+                        <c:when test="${comprado && !puntuado}">
+                        <form:form action="/puntuar" method="POST" modelAttribute="puntaje">
+                        <div style="margin: 0 !important; padding: 0 !important; display: inline !important;">
+                            <span id="rateMe" class="mdb-rating empty-stars"></span>
+                        </div>
+                        <div class="md-form mb-4 info-textarea active-info-textarea">
+                            <form:textarea path="comentario" id="comentario" class="md-textarea form-control pb-2"
+                                           name="comentario" cssStyle="height: 20px;"/>
+                            <label for="comentario" class="mb-0">Comentario</label>
+                        </div>
+                        <form:input path="valor" type="hidden" name="valor" id="valor" required="" value="1"/>
+                        <form:input path="usuario.id" type="hidden" id="usuario" value="${USUARIO_ID}"/>
+                        <form:input path="publicacion.id" type="hidden" id="publicacion" value="${publicacion.id}"/>
+                        <button class="btn btn-primary my-0" type="submit">Enviar
+                            </form:form>
                             </c:when>
                             <c:when test="${usuarioEsPropietario}">
                             <form action="/checkout" class="d-flex justify-content-left">
@@ -110,16 +110,24 @@
                             </c:when>
                             </c:choose>
                     </div>
-                    <!--Content-->
+                    <!--Grid column-->
 
                 </div>
+                <hr>
                 <!--Grid column-->
-
+                <c:if test="${!comprado}">
+                    <div class="col-12 d-flex flex-row">
+                        <div id="directionsInputContainer">
+                        </div>
+                        <div id="myMap" style="width: 100%; height: 500px" class="flex"></div>
+                    </div>
+                    <div class="col-12 d-flex flex-row">
+                            <%--                <div id="printoutPanel"></div>--%>
+                        <div id="routeInfoPanel" style="padding: 15px"></div>
+                    </div>
+                </c:if>
             </div>
             <!--Grid row-->
-
-            <hr>
-
             <!--Grid row-->
             <div class="row d-flex wow fadeIn">
 
@@ -197,7 +205,8 @@
 							</span>
                                         <h5>
                                             <strong>
-                                                <span class="dark-grey-text"><c:out value="${publicacion.libro.nombre}"/></span>
+                                                <span class="dark-grey-text"><c:out
+                                                        value="${publicacion.libro.nombre}"/></span>
                                             </strong>
                                         </h5>
                                         <c:forEach var="etiqueta" items="${publicacion.etiquetas}">
@@ -222,9 +231,9 @@
             </section>
 
 
-
-         </div>
+        </div>
     </div>
 </main>
 <!--Main layout-->
+<script src="/js/mapaAPI.js"></script>
 <%@ include file="footer.jsp" %>
