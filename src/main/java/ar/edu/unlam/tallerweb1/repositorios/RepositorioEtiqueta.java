@@ -9,6 +9,7 @@ public interface RepositorioEtiqueta {
 
     List<Etiqueta> listarEtiquetas();
     List<Etiqueta> parsearEtiquetas(String[] etiquetas);
-    List<Etiqueta> listarEtiquetasporUsuario(Usuario user);
-    List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Etiqueta> etiquetas, List<Long> publicacionesIds);
+    List<Object> listarEtiquetasporUsuario(Usuario user);
+    List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> publicacionesIds);
+    List<Compra> getComprasPorCategoria(List<Object> etiquetas);
 }

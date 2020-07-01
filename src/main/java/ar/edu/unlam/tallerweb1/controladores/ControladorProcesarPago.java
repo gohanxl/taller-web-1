@@ -42,6 +42,7 @@ public class ControladorProcesarPago {
             @RequestParam("email") String mail,
             @RequestParam("description") String descripcion,
             @RequestParam(value = "regalo", required = false) String email_regalo,
+//            @RequestParam(value = "precioConEnvio", required = false) Float precioConEnvio,
             @PathVariable("publicacion_id") Long publicacion_id,
             HttpServletRequest request
     ) throws MPException, MessagingException, IOException {
@@ -50,6 +51,9 @@ public class ControladorProcesarPago {
             Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
             comprador = usuarioRegalo;
         }
+//        if(precioConEnvio != null){
+//            precio = precioConEnvio;
+//        }
         Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
 
         String estadoDePago = "bad request";

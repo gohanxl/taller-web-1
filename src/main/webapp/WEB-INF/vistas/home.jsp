@@ -181,7 +181,6 @@
 				</li>
 			</ul>
 		</nav>
-		<!--Pagination-->
 	</div>
 </main>
 <!--Main layout-->

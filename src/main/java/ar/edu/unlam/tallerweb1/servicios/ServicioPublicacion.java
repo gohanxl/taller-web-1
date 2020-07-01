@@ -14,5 +14,6 @@ public interface ServicioPublicacion {
     List<Publicacion> listarPubliacionGenerico();
     List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario);
     List<Publicacion> recomendarPublicaciones(Usuario user);
+    List<Publicacion> recomendarPublicacionesPorCategoria(Usuario user, List<Etiqueta> etiquetas, Long publicacionId);
     Integer cantidadDeVentas(Long id, Usuario usuario);
 }

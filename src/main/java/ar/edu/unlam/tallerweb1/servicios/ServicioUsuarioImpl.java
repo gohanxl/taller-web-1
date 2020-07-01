@@ -59,5 +59,5 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Override
 	public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
 		return servicioUsuarioDao.tienePublicacion(usuarioId, publicacionId);
-	}}
-
+	}
+}
