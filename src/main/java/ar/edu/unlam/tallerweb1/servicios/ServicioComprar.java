@@ -5,5 +5,5 @@ import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 public interface ServicioComprar {
-    void comprarLibro(Publicacion publicacion, Usuario usuario);
+    void comprarLibro(Publicacion publicacion, Usuario usuario, Double precioDeCompra);
 }

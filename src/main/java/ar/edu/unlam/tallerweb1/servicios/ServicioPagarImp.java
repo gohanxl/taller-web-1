@@ -33,7 +33,7 @@ public class ServicioPagarImp implements ServicioPagar{
     }
 
     @Override
-    public Payment pagarLibro(String token, Float precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long publicacion_id, Usuario comprador) throws MPException, MPConfException {
+    public Payment pagarLibro(String token, Double precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long publicacion_id, Usuario comprador) throws MPException, MPConfException {
         MercadoPago.SDK.setAccessToken("TEST-258421991393118-051723-0e688fa5657ce8baede14eb54e347cde-568420127");
         MercadoPago.SDK.setClientSecret(System.getenv("UnsrID9XHVEWNImkLs6jRw0KPBz2ZJb4"));
         MercadoPago.SDK.setClientId(System.getenv("258421991393118"));
@@ -41,7 +41,7 @@ public class ServicioPagarImp implements ServicioPagar{
         String estadoDePago = "bad request";
 
         Payment payment = new Payment()
-                .setTransactionAmount(precio)
+                .setTransactionAmount(precio.floatValue())
                 .setToken(token)
                 .setDescription(descripcion)
                 .setInstallments(cuotas)
@@ -57,7 +57,7 @@ public class ServicioPagarImp implements ServicioPagar{
 
         if(estadoDePago.equals("approved")){
             Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(publicacion_id);
-            servicioComprar.comprarLibro(publicacion, comprador);
+            servicioComprar.comprarLibro(publicacion, comprador, precio);
         }
 
         return payment;

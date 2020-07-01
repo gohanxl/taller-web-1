@@ -17,7 +17,7 @@
                             </p>
                             <p style="color:grey">Libro: ${compra.publicacion.libro.nombre}</p>
                             <p style="color:grey">Vendedor: ${compra.publicacion.propietario.nombre}</p>
-                            <p style="color:grey">Precio: $${compra.publicacion.precio}</p>
+                            <p style="color:grey">Precio: $${compra.precioDeCompra}</p>
                         </div>
                     </c:forEach>
                 </div>

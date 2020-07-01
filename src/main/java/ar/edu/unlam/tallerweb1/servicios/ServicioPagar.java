@@ -10,7 +10,7 @@ import com.mercadopago.resources.Payment;
 public interface ServicioPagar {
      Payment pagarLibro(
             String token,
-            Float precio,
+            Double precio,
             String metodoDePago,
             Integer cuotas,
             String mail,

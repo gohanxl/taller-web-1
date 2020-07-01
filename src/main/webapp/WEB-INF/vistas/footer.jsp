@@ -113,7 +113,4 @@
         $('#rateMe').mdbRate();
     });
 </script>
-<script type='text/javascript'
-        src='http://www.bing.com/api/maps/mapcontrol?key=Ai_KF8afanFf4bWmXjsFzj0tBgWAYKPyyLqjCyYRKzLUcVr1AmjdElPKAQ2_ednr&setLang=es&callback=GetMap'
- async defer></script>
 </html>

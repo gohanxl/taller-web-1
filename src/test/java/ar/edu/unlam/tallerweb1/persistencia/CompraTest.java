@@ -35,7 +35,9 @@ public class CompraTest extends SpringTest {
         Publicacion publicacion = new Publicacion(libro, usuario, 500D, etiquetas);
         session().save(publicacion);
 
-        Compra compra = new Compra(publicacion, usuario);
+        Double precioDeCompra = publicacion.getPrecio();
+
+        Compra compra = new Compra(publicacion, usuario, precioDeCompra);
         session().save(compra);
 
         assertThat(compra.getId()).isNotNull();

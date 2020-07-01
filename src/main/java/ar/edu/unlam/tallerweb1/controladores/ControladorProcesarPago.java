@@ -31,7 +31,7 @@ public class ControladorProcesarPago {
     @RequestMapping(path = "/procesar_pago/{publicacion_id}", method = RequestMethod.POST)
     public ModelAndView procesarPago(
             @RequestParam("token") String token,
-            @RequestParam("transaction_amount") Float precio,
+            @RequestParam("transaction_amount") Double precio,
             @RequestParam("payment_method_id") String metodoDePago,
             @RequestParam("installments") Integer cuotas,
             @RequestParam("email") String mail,
