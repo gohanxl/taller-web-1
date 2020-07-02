@@ -63,4 +63,20 @@ public class ServicioPagarImp implements ServicioPagar{
 
         return payment;
     }
+
+    @Override
+    public Integer pagarConPuntos(Long publicacionId, Usuario usuario, Double precioDeCompra){
+        Publicacion publicacion = servicioPublicacionDao.buscarPublicacionPorId(publicacionId);
+        Integer puntosACanjear = servicioPublicacionDao.getValorEnPuntos(publicacion);
+        Integer puntosRestantes = servicioPublicacionDao.canjearPuntos(publicacion, usuario, puntosACanjear);
+
+        if(puntosRestantes != null){
+            if(precioDeCompra == 0) {
+                Compra compra = new Compra(publicacion, usuario, precioDeCompra);
+                servicioPublicacionDao.cargarCompra(compra);
+            }
+        }
+
+        return puntosRestantes;
+    }
 }

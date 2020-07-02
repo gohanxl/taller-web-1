@@ -143,4 +143,9 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         return servicioPublicacionDao.cantidadDeVentas(id, usuario);
     }
 
+    @Override
+    public Integer consultarValorEnPuntos(Publicacion publicacion) {
+        return servicioPublicacionDao.getValorEnPuntos(publicacion);
+    }
+
 }

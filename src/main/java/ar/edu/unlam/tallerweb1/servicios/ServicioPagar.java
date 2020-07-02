@@ -10,7 +10,7 @@ import com.mercadopago.resources.Payment;
 import javax.mail.MessagingException;
 
 public interface ServicioPagar {
-     Payment pagarLibro(
+    Payment pagarLibro(
             String token,
             Double precio,
             String metodoDePago,
@@ -19,5 +19,7 @@ public interface ServicioPagar {
             String descripcion,
             Long publicacion_id,
             Usuario comprador)
-             throws MPException, MPConfException, MessagingException;
+            throws MPException, MPConfException, MessagingException;
+
+    Integer pagarConPuntos(Long publicacionId, Usuario usuario, Double precioDeCompra);
 }
