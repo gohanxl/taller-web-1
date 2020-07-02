@@ -15,6 +15,24 @@
 
 	<import resource="classpath:hibernateContext.xml" />
 
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- SMTP settings -->
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="libros.404.notfound@gmail.com" />
+		<property name="password" value="404N07Found" />
+
+		<property name="javaMailProperties">
+			<!-- additional properties specific to JavaMail -->
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!--Se indica que la configuracion del MVC se har utilizanbdo anotaciones-->
 	<mvc:annotation-driven />
 

@@ -43,12 +43,15 @@
                                             <span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
                                         </c:forEach>
                                     </div>
-                                    <a type="button" class="btn btn-light"
-                                       href="<c:out value="${compra.publicacion.libro.ruta}"/>" target="_blank"
-                                       style="padding: 5px 20px; margin-top: 20px">
-                                        <i class="fas fa-book mr-3"></i>
-                                        <span>Leer</span>
-                                    </a>
+                                    <form action="/leer" method="post">
+                                        <input type="hidden" name="url" value="${compra.publicacion.libro.ruta}"/>
+                                        <button type="sumbit" class="btn btn-light"
+                                           style="padding: 5px 20px; margin-top: 20px">
+                                            <i class="fas fa-book mr-3"></i>
+                                            <span>Leer</span>
+                                        </button>
+                                    </form>
+
                                     <div class="container mt-3">
                                         <c:if test="${not empty comprasConPuntaje}">
                                             <c:forEach var="puntaje" items="${comprasConPuntaje}">

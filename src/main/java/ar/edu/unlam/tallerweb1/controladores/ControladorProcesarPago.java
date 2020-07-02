@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEmail;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPagar;
 import ar.edu.unlam.tallerweb1.servicios.ServicioUsuario;
 import com.mercadopago.exceptions.MPException;
@@ -14,18 +15,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.net.URL;
 
 @Controller
 public class ControladorProcesarPago {
 
     private final ServicioPagar servicioPagar;
     private final ServicioUsuario servicioUsuario;
+    private final ServicioEmail servicioEmail;
 
     @Autowired
-    public ControladorProcesarPago(ServicioPagar servicioPagar, ServicioUsuario servicioUsuario) {
+    public ControladorProcesarPago(ServicioPagar servicioPagar, ServicioUsuario servicioUsuario, ServicioEmail servicioEmail) {
         this.servicioPagar = servicioPagar;
         this.servicioUsuario = servicioUsuario;
+        this.servicioEmail = servicioEmail;
     }
 
     @RequestMapping(path = "/procesar_pago/{publicacion_id}", method = RequestMethod.POST)
@@ -40,7 +46,7 @@ public class ControladorProcesarPago {
 //            @RequestParam(value = "precioConEnvio", required = false) Float precioConEnvio,
             @PathVariable("publicacion_id") Long publicacion_id,
             HttpServletRequest request
-    ) throws MPException {
+    ) throws MPException, MessagingException, IOException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
         if(email_regalo != null){
             Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
@@ -58,6 +64,17 @@ public class ControladorProcesarPago {
             Payment.Status estado = detallesDePago.getStatus();
             estadoDePago = estado.toString();
             numeroDeTarjeta = detallesDePago.getCard().getLastFourDigits();
+            String url = request.getSession().getServletContext().getRealPath("/");
+            this.servicioEmail.enviarEmailVendedor(publicacion_id, url);
+            if(email_regalo  != null){
+                Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
+                Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
+                this.servicioEmail.enviarEmailComprador(publicacion_id, usuario, url);
+                this.servicioEmail.enviarEmailRegalo(publicacion_id, usuarioRegalo, url);
+            }
+            else{
+                this.servicioEmail.enviarEmailComprador(publicacion_id, comprador, url);
+            }
         }
 
         ModelMap model = new ModelMap();

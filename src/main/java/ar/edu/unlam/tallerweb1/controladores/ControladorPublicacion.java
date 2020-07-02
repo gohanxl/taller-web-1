@@ -35,6 +35,13 @@ public class ControladorPublicacion {
         this.servicioUsuario = servicioUsuario;
     }
 
+    @RequestMapping(path = "/leer", method = RequestMethod.POST)
+    public ModelAndView leer(@ModelAttribute("url") String url){
+        ModelMap model = new ModelMap();
+        model.put("url", url);
+        return new ModelAndView("leer", model);
+    }
+
     @RequestMapping(path = "/puntuar", method = RequestMethod.POST)
     public ModelAndView puntuar(@ModelAttribute("puntaje") Puntaje puntaje){
         ModelMap model = new ModelMap();
