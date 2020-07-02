@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service("servicioPagar")
@@ -33,7 +34,7 @@ public class ServicioPagarImp implements ServicioPagar{
     }
 
     @Override
-    public Payment pagarLibro(String token, Float precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long publicacion_id, Usuario comprador) throws MPException, MPConfException {
+    public Payment pagarLibro(String token, Float precio, String metodoDePago, Integer cuotas, String mail, String descripcion, Long publicacion_id, Usuario comprador) throws MPException, MPConfException, MessagingException {
         MercadoPago.SDK.setAccessToken("TEST-258421991393118-051723-0e688fa5657ce8baede14eb54e347cde-568420127");
         MercadoPago.SDK.setClientSecret(System.getenv("UnsrID9XHVEWNImkLs6jRw0KPBz2ZJb4"));
         MercadoPago.SDK.setClientId(System.getenv("258421991393118"));
