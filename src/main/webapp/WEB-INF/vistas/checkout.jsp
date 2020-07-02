@@ -20,7 +20,6 @@
                     <form class="card-body" action="/procesar_pago/<c:out value="${publicacion.id}"/>"
                           method="post" id="pay" name="pay">
                         <fieldset>
-<%--                            <input type="hidden" value="${price ? price : null}" name="precioConEnvio"/>--%>
                             <p class="md-form">
                                 <input class="form-control" type="hidden" name="description" id="description"
                                        value="<c:out value="${publicacion.libro.nombre}"/>"/>
@@ -29,6 +28,12 @@
                                 <input class="form-control" type="hidden" name="transaction_amount"
                                        id="transaction_amount" value="<c:out value="${publicacion.precio}"/>"/>
                             </p>
+                            <c:if test="${puntos != null}">
+                                <p class="md-form">
+                                    <input class="form-control" type="hidden" name="puntosACanjear"
+                                           id="puntosACanjear" value="<c:out value="${puntos}"/>"/>
+                                </p>
+                            </c:if>
                             <p class="md-form">
                                 <label for="cardNumber">N&uacute;mero de la tarjeta</label>
                                 <input class="form-control" type="text" id="cardNumber" data-checkout="cardNumber"
@@ -132,25 +137,31 @@
                             <small class="text-muted">Vendedor: ${publicacion.propietario.nombre}</small>
                         </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total</span>
-                        <strong id="price-summary">$${publicacion.precio}</strong>
+                    <li class="list-group-item d-flex justify-content-between" id="delivery">
+                        <span>Envio</span>
+                        <strong id="delivery-price">$${publicacion.precio}</strong>
                     </li>
+                    <c:choose>
+                        <c:when test="${puntos == null}">
+                        <li class="list-group-item d-flex justify-content-between" id="book">
+                            <span>Libro</span>
+                            <strong id="book-price">$${publicacion.precio}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><b>Total</b></span>
+                            <strong id="price-summary">$${publicacion.precio}</strong>
+                        </li>
+                        </c:when>
+                        <c:otherwise>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Puntos</span>
+                            <strong id="points">${puntos}</strong>
+                        </li>
+                        </c:otherwise>
+                    </c:choose>
+
                 </ul>
                 <!-- Cart -->
-
-                <!-- Promo code -->
-                <!--<form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Promo code"
-                               aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
-                        </div>
-                    </div>
-                </form>-->
-                <!-- Promo code -->
-
             </div>
             <!--Grid column-->
 
@@ -161,13 +172,28 @@
 </main>
 <!--Main layout-->
 <script>
-    let price = localStorage.getItem('price');
+    let totalPrice = localStorage.getItem('price');
     let transactionAmount = document.getElementById('transaction_amount');
     let priceSummary = document.getElementById('price-summary');
+    let delivery = document.getElementById('delivery');
+    let book = document.getElementById('book');
+    let deliveryPrice = document.getElementById('delivery-price');
+    let productPrice = ${publicacion.precio};
 
-    if (price) {
-        transactionAmount.value = price;
-        priceSummary.textContent = '$ ' + price;
+    let points = ${puntos == null ? false : puntos};
+
+    if (totalPrice) {
+        if(points){
+            transactionAmount.value = (totalPrice - productPrice);
+        } else {
+            transactionAmount.value = totalPrice;
+            priceSummary.textContent = '$ ' + totalPrice;
+        }
+
+        deliveryPrice.textContent = '$' + (totalPrice - productPrice);
+    } else {
+        delivery.className += ' hidden';
+        book.className += ' hidden';
     }
 </script>
 <%@ include file="footer.jsp" %>

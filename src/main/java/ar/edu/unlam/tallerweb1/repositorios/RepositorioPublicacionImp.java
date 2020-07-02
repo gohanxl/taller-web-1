@@ -96,4 +96,24 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
 
         return ventas.size();
     }
+
+    @Override
+    public Integer getValorEnPuntos(Publicacion publicacion){
+        return (int) (publicacion.getPrecio() * 1.75);
+    }
+
+    @Override
+    public Integer canjearPuntos(Publicacion publicacion, Usuario usuario, Integer puntosACanjear){
+        final Session session = sessionFactory.getCurrentSession();
+        Integer puntosRestantes = usuario.getPuntos() - puntosACanjear;
+
+        if(puntosRestantes > 0){
+            usuario.setPuntos(puntosRestantes);
+            session.merge(usuario);
+
+            return puntosRestantes;
+        }
+
+        return null;
+    }
 }

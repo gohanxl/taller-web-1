@@ -16,4 +16,6 @@ public interface RepositorioPublicacion {
     List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario);
     void cargarCompra(Compra compra);
     Integer cantidadDeVentas(Long id, Usuario usuario);
+    Integer getValorEnPuntos(Publicacion publicacion);
+    Integer canjearPuntos(Publicacion publicacion, Usuario usuario, Integer puntosACanjear);
 }

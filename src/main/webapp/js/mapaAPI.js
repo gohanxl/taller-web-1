@@ -27,7 +27,6 @@ window.addEventListener('load', function () {
     goButton.className += " float-left ml-0"
 
     localStorage.removeItem('price');
-
 })
 
 function GetMap() {
@@ -80,5 +79,8 @@ function directionsUpdated(e) {
         priceElement.textContent = `$ ${finalPrice}`;
 
         localStorage.setItem('price', finalPrice);
+
+        let canjearPuntosForm = document.getElementById("canjear-puntos");
+        canjearPuntosForm.action = '/checkout';
     }
 }

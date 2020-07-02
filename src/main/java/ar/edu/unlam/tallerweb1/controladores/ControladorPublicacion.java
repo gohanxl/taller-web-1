@@ -54,6 +54,7 @@ public class ControladorPublicacion {
         Boolean usuarioEsPropietario = this.servicioUsuario.tienePublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Boolean puntuado = this.servicioPuntaje.puntuoPublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Integer cantidadDeVentas = 0;
+        Integer puntosACanjear = this.servicioPublicacion.consultarValorEnPuntos(publicacion);;
         Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
         List<Etiqueta> etiquetas = publicacion.getEtiquetas();
         List<Publicacion> publicacionesRelacionadas = this.servicioPublicacion.recomendarPublicacionesPorCategoria(user,etiquetas, publicacionId);
@@ -65,6 +66,7 @@ public class ControladorPublicacion {
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);
+        model.put("puntosACanjear", puntosACanjear);
         model.put("puntajes", puntajes);
         model.put("promedio", promedio);
         model.put("puntaje", puntaje);

@@ -72,6 +72,14 @@
                                 <button class="btn btn-primary btn-md mx-0 my-3" type="submit">Comprar como regalo
                                 </button>
                             </form>
+                            <form action="/canjear-puntos" class="d-flex justify-content-left" id="canjear-puntos">
+                                <!-- Default input -->
+                                <input type="hidden" name="publicacionId" value="${publicacion.id}"/>
+                                <input type="hidden" name="puntosACanjear" value="${puntosACanjear}">
+                                <button class="btn btn-primary btn-md mx-0 my-3" type="submit">
+                                    Canjear por <b>${puntosACanjear}</b> puntos
+                                </button>
+                            </form>
                         </c:when>
                         <c:when test="${comprado && puntuado}">
                             <form action="/checkout" class="d-flex justify-content-left">
@@ -201,8 +209,8 @@
                                     <div class="card-body text-center">
                                         <!--Category & Title-->
                                         <span class="grey-text">
-								<h5><c:out value="${publicacion.propietario.nombre}"/></h5>
-							</span>
+                                            <h5><c:out value="${publicacion.propietario.nombre}"/></h5>
+                                        </span>
                                         <h5>
                                             <strong>
                                                 <span class="dark-grey-text"><c:out

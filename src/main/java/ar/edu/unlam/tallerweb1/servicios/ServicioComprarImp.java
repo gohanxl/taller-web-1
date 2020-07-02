@@ -29,7 +29,7 @@ public class ServicioComprarImp implements ServicioComprar{
         Compra compra = new Compra(publicacion, usuario, precioDeCompra);
         servicioPublicacionDao.cargarCompra(compra);
 
-        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), publicacion.getPrecio());
+        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), precioDeCompra);
         servicioUsuarioDao.setPuntosPorVenta(publicacion.getPropietario());
     }
 }

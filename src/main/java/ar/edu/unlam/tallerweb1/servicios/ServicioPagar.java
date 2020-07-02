@@ -18,4 +18,6 @@ public interface ServicioPagar {
             Long publicacion_id,
             Usuario comprador)
             throws MPException, MPConfException;
+
+     Integer pagarConPuntos(Long publicacionId, Usuario usuario, Double precioDeCompra);
 }
