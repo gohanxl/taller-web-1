@@ -109,16 +109,14 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         if (compras.size() > 0) {
             List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
             List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
-            List<Long> comprasId = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+            List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-            List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasId, publicacionesIds);
+            List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasIds, publicacionesIds);
 
             List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
             for (int i = 0; i < publicacionesPorEtiquetas.size(); i++) {
-                double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
-                if (promedio >= 3)
-                    publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
+                publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
             }
 
             for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {

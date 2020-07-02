@@ -85,7 +85,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     public List<Publicacion> getPublicaciones(Usuario usuario) {
         final Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Publicacion.class)
-                .add(Restrictions.eq("propietario.id", usuario.getId()));
+                .add(Restrictions.eq("propietario.id", usuario.getId()))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         List<Publicacion> publicaciones = criteria.list();
 
