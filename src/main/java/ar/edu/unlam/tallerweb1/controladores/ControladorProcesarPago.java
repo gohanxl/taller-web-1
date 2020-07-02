@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URL;
 
 @Controller
 public class ControladorProcesarPago {
@@ -63,11 +64,16 @@ public class ControladorProcesarPago {
             Payment.Status estado = detallesDePago.getStatus();
             estadoDePago = estado.toString();
             numeroDeTarjeta = detallesDePago.getCard().getLastFourDigits();
-            this.servicioEmail.enviarEmailComprador(publicacion_id, comprador);
-            this.servicioEmail.enviarEmailVendedor(publicacion_id);
+            String url = request.getSession().getServletContext().getRealPath("/");
+            this.servicioEmail.enviarEmailVendedor(publicacion_id, url);
             if(email_regalo  != null){
                 Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
-                this.servicioEmail.enviarEmailRegalo(publicacion_id, usuarioRegalo);
+                Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
+                this.servicioEmail.enviarEmailComprador(publicacion_id, usuario, url);
+                this.servicioEmail.enviarEmailRegalo(publicacion_id, usuarioRegalo, url);
+            }
+            else{
+                this.servicioEmail.enviarEmailComprador(publicacion_id, comprador, url);
             }
         }
 

@@ -11,7 +11,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 
 @Service("servicioEmail")
@@ -27,19 +29,25 @@ public class ServicioEmailImp implements ServicioEmail {
 	}
 
 	@Override
-	public void enviarEmail(String destino, String asunto, String texto) throws MessagingException {
+	public void enviarEmail(String destino, String asunto, String texto, String image, String pdf) throws MessagingException {
 		MimeMessage mensaje  = mailSender.createMimeMessage();
 		MimeMessageHelper email = new MimeMessageHelper(mensaje, true, "UTF-8");
 		email.setTo(destino);
 		email.setSubject(asunto);
 		email.setText(texto, true);
+		email.addInline("Image", new File(image));
+		if(pdf != null){
+			email.addAttachment(new File(pdf).getName(), new File(pdf));
+		}
 		mailSender.send(mensaje);
 	}
 
 	@Override
-	public void enviarEmailComprador(Long publicacionId, Usuario usuario) throws MessagingException, IOException {
+	public void enviarEmailComprador(Long publicacionId, Usuario usuario, String url) throws MessagingException, IOException {
 		String email = usuario.getEmail();
 		Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
+		String imagen = url.substring(0, url.length() -1) + publicacion.getLibro().getImagen();
+		String pdf = url.substring(0, url.length() -1) + publicacion.getLibro().getRuta();
 		String asunto = "Compraste " + publicacion.getLibro().getNombre();
 		String nuevaLinea = System.getProperty("line.separator");
 		String texto = "<!doctype html>\n" +
@@ -156,7 +164,8 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                    <tr>\n" +
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
 				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Resumen de compra</h3>\n" +
-				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Libro " + publicacion.getLibro().getNombre() + "</p>\n" +
+				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
+				"                        <img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
 				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Pagaste $" + publicacion.getPrecio().toString() + "</p>\n" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
@@ -206,13 +215,15 @@ public class ServicioEmailImp implements ServicioEmail {
 				"    </table>\n" +
 				"  </body>\n" +
 				"</html>";
-		this.enviarEmail(email, asunto, texto);
+		this.enviarEmail(email, asunto, texto, imagen, null);
 	}
 
 	@Override
-	public void enviarEmailVendedor(Long publicacionId) throws MessagingException, IOException {
+	public void enviarEmailVendedor(Long publicacionId, String url) throws MessagingException, IOException {
 		Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
 		String vendedor = publicacion.getPropietario().getEmail();
+		String imagen = url.substring(0, url.length() -1) + publicacion.getLibro().getImagen();
+		String pdf = url.substring(0, url.length() -1) + publicacion.getLibro().getRuta();
 		String asunto_venta = "Compraron tu libro " + publicacion.getLibro().getNombre();
 		String texto_venta = "<!doctype html>\n" +
 				"<html>\n" +
@@ -328,7 +339,8 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                    <tr>\n" +
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
 				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Venta de libro</h3>\n" +
-				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Libro " + publicacion.getLibro().getNombre() + "</p>\n" +
+				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
+				"						<img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
 				"                            <tr>\n" +
@@ -377,15 +389,17 @@ public class ServicioEmailImp implements ServicioEmail {
 				"    </table>\n" +
 				"  </body>\n" +
 				"</html>";
-				this.enviarEmail(vendedor, asunto_venta, texto_venta);
+				this.enviarEmail(vendedor, asunto_venta, texto_venta, imagen, null);
 	}
 
 	@Override
-	public void enviarEmailRegalo(Long publicacionId, Usuario usuario) throws MessagingException, IOException {
+	public void enviarEmailRegalo(Long publicacionId, Usuario usuario, String url) throws MessagingException, IOException {
 		Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
-		String vendedor = publicacion.getPropietario().getEmail();
-		String asunto_venta = "Te regalaron el libro " + publicacion.getLibro().getNombre();
-		String texto_venta = "<!doctype html>\n" +
+		String beneficiado = usuario.getEmail();
+		String imagen = url.substring(0, url.length() -1) + publicacion.getLibro().getImagen();
+		String pdf = url.substring(0, url.length() -1) + publicacion.getLibro().getRuta();
+		String asunto = "Te regalaron el libro " + publicacion.getLibro().getNombre();
+		String texto = "<!doctype html>\n" +
 				"<html>\n" +
 				"  <head>\n" +
 				"    <meta name=\"viewport\" content=\"width=device-width\">\n" +
@@ -498,8 +512,9 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;\">\n" +
 				"                    <tr>\n" +
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
-				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Venta de libro</h3>\n" +
-				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Libro " + publicacion.getLibro().getNombre() + "</p>\n" +
+				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Regalo de libro</h3>\n" +
+				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
+				"                        <img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
 				"                            <tr>\n" +
@@ -548,7 +563,7 @@ public class ServicioEmailImp implements ServicioEmail {
 				"    </table>\n" +
 				"  </body>\n" +
 				"</html>";
-		this.enviarEmail(vendedor, asunto_venta, texto_venta);
+		this.enviarEmail(beneficiado, asunto, texto, imagen, pdf);
 	}
 
 }
