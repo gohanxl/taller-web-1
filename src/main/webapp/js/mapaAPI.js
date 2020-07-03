@@ -3,13 +3,30 @@ let directionManager;
 
 window.addEventListener('load', function () {
     let waypoint = document.getElementsByClassName('dirWp')[0].getElementsByTagName('input')[0]
+    let walkingMan = document.getElementsByClassName("dirBtnWalk")[0]
+    let car = document.getElementsByClassName("dirBtnDrive")[0]
+    let optionsButton = document.getElementsByClassName("dirBtnOptions")[0]
+    let addButton = document.getElementsByClassName("dirBtnAdd")[0]
+    let timeButton = document.getElementsByClassName("dirBtnTime")[0]
+    let reverseButton = document.getElementsByClassName("dirBtnRev")[0]
+    let gripButton1 = document.getElementsByClassName("dirWpGrip")[0]
+    let gripButton2 = document.getElementsByClassName("dirWpGrip")[1]
+    let goButton = document.getElementsByClassName("dirBtnGo")[0]
 
     waypoint.disabled = true
-
     waypoint.className = "disabled"
 
-    localStorage.removeItem('price');
+    walkingMan.className = "hidden"
+    car.className = "hidden"
+    optionsButton.className = "hidden"
+    addButton.className = "hidden"
+    timeButton.className = "hidden"
+    reverseButton.className = "hidden"
+    gripButton1.className = "hidden"
+    gripButton2.className = "hidden"
+    goButton.className += " float-left ml-0"
 
+    localStorage.removeItem('price');
 })
 
 function GetMap() {
@@ -62,5 +79,8 @@ function directionsUpdated(e) {
         priceElement.textContent = `$ ${finalPrice}`;
 
         localStorage.setItem('price', finalPrice);
+
+        let canjearPuntosForm = document.getElementById("canjear-puntos");
+        canjearPuntosForm.action = '/checkout';
     }
 }

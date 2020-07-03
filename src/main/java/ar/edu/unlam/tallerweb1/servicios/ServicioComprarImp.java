@@ -27,11 +27,11 @@ public class ServicioComprarImp implements ServicioComprar{
     }
 
     @Override
-    public void comprarLibro(Publicacion publicacion, Usuario usuario){
-        Compra compra = new Compra(publicacion, usuario);
+    public void comprarLibro(Publicacion publicacion, Usuario usuario, Double precioDeCompra){
+        Compra compra = new Compra(publicacion, usuario, precioDeCompra);
         servicioPublicacionDao.cargarCompra(compra);
 
-        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), publicacion.getPrecio());
+        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), precioDeCompra);
         servicioUsuarioDao.setPuntosPorVenta(publicacion.getPropietario());
 
     }

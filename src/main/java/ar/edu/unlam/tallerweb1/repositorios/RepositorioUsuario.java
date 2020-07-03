@@ -25,6 +25,8 @@ public interface RepositorioUsuario {
 
 	Boolean tienePublicacion(Long usuarioId, Long publicacionId);
 
+	List<Publicacion> getPublicaciones(Usuario usuario);
+
 	void setPuntosPorCompra(Long usuarioId, Double precioCompra);
 
 	void setPuntosPorVenta(Usuario usuario);

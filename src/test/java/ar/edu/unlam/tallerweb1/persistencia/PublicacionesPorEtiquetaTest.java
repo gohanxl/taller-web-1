@@ -41,12 +41,14 @@ public class PublicacionesPorEtiquetaTest extends SpringTest {
         Publicacion publicacion = new Publicacion(libro, usuario2, 218.00, etiquetas);
         session().save(publicacion);
 
-        Compra compra = new Compra(publicacion, usuario);
+        Double precioDeCompra = publicacion.getPrecio();
+
+        Compra compra = new Compra(publicacion, usuario, precioDeCompra);
         session().save(compra);
 
         assertEquals(compra.getUsuario(), usuario);
         assertNotEquals(compra.getUsuario(), usuario2);
-        assertEquals(compra.getPublicacion().getEtiquetas().get(0).getDescripcion(),"Terror");
-        
+        assertEquals(compra.getPublicacion().getEtiquetas().get(0).getDescripcion(), "Terror");
+
     }
 }

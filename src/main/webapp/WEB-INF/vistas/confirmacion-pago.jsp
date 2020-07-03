@@ -14,10 +14,20 @@
                 </c:otherwise>
             </c:choose>
         </h4>
-        <p>Descripcion: ${descripcion}</p>
-        <p>Precio: $${precio}</p>
-        <p>Metodo de pago: ${metodoDePago} ****${numeroDeTarjeta}</p>
+        <c:choose>
+            <c:when test="${precio != null}">
+                <p>Descripcion: ${descripcion}</p>
+                <p>Precio: $${precio}</p>
+                <p>Metodo de pago: ${metodoDePago} ****${numeroDeTarjeta}</p>
+            </c:when>
+            <c:otherwise>
+                <p>Descripcion: ${descripcion.libro.nombre}</p>
+                <p>Puntos canjeados: ${puntosRestantes == null ? 0 : puntos}</p>
+                <p>Puntos restantes: ${puntosRestantes == null ? "-" : puntosRestantes}</p>
+            </c:otherwise>
+        </c:choose>
         <a class="btn btn btn-primary float-right" href="/">Home</a>
+
     </div>
 </div>
 <!--Main layout-->

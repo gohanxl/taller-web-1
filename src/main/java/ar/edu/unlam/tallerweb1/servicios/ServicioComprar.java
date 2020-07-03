@@ -7,5 +7,5 @@ import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import javax.mail.MessagingException;
 
 public interface ServicioComprar {
-    void comprarLibro(Publicacion publicacion, Usuario usuario);
+    void comprarLibro(Publicacion publicacion, Usuario usuario, Double precioDeCompra);
 }

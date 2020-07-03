@@ -103,20 +103,20 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
             etiquetasDescripcion.add(etiqueta.getDescripcion());
         });
 
-        List<Compra> compras = servicioEtiquetaDao.getComprasPorCategoria(etiquetasDescripcion);
+        List<Compra> compras = repositorioUsuarioDao.getCompras(user);
+        List<Publicacion> publicaciones = repositorioUsuarioDao.getPublicaciones(user);
 
         if (compras.size() > 0) {
             List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-            List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+            List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
+            List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-            List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetasDescripcion, publicacionesIds);
+            List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasIds, publicacionesIds);
 
             List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
-            for (int i = 0; i < publicaciones.size(); i++) {
-                double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
-                if (promedio >= 3)
-                    publicacionesPorPuntaje.add(publicaciones.get(i));
+            for (int i = 0; i < publicacionesPorEtiquetas.size(); i++) {
+                publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
             }
 
             for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
@@ -141,6 +141,11 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     @Override
     public Integer cantidadDeVentas(Long id, Usuario usuario) {
         return servicioPublicacionDao.cantidadDeVentas(id, usuario);
+    }
+
+    @Override
+    public Integer consultarValorEnPuntos(Publicacion publicacion) {
+        return servicioPublicacionDao.getValorEnPuntos(publicacion);
     }
 
 }
