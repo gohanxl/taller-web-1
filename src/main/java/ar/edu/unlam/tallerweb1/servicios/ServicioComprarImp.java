@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Compra;
-import ar.edu.unlam.tallerweb1.modelo.Libro;
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioLibro;
@@ -11,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+
 @Service("servicioComprar")
 @Transactional
 public class ServicioComprarImp implements ServicioComprar{
 
     private RepositorioPublicacion servicioPublicacionDao;
+
     private RepositorioUsuario servicioUsuarioDao;
 
     @Autowired
@@ -25,11 +27,12 @@ public class ServicioComprarImp implements ServicioComprar{
     }
 
     @Override
-    public void comprarLibro(Publicacion publicacion, Usuario usuario){
-        Compra compra = new Compra(publicacion, usuario);
+    public void comprarLibro(Publicacion publicacion, Usuario usuario, Double precioDeCompra){
+        Compra compra = new Compra(publicacion, usuario, precioDeCompra);
         servicioPublicacionDao.cargarCompra(compra);
 
-        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), publicacion.getPrecio());
+        servicioUsuarioDao.setPuntosPorCompra(usuario.getId(), precioDeCompra);
         servicioUsuarioDao.setPuntosPorVenta(publicacion.getPropietario());
+
     }
 }

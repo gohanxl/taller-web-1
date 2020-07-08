@@ -21,132 +21,144 @@ import java.util.List;
 @Repository("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
-	// Como todo repositorio maneja acciones de persistencia, normalmente estara inyectado el session factory de hibernate
-	// el mismo esta difinido en el archivo hibernateContext.xml
-	private SessionFactory sessionFactory;
+    // Como todo repositorio maneja acciones de persistencia, normalmente estara inyectado el session factory de hibernate
+    // el mismo esta difinido en el archivo hibernateContext.xml
+    private SessionFactory sessionFactory;
 
     @Autowired
-	public RepositorioUsuarioImpl(SessionFactory sessionFactory){
-		this.sessionFactory = sessionFactory;
-	}
+    public RepositorioUsuarioImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-	@Override
-	public Usuario consultarUsuario(Usuario usuario) {
-		// Se obtiene la sesion asociada a la transaccion iniciada en el servicio que invoca a este metodo y se crea un criterio
-		// de busqueda de Usuario donde el email y password sean iguales a los del objeto recibido como parametro
-		// uniqueResult da error si se encuentran mas de un resultado en la busqueda.
-		final Session session = sessionFactory.getCurrentSession();
-		return (Usuario) session.createCriteria(Usuario.class)
-				.add(Restrictions.eq("email", usuario.getEmail()))
-				.add(Restrictions.eq("password", usuario.getPassword()))
-				.uniqueResult();
-	}
+    @Override
+    public Usuario consultarUsuario(Usuario usuario) {
+        // Se obtiene la sesion asociada a la transaccion iniciada en el servicio que invoca a este metodo y se crea un criterio
+        // de busqueda de Usuario donde el email y password sean iguales a los del objeto recibido como parametro
+        // uniqueResult da error si se encuentran mas de un resultado en la busqueda.
+        final Session session = sessionFactory.getCurrentSession();
+        return (Usuario) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", usuario.getEmail()))
+                .add(Restrictions.eq("password", usuario.getPassword()))
+                .uniqueResult();
+    }
 
-	@Override
-	public void cargarUsuario(Usuario usuario) {
-		final Session session = sessionFactory.getCurrentSession();
-		session.save(usuario);
-	}
+    @Override
+    public void cargarUsuario(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        session.save(usuario);
+    }
 
-	@Override
-	public Usuario getUsuarioRegalo(String email) {
-		final Session session = sessionFactory.getCurrentSession();
-		return (Usuario) session.createCriteria(Usuario.class)
-				.add(Restrictions.eq("email", email))
-				.uniqueResult();
-	}
+    @Override
+    public Usuario getUsuarioRegalo(String email) {
+        final Session session = sessionFactory.getCurrentSession();
+        return (Usuario) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", email))
+                .uniqueResult();
+    }
 
-	@Override
-	public List<Compra> getCompras(Usuario usuario){
-		final Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Compra.class)
-				.add(Restrictions.eq("usuario", usuario))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List <Compra> compras = criteria.list();
-		return compras;
-	}
+    @Override
+    public List<Compra> getCompras(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Compra.class)
+                .add(Restrictions.eq("usuario", usuario))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Compra> compras = criteria.list();
+        return compras;
+    }
 
-	@Override
-	public List<Publicacion> getVentas(Usuario usuario){
-		final Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Compra.class)
-				.createAlias("publicacion", "p")
-				.add(Restrictions.eq("p.propietario.id", usuario.getId()));
+    @Override
+    public List<Publicacion> getVentas(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Compra.class)
+                .createAlias("publicacion", "p")
+                .add(Restrictions.eq("p.propietario.id", usuario.getId()));
 
-		criteria.setProjection(Projections.projectionList()
-				.add(Projections.groupProperty("publicacion"))
-				.add(Projections.rowCount()));
-		List <Publicacion> ventas = criteria.list();
+        criteria.setProjection(Projections.projectionList()
+                .add(Projections.groupProperty("publicacion"))
+                .add(Projections.rowCount()));
+        List<Publicacion> ventas = criteria.list();
 
-		return ventas;
-	}
+        return ventas;
+    }
 
-	@Override
-	public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
-		final Session session = sessionFactory.getCurrentSession();
-		Compra compra = (Compra) session.createCriteria(Compra.class)
-				.add(Restrictions.eq("usuario.id", usuarioId))
-				.add(Restrictions.eq("publicacion.id", publicacionId))
-				.uniqueResult();
-		if(compra != null){
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public List<Publicacion> getPublicaciones(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Publicacion.class)
+                .add(Restrictions.eq("propietario.id", usuario.getId()))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-	@Override
-	public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
-		final Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Puntaje.class, "punt")
-				.add(Restrictions.eq("punt.usuario", usuario))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List <Puntaje> puntajes = criteria.list();
-		return puntajes;
-	}
+        List<Publicacion> publicaciones = criteria.list();
 
-	@Override
-	public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
-		final Session session = sessionFactory.getCurrentSession();
-		Publicacion publicacion = (Publicacion) session.createCriteria(Publicacion.class)
-				.add(Restrictions.eq("propietario.id", usuarioId))
-				.add(Restrictions.eq("id", publicacionId))
-				.uniqueResult();
-		if(publicacion != null){
-			return true;
-		}
-		return false;
-	}
+        return publicaciones;
+    }
 
-	@Override
-	public void setPuntosPorCompra(Long usuarioId, Double precioCompra) {
-		final Session session = sessionFactory.getCurrentSession();
-		Usuario usuario = session.get(Usuario.class, usuarioId);
+    @Override
+    public Boolean tieneCompra(Long usuarioId, Long publicacionId) {
+        final Session session = sessionFactory.getCurrentSession();
+        Compra compra = (Compra) session.createCriteria(Compra.class)
+                .add(Restrictions.eq("usuario.id", usuarioId))
+                .add(Restrictions.eq("publicacion.id", publicacionId))
+                .uniqueResult();
+        if (compra != null) {
+            return true;
+        }
+        return false;
+    }
 
-		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
-		// Cada 50 pesos, se suman 10 puntos
-		Integer puntos = (int) (precioCompra / 50) * 10;
-		usuario.setPuntos(puntos + puntosActuales);
-		session.merge(usuario);
-	}
+    @Override
+    public List<Puntaje> listarComprasConPuntajePorUsuario(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Puntaje.class, "punt")
+                .add(Restrictions.eq("punt.usuario", usuario))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Puntaje> puntajes = criteria.list();
+        return puntajes;
+    }
 
-	@Override
-	public void setPuntosPorVenta(Usuario usuario) {
-		final Session session = sessionFactory.getCurrentSession();
+    @Override
+    public Boolean tienePublicacion(Long usuarioId, Long publicacionId) {
+        final Session session = sessionFactory.getCurrentSession();
+        Publicacion publicacion = (Publicacion) session.createCriteria(Publicacion.class)
+                .add(Restrictions.eq("propietario.id", usuarioId))
+                .add(Restrictions.eq("id", publicacionId))
+                .uniqueResult();
+        if (publicacion != null) {
+            return true;
+        }
+        return false;
+    }
 
-		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
-		usuario.setPuntos(20 + puntosActuales);
-		session.merge(usuario);
-	}
+    @Override
+    public void setPuntosPorCompra(Long usuarioId, Double precioCompra) {
+        final Session session = sessionFactory.getCurrentSession();
+        Usuario usuario = session.get(Usuario.class, usuarioId);
 
-	@Override
-	public void setPuntosPorPuntuar(Long usuarioId) {
-		final Session session = sessionFactory.getCurrentSession();
-		Usuario usuario = session.get(Usuario.class, usuarioId);
+        int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
+        // Cada 50 pesos, se suman 10 puntos
+        Integer puntos = (int) (precioCompra / 50) * 10;
+        usuario.setPuntos(puntos + puntosActuales);
+        session.merge(usuario);
+    }
 
-		int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
-		usuario.setPuntos(15 + puntosActuales);
-		session.merge(usuario);
-	}
+    @Override
+    public void setPuntosPorVenta(Usuario usuario) {
+        final Session session = sessionFactory.getCurrentSession();
+
+        int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
+        usuario.setPuntos(20 + puntosActuales);
+        session.merge(usuario);
+    }
+
+    @Override
+    public void setPuntosPorPuntuar(Long usuarioId) {
+        final Session session = sessionFactory.getCurrentSession();
+        Usuario usuario = session.get(Usuario.class, usuarioId);
+
+        int puntosActuales = usuario.getPuntos() == null ? 0 : usuario.getPuntos();
+        usuario.setPuntos(15 + puntosActuales);
+        session.merge(usuario);
+    }
 }
 
 

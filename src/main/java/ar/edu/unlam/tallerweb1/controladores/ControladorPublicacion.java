@@ -35,6 +35,13 @@ public class ControladorPublicacion {
         this.servicioUsuario = servicioUsuario;
     }
 
+    @RequestMapping(path = "/leer", method = RequestMethod.POST)
+    public ModelAndView leer(@ModelAttribute("url") String url){
+        ModelMap model = new ModelMap();
+        model.put("url", url);
+        return new ModelAndView("leer", model);
+    }
+
     @RequestMapping(path = "/puntuar", method = RequestMethod.POST)
     public ModelAndView puntuar(@ModelAttribute("puntaje") Puntaje puntaje){
         ModelMap model = new ModelMap();
@@ -54,6 +61,7 @@ public class ControladorPublicacion {
         Boolean usuarioEsPropietario = this.servicioUsuario.tienePublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Boolean puntuado = this.servicioPuntaje.puntuoPublicacion((Long) request.getSession().getAttribute("USUARIO_ID"), publicacionId);
         Integer cantidadDeVentas = 0;
+        Integer puntosACanjear = this.servicioPublicacion.consultarValorEnPuntos(publicacion);;
         Usuario user = (Usuario) request.getSession().getAttribute("USUARIO");
         List<Etiqueta> etiquetas = publicacion.getEtiquetas();
         List<Publicacion> publicacionesRelacionadas = this.servicioPublicacion.recomendarPublicacionesPorCategoria(user,etiquetas, publicacionId);
@@ -65,6 +73,7 @@ public class ControladorPublicacion {
         Puntaje puntaje = new Puntaje();
         ModelMap model = new ModelMap();
         model.put("publicacion", publicacion);
+        model.put("puntosACanjear", puntosACanjear);
         model.put("puntajes", puntajes);
         model.put("promedio", promedio);
         model.put("puntaje", puntaje);

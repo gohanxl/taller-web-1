@@ -8,8 +8,14 @@ public interface RepositorioEtiqueta {
     void cargarEtiqueta(Etiqueta etiqueta);
 
     List<Etiqueta> listarEtiquetas();
+
     List<Etiqueta> parsearEtiquetas(String[] etiquetas);
+
     List<Object> listarEtiquetasporUsuario(Usuario user);
-    List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> publicacionesIds);
+
+    List<Publicacion> publicacionesPorEtiquetas(Usuario user, List<Object> etiquetas, List<Long> comprasIds);
+
+    List<Publicacion> publicacionesPorEtiquetasPorPublicacion(Usuario user, List<Object> etiquetas, List<Long> comprasIds, List<Long> publicacionesIds);
+
     List<Compra> getComprasPorCategoria(List<Object> etiquetas);
 }

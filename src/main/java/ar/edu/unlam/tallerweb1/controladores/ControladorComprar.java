@@ -26,6 +26,7 @@ public class ControladorComprar {
     @RequestMapping(path = "/checkout", method = RequestMethod.GET)
     public ModelAndView comprarLibro(@RequestParam("publicacionId") String id,
                                      @RequestParam(value = "regalo", required = false) Boolean comoRegalo,
+                                     @RequestParam(value = "puntosACanjear", required = false) Integer puntosACanjear,
                                      HttpServletRequest request) throws IOException {
 
         if(request.getSession().getAttribute("USUARIO") != null){
@@ -33,6 +34,7 @@ public class ControladorComprar {
             Publicacion publicacion = servicioPublicacion.buscarPublicacionPorId(Long.parseLong(id));
             model.put("publicacion", publicacion);
             model.put("regalo", comoRegalo);
+            model.put("puntos", puntosACanjear);
             return new ModelAndView("checkout", model);
         }
         else{

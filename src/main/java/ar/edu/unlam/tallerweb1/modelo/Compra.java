@@ -19,13 +19,17 @@ public class Compra {
     @Column(name = "fecha_compra", nullable = false)
     private Date fecha_compra;
 
+    private Double precioDeCompra;
+
     public Compra(){
     }
 
-    public Compra(Publicacion publicacion, Usuario usuario_id) {
+    public Compra(Publicacion publicacion, Usuario usuario_id, Double precioDeCompra) {
         this.setPublicacion(publicacion);
         this.setUsuario(usuario_id);
         this.setFecha_compra(new Date());
+        this.setPrecioDeCompra(precioDeCompra);
+
     }
 
     public Long getId() {
@@ -58,5 +62,13 @@ public class Compra {
 
     public void setUsuario(Usuario usuario_id) {
         this.usuario = usuario_id;
+    }
+
+    public Double getPrecioDeCompra() {
+        return precioDeCompra;
+    }
+
+    public void setPrecioDeCompra(Double precioDeCompra) {
+        this.precioDeCompra = precioDeCompra;
     }
 }
