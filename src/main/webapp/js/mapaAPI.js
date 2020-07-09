@@ -36,7 +36,6 @@ window.addEventListener('load', function () {
 
     cancelDelivery.addEventListener('click', function () {
         localStorage.removeItem('price');
-        // waypoint2.value = ''
         priceElement.textContent = `$ ${parsedPrice}`;
         directionManager.clearAll()
         directionManager.setRequestOptions({maxRoutes: 1, routeDraggable: false});
@@ -52,6 +51,8 @@ window.addEventListener('load', function () {
 
         gripButton1.className = "hidden"
         gripButton2.className = "hidden"
+        cancelDelivery.className = "hidden"
+
 
         routePanel.innerHTML = '';
     })
