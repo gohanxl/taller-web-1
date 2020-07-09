@@ -80,6 +80,8 @@
                                     Canjear por <b>${puntosACanjear}</b> puntos
                                 </button>
                             </form>
+
+                            <button value="Cancelar Envio" class="hidden" id="deliveryBtn">Cancelar Envio</button>
                         </c:when>
                         <c:when test="${comprado && puntuado}">
                             <form action="/checkout" class="d-flex justify-content-left">
@@ -130,7 +132,6 @@
                         <div id="myMap" style="width: 100%; height: 500px" class="flex"></div>
                     </div>
                     <div class="col-12 d-flex flex-row">
-                            <%--                <div id="printoutPanel"></div>--%>
                         <div id="routeInfoPanel" style="padding: 15px"></div>
                     </div>
                 </c:if>
