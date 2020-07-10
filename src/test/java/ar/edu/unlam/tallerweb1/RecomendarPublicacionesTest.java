@@ -2,7 +2,11 @@ package ar.edu.unlam.tallerweb1;
 
 import ar.edu.unlam.tallerweb1.modelo.*;
 import ar.edu.unlam.tallerweb1.repositorios.*;
-import org.junit.Assert;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacionImp;
+import static org.assertj.core.api.Assertions.*;
+
+import com.sun.org.apache.xpath.internal.objects.XObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,80 +14,112 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class RecomendarPublicacionesTest {
     private RepositorioEtiqueta repositorioEtiqueta;
     private RepositorioPublicacion repositorioPublicacion;
     private RepositorioUsuario repositorioUsuario;
     private RepositorioPuntaje repositorioPuntaje;
+    private ServicioPublicacion servicioPublicacion;
 
-    private Usuario usuario = new Usuario();
-    private Publicacion publicacion = new Publicacion();
+    private Usuario usuario1 = new Usuario();
+    private Usuario usuario2 = new Usuario();
+    private Publicacion publicacion1 = new Publicacion();
+    private Publicacion publicacionRecomendada = new Publicacion();
     private Etiqueta etiqueta = new Etiqueta();
     private Puntaje puntaje = new Puntaje();
-    private Compra compra = new Compra();
+    private Compra compra1 = new Compra();
+    private Compra compra2 = new Compra();
     private List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
     private List<Object> etiquetasObj = new ArrayList<Object>();
     private List<Publicacion> publicacionesList = new ArrayList<Publicacion>();
-    private List<Compra> compras = new ArrayList<Compra>();
+    private List<Compra> compras1 = new ArrayList<Compra>();
+    private List<Compra> compras2 = new ArrayList<Compra>();
+    private List<Long> publicacionesIds = new ArrayList<Long>();
 
     @Before
-    public void config(){
+    public void config() {
         repositorioEtiqueta = mock(RepositorioEtiqueta.class);
         repositorioPublicacion = mock(RepositorioPublicacion.class);
         repositorioUsuario = mock(RepositorioUsuario.class);
         repositorioPuntaje = mock(RepositorioPuntaje.class);
 
-        usuario.setId((long) 1);
-        usuario.setNombre("mica");
-        usuario.setEmail("mica@gmail.com");
+        servicioPublicacion = new ServicioPublicacionImp(repositorioPublicacion, repositorioEtiqueta, repositorioUsuario, repositorioPuntaje);
+
+        usuario1.setId(1L);
+        usuario1.setNombre("Mica");
+        usuario1.setEmail("mica@gmail.com");
 
         etiqueta.setDescripcion("Terror");
         etiquetas.add(etiqueta);
 
-        publicacion.setEtiquetas(etiquetas);
-        publicacionesList.add(publicacion);
-        publicacionesList.add(publicacion);
+        publicacion1.setEtiquetas(etiquetas);
+        publicacion1.setId(1L);
 
-        compra.setUsuario(usuario);
-        compra.setPublicacion(publicacion);
-        compras.add(compra);
+        compra1.setUsuario(usuario1);
+        compra1.setPublicacion(publicacion1);
+        compras1.add(compra1);
+
+        /*----------------------------------------------------------------*/
+
+        usuario2.setId(2L);
+        usuario2.setNombre("Isaias");
+        usuario2.setEmail("isaias@gmail.com");
+
+        publicacionRecomendada.setEtiquetas(etiquetas);
+        publicacionRecomendada.setId(2L);
+
+        puntaje.setValor(4);
+        puntaje.setUsuario(usuario2);
+        puntaje.setFecha(new Date());
+        puntaje.setPublicacion(publicacionRecomendada);
+
+        compra2.setUsuario(usuario2);
+        compra2.setPublicacion(publicacionRecomendada);
+        compras2.add(compra2);
+
+        /*----------------------------------------------------------------*/
+
+        etiquetasObj.add(etiqueta);
+        publicacionesList.add(publicacionRecomendada);
+        publicacionesIds.add(1L);
     }
 
     @Test
-    public void recomendarPublicacacionesDevuelvaPublicacionesConMismaEtiqueta(){
-        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario)).thenReturn(etiquetasObj);
-        List<Object> etiquetas = repositorioEtiqueta.listarEtiquetasporUsuario(usuario);
+    public void recomendarPublicacacionesDevuelvaRecomendadosTest() {
+        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario1)).thenReturn(etiquetasObj);
+        when(repositorioUsuario.getCompras(usuario1)).thenReturn(compras1);
+        when(repositorioEtiqueta.publicacionesPorEtiquetas(usuario1, etiquetasObj, publicacionesIds)).thenReturn(publicacionesList);
+        when(repositorioPuntaje.consultarPuntajePromedio(any(Publicacion.class))).thenReturn(4.0);
 
-        Set<Object> hashSet = new HashSet<Object>(etiquetas);
-        etiquetas.clear();
-        etiquetas.addAll(hashSet);
+        List<Publicacion> recomendados = servicioPublicacion.recomendarPublicaciones(usuario1);
+        assertThat(recomendados.size()).isNotEqualTo(0);
+    }
 
-        when(repositorioUsuario.getCompras(usuario)).thenReturn(compras);
-        List<Compra> compras = repositorioUsuario.getCompras(usuario);
-        List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-        List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+    @Test
+    public void recomendarPublicacacionesNoTieneEtiquetasTest() {
+        List<Object> etiquetasNull= new ArrayList<Object>();
+        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario1)).thenReturn(etiquetasNull);
 
-        when(repositorioEtiqueta.publicacionesPorEtiquetas(usuario, etiquetas, publicacionesIds)).thenReturn(publicacionesList);
-        List<Publicacion> publicaciones = repositorioEtiqueta.publicacionesPorEtiquetas(usuario, etiquetas, publicacionesIds);
+        when(repositorioUsuario.getCompras(usuario1)).thenReturn(compras1);
+        when(repositorioEtiqueta.publicacionesPorEtiquetas(usuario1, etiquetasObj, publicacionesIds)).thenReturn(publicacionesList);
+        when(repositorioPuntaje.consultarPuntajePromedio(any(Publicacion.class))).thenReturn(4.0);
 
-        List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+        List<Publicacion> recomendados = servicioPublicacion.recomendarPublicaciones(usuario1);
+        assertThat(recomendados.size()).isEqualTo(0);
+    }
 
-        for (int i = 0; i < publicaciones.size(); i++){
-            Set<Puntaje> valor = publicacionesList.get(i).getPuntaje();
-            when(repositorioPuntaje.consultarPuntajePromedio(publicaciones.get(i))).thenReturn((double) 4);
-            double promedio = repositorioPuntaje.consultarPuntajePromedio(publicaciones.get(i));
-            if (promedio >= 3)
-                publicacionesPorPuntaje.add(publicaciones.get(i));
-        }
+    @Test
+    public void recomendarPublicacacionesPromedioMenorATresTest() {
+        when(repositorioEtiqueta.listarEtiquetasporUsuario(usuario1)).thenReturn(etiquetasObj);
+        when(repositorioUsuario.getCompras(usuario1)).thenReturn(compras1);
+        when(repositorioEtiqueta.publicacionesPorEtiquetas(usuario1, etiquetasObj, publicacionesIds)).thenReturn(publicacionesList);
 
-        for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
-            String etiquetaDeRecomendacion = publicacionesPorPuntaje.get(i).getEtiquetas().get(0).getDescripcion();
-            String etiquetaDeCompra = compras.get(0).getPublicacion().getEtiquetas().get(0).getDescripcion();
+        when(repositorioPuntaje.consultarPuntajePromedio(any(Publicacion.class))).thenReturn(2.0);
 
-            Assert.assertEquals(etiquetaDeCompra, etiquetaDeRecomendacion);
-        }
+        List<Publicacion> recomendados = servicioPublicacion.recomendarPublicaciones(usuario1);
+        assertThat(recomendados.size()).isEqualTo(0);
     }
 
 }

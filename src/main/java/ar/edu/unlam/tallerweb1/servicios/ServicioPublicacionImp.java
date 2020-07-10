@@ -63,9 +63,10 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     @Override
     public List<Publicacion> recomendarPublicaciones(Usuario user) {
         List<Object> etiquetas = servicioEtiquetaDao.listarEtiquetasporUsuario(user);
+        List<Publicacion> nullList = new ArrayList<>();
 
         if (etiquetas.size() == 0)
-            return null;
+            return nullList;
 
         Set<Object> hashSet = new HashSet<Object>(etiquetas);
         etiquetas.clear();
@@ -74,7 +75,6 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
 
         List<Compra> compras = repositorioUsuarioDao.getCompras(user);
 
-        if (compras != null) {
             List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
             List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
@@ -88,11 +88,6 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
                     publicacionesPorPuntaje.add(publicaciones.get(i));
             }
             return publicacionesPorPuntaje;
-        } else {
-            List<Publicacion> nullList = new ArrayList<>();
-            return nullList;
-        }
-
     }
 
     @Override
