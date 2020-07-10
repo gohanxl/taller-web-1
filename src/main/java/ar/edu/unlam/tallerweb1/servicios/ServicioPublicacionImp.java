@@ -63,9 +63,10 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     @Override
     public List<Publicacion> recomendarPublicaciones(Usuario user) {
         List<Object> etiquetas = servicioEtiquetaDao.listarEtiquetasporUsuario(user);
+        List<Publicacion> nullList = new ArrayList<>();
 
         if (etiquetas.size() == 0)
-            return null;
+            return nullList;
 
         Set<Object> hashSet = new HashSet<Object>(etiquetas);
         etiquetas.clear();
@@ -74,7 +75,6 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
 
         List<Compra> compras = repositorioUsuarioDao.getCompras(user);
 
-        if (compras != null) {
             List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
             List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
@@ -88,11 +88,6 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
                     publicacionesPorPuntaje.add(publicaciones.get(i));
             }
             return publicacionesPorPuntaje;
-        } else {
-            List<Publicacion> nullList = new ArrayList<>();
-            return nullList;
-        }
-
     }
 
     @Override
@@ -103,20 +98,20 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
             etiquetasDescripcion.add(etiqueta.getDescripcion());
         });
 
-        List<Compra> compras = servicioEtiquetaDao.getComprasPorCategoria(etiquetasDescripcion);
+        List<Compra> compras = repositorioUsuarioDao.getCompras(user);
+        List<Publicacion> publicaciones = repositorioUsuarioDao.getPublicaciones(user);
 
         if (compras.size() > 0) {
             List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-            List<Long> publicacionesIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+            List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
+            List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-            List<Publicacion> publicaciones = servicioEtiquetaDao.publicacionesPorEtiquetas(user, etiquetasDescripcion, publicacionesIds);
+            List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasIds, publicacionesIds);
 
             List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
 
-            for (int i = 0; i < publicaciones.size(); i++) {
-                double promedio = repositorioPuntajeDao.consultarPuntajePromedio(publicaciones.get(i));
-                if (promedio >= 3)
-                    publicacionesPorPuntaje.add(publicaciones.get(i));
+            for (int i = 0; i < publicacionesPorEtiquetas.size(); i++) {
+                publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
             }
 
             for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {

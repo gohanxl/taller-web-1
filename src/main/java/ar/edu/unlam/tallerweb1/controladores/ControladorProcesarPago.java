@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Publicacion;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEmail;
 import ar.edu.unlam.tallerweb1.servicios.ServicioComprar;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPagar;
 import ar.edu.unlam.tallerweb1.servicios.ServicioPublicacion;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URL;
 
 @Controller
 public class ControladorProcesarPago {
@@ -26,13 +29,15 @@ public class ControladorProcesarPago {
     private final ServicioPagar servicioPagar;
     private final ServicioComprar servicioComprar;
     private final ServicioUsuario servicioUsuario;
+    private final ServicioEmail servicioEmail;
     private final ServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorProcesarPago(ServicioPagar servicioPagar, ServicioComprar servicioComprar, ServicioUsuario servicioUsuario, ServicioPublicacion servicioPublicacion) {
+    public ControladorProcesarPago(ServicioPagar servicioPagar, ServicioComprar servicioComprar, ServicioUsuario servicioUsuario, ServicioPublicacion servicioPublicacion, ServicioEmail servicioEmail) {
         this.servicioPagar = servicioPagar;
         this.servicioComprar = servicioComprar;
         this.servicioUsuario = servicioUsuario;
+        this.servicioEmail = servicioEmail;
         this.servicioPublicacion = servicioPublicacion;
     }
 
@@ -48,30 +53,35 @@ public class ControladorProcesarPago {
             @RequestParam(value = "puntosACanjear", required = false) Integer puntosACanjear,
             @PathVariable("publicacionId") Long publicacion_id,
             HttpServletRequest request
-    ) throws MPException {
+    ) throws MPException, MessagingException, IOException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
         Integer puntosRestantes = null;
         String estadoDePago = "bad request";
         String numeroDeTarjeta = null;
+        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
 
-        if(email_regalo != null){
-            Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
-            comprador = usuarioRegalo;
-        }
-
-        if(puntosACanjear != null){
+        if (puntosACanjear != null) {
             puntosRestantes = servicioPagar.pagarConPuntos(publicacion_id, comprador, precio);
         }
 
-        if(puntosACanjear == null || (puntosACanjear != null && puntosRestantes != null)){
-            Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
-            if(detallesDePago.getStatus() != null){
+        if (puntosACanjear == null || puntosRestantes != null) {
+
+            if (detallesDePago.getStatus() != null) {
                 Payment.Status estado = detallesDePago.getStatus();
                 estadoDePago = estado.toString();
                 numeroDeTarjeta = detallesDePago.getCard().getLastFourDigits();
+                String url = request.getSession().getServletContext().getRealPath("/");
+                this.servicioEmail.enviarEmailVendedor(publicacion_id, url);
+                if (email_regalo != null) {
+                    Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
+                    Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
+                    this.servicioEmail.enviarEmailComprador(publicacion_id, usuario, url);
+                    this.servicioEmail.enviarEmailRegalo(publicacion_id, usuarioRegalo, url);
+                } else {
+                    this.servicioEmail.enviarEmailComprador(publicacion_id, comprador, url);
+                }
             }
         }
-
         ModelMap model = new ModelMap();
         model.put("descripcion", descripcion);
         model.put("estadoDePago", estadoDePago);
@@ -92,7 +102,7 @@ public class ControladorProcesarPago {
         Integer puntosRestantes = servicioPagar.pagarConPuntos(publicacionId, comprador, 0.0);
         String estadoDePago = "bad request";
 
-        if(puntosRestantes != null){
+        if (puntosRestantes != null) {
             estadoDePago = "approved";
         }
 

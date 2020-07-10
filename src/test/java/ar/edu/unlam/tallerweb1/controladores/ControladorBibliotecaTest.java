@@ -16,11 +16,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.assertj.core.api.Assertions.*;
 
 public class ControladorBibliotecaTest {
 
@@ -32,7 +37,6 @@ public class ControladorBibliotecaTest {
     private RepositorioUsuarioImpl repositorioUsuario;
     private Usuario usuario = new Usuario();
     private Gson gson = new Gson();
-    private String jsonString;
 
     @Before
     public void setUp() {
@@ -50,8 +54,34 @@ public class ControladorBibliotecaTest {
         usuario.setPassword("1234");
         usuario.setEmail("lucas@gmail.com");
 
-        jsonString = gson.toJson(usuario);
     }
+
+    @Test
+    public void testSeba(){
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession session = mock(HttpSession.class);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("USUARIO")).thenReturn(usuario);
+
+        ModelAndView result = controladorBiblioteca.biblioteca(request);
+
+        assertThat(result.getViewName()).isEqualTo("biblioteca");
+    }
+
+//    @Test
+//    public void testSeba(){
+//        HttpServletRequest request = mock(HttpServletRequest.class);
+//        HttpSession session = mock(HttpSession.class);
+//
+//        when(request.getSession()).thenReturn(session);
+//        when(session.getAttribute("USUARIO")).thenReturn(usuario);
+//
+//        ModelAndView result = controladorBiblioteca.biblioteca(request);
+//
+//        assertThat(result.getViewName()).isEqualTo("biblioteca");
+//    }
+
 
     @Test @Transactional @Rollback(true)
     public void testQueChequeaQueSiHayUsuarioVayaABiblioteca() throws Exception {
