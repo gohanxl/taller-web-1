@@ -10,7 +10,9 @@ import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
@@ -23,7 +25,7 @@ public class ServicioEmailImp implements ServicioEmail {
 	private  JavaMailSender mailSender;
 
 	@Autowired
-	private ServicioEmailImp(JavaMailSender mailSender, ServicioPublicacion servicioPublicacion){
+	public ServicioEmailImp(JavaMailSender mailSender, ServicioPublicacion servicioPublicacion){
 		this.mailSender = mailSender;
 		this.servicioPublicacion = servicioPublicacion;
 	}
@@ -35,7 +37,9 @@ public class ServicioEmailImp implements ServicioEmail {
 		email.setTo(destino);
 		email.setSubject(asunto);
 		email.setText(texto, true);
-		email.addInline("Image", new File(image));
+		if(image != null){
+			email.addInline("Image", new File(image));
+		}
 		if(pdf != null){
 			email.addAttachment(new File(pdf).getName(), new File(pdf));
 		}
@@ -43,11 +47,34 @@ public class ServicioEmailImp implements ServicioEmail {
 	}
 
 	@Override
+	public void enviarEmailSimple(String destino, String asunto, String texto) throws MessagingException {
+		MimeMessage mensaje = mailSender.createMimeMessage();
+		mensaje.addRecipients(Message.RecipientType.TO, destino);
+		mensaje.setSubject(asunto);
+		mensaje.setText(texto);
+
+		mailSender.send(mensaje);
+	}
+
+	@Override
+	public void emailSimple(Long publicacionId, Usuario usuario) throws IOException, MessagingException {
+		String email = usuario.getEmail();
+		Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
+		String asunto = "Libro " + publicacion.getLibro().getNombre();
+		String texto = "Libro " + publicacion.getLibro().getNombre();
+		enviarEmailSimple(email, asunto, texto);
+	}
+
+	@Override
 	public void enviarEmailComprador(Long publicacionId, Usuario usuario, String url) throws MessagingException, IOException {
 		String email = usuario.getEmail();
 		Publicacion publicacion = this.servicioPublicacion.buscarPublicacionPorId(publicacionId);
-		String imagen = url.substring(0, url.length() -1) + publicacion.getLibro().getImagen();
-		String pdf = url.substring(0, url.length() -1) + publicacion.getLibro().getRuta();
+		String imagen = null;
+		String pdf = null;
+		if(url != null){
+			imagen = url.substring(0, url.length() -1) + publicacion.getLibro().getImagen();
+			pdf = url.substring(0, url.length() -1) + publicacion.getLibro().getRuta();
+		}
 		String asunto = "Compraste " + publicacion.getLibro().getNombre();
 		String nuevaLinea = System.getProperty("line.separator");
 		String texto = "<!doctype html>\n" +
