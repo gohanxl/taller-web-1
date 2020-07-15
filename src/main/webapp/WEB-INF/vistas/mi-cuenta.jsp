@@ -72,43 +72,56 @@
         <div class="tab-pane fade" id="puntos" role="tabpanel" aria-labelledby="profile-tab">
             <div class="card mb-3 card-historial">
                 <div class="card-body">
-                    <h1 class="card-title px-4 pt-4">${puntos}</h1>
-                    <h3 class="card-title px-4 pt-4">Puntos acumulados</h3>
-                    <div class="row">
-                        <c:choose>
-                            <c:when test="${not empty recomendadosPorPuntos}">
-                                <h3>Puedes canjear tus puntos por los siguientes libros:</h3>
-                                <c:forEach var="recomendacion" items="${recomendadosPorPuntos}">
-                                    <div class="col-lg-3 col-md-6 mb-4">
-                                        <a href="/publicacion/${recomendacion.id}">
-                                            <div class="card">
-                                                <div class="view overlay" style="cursor: pointer">
-                                                    <img src="${recomendacion.libro.imagen}" class="card-img-top portada-libro"
-                                                         alt="">
-                                                </div>
-                                                <div class="card-body text-center">
-								                    <h5 class="grey-text"><c:out value="${recomendacion.propietario.nombre}"/></h5>
-                                                    <h5 class="dark-grey-text font-weight-bold">
-                                                        <c:out value="${recomendacion.libro.nombre}"/>
-                                                    </h5>
-                                                    <c:forEach var="etiqueta" items="${recomendacion.etiquetas}">
-                                                        <span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
-                                                    </c:forEach>
-                                                    <h4 class="font-weight-bold blue-text mt-2">
-                                                        <strong>Puntos: <c:out value="${recomendacion.valorEnPuntos}"/></strong>
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </c:forEach>
-                            </c:when>
-                        </c:choose>
+                    <div class="card-title px-4 pt-4 text-center d-flex justify-content-center">
+                        <h1 class="puntos-de-usuario">${puntos}</h1>
                     </div>
+                    <h4 class="card-title px-4 text-center">Puntos acumulados</h4>
+                    <c:choose>
+                        <c:when test="${not empty recomendadosPorPuntos}">
+                            <h3 class="text-center my-5">Puedes canjear tus puntos por los siguientes libros</h3>
+                            <div class="row mx-0">
+                            <c:forEach var="recomendacion" items="${recomendadosPorPuntos}">
+                                <div class="col-lg-3 col-md-6 mb-4">
+                                    <a href="/publicacion/${recomendacion.id}">
+                                        <div class="card">
+                                            <div class="view overlay" style="cursor: pointer">
+                                                <img src="${recomendacion.libro.imagen}" class="card-img-top portada-libro"
+                                                     alt="">
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <h5 class="grey-text"><c:out value="${recomendacion.propietario.nombre}"/></h5>
+                                                <h5 class="dark-grey-text font-weight-bold">
+                                                    <c:out value="${recomendacion.libro.nombre}"/>
+                                                </h5>
+                                                <c:forEach var="etiqueta" items="${recomendacion.etiquetas}">
+                                                    <span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
+                                                </c:forEach>
+                                                <h4 class="font-weight-bold blue-text mt-2">
+                                                    <strong><c:out value="${recomendacion.valorEnPuntos}"/> puntos</strong>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </c:forEach>
+                            </div>
+                        </c:when>
+                    </c:choose>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<style>
+    .puntos-de-usuario{
+        font-size: 70px;
+        padding: 20px;
+        border: solid 3px #929fba;
+        border-radius: 100px;
+        box-shadow: 2px 4px 5px 0px #00000029;
+        color: #6b6b6b;
+    }
+</style>
 
 <%@ include file = "footer.jsp" %>
