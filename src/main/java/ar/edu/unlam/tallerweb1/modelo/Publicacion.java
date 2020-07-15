@@ -18,6 +18,7 @@ public class Publicacion {
         this.setPropietario(propietario);
         this.setPrecio(precio);
         this.setEtiquetas(etiquetas);
+        this.setValorEnPuntos(precio);
     }
 
     @Id
@@ -41,6 +42,9 @@ public class Publicacion {
 
     @Column(name = "precio", nullable = false)
     private Double precio;
+
+    @Column(name = "valor_en_puntos", nullable = false)
+    private Integer valorEnPuntos;
 
     @OneToMany(mappedBy="publicacion")
     private Set<Puntaje> puntaje;
@@ -97,5 +101,9 @@ public class Publicacion {
     public Set<Puntaje> getPuntaje() { return puntaje; }
 
     public void setPuntaje(Set<Puntaje> puntaje) { this.puntaje = puntaje;}
+
+    public Integer getValorEnPuntos() { return this.valorEnPuntos; }
+
+    public void setValorEnPuntos(Double precio) { this.valorEnPuntos = (int) (precio * 1.75); }
 
 }

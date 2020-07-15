@@ -133,6 +133,28 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     }
 
     @Override
+    public List<Publicacion> recomendarPublicacionesPorPuntosDisponibles(Usuario user) {
+        List<Compra> compras = repositorioUsuarioDao.getCompras(user);
+        List<Publicacion> publicaciones = repositorioUsuarioDao.getPublicaciones(user);
+
+        List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
+        List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
+        List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
+
+        if(comprasIds.size() == 0){
+            comprasIds.add(0L);
+        }
+
+        if(publicacionesIds.size() == 0){
+            publicacionesIds.add(0L);
+        }
+
+        List<Publicacion> publicacionesPorPuntosDisponibles = servicioPublicacionDao.publicacionesPorPuntosDisponibles(user, comprasIds, publicacionesIds);
+
+        return publicacionesPorPuntosDisponibles;
+    }
+
+    @Override
     public List<Publicacion> listarPublicacionesDeUsuario(Usuario usuario) {
         return servicioPublicacionDao.listarPublicacionesDeUsuario(usuario);
     }

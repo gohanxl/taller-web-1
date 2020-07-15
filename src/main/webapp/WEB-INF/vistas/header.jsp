@@ -107,9 +107,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-info"
                                  aria-labelledby="navbarDropdownMenuLink-4">
-                                <a class="dropdown-item" href="#">Mi cuenta</a>
-                                <a class="dropdown-item" href="/historial-de-transacciones">Historial de
-                                    transacciones</a>
+                                <a class="dropdown-item" href="/mi-cuenta">Mi cuenta</a>
                                 <a class="dropdown-item" href="/cerrar-sesion">Cerrar sesion</a>
                             </div>
                         </li>

@@ -116,4 +116,17 @@ public class RepositorioPublicacionImp implements RepositorioPublicacion {
 
         return null;
     }
+
+    @Override
+    public List<Publicacion> publicacionesPorPuntosDisponibles(Usuario user, List<Long> comprasIds, List<Long> publicacionesIds) {
+        final Session session = sessionFactory.getCurrentSession();
+        Criteria result = session.createCriteria(Publicacion.class)
+                .add(Restrictions.not(Restrictions.in("id", comprasIds)))
+                .add(Restrictions.not(Restrictions.in("id", publicacionesIds)))
+                .add(Restrictions.le("valorEnPuntos", user.getPuntos()))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Publicacion> publicaciones = result.list();
+
+        return publicaciones;
+    }
 }

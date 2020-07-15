@@ -18,4 +18,5 @@ public interface RepositorioPublicacion {
     Integer cantidadDeVentas(Long id, Usuario usuario);
     Integer getValorEnPuntos(Publicacion publicacion);
     Integer canjearPuntos(Publicacion publicacion, Usuario usuario, Integer puntosACanjear);
+    List<Publicacion> publicacionesPorPuntosDisponibles(Usuario user, List<Long> comprasIds, List<Long> publicacionesIds);
 }

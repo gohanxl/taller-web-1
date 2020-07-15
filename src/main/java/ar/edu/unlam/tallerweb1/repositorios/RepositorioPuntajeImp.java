@@ -35,10 +35,11 @@ public class RepositorioPuntajeImp implements RepositorioPuntaje {
 	@Override
 	public Double consultarPuntajePromedio(Publicacion publicacion) {
 		final Session session = sessionFactory.getCurrentSession();
-		return (Double) session.createCriteria(Puntaje.class)
-				.add(Restrictions.eq("publicacion.id", publicacion.getId()))
-				.setProjection(Projections.avg("valor"))
-				.uniqueResult();
+		Double promedio = (Double) session.createCriteria(Puntaje.class)
+									.add(Restrictions.eq("publicacion.id", publicacion.getId()))
+									.setProjection(Projections.avg("valor"))
+									.uniqueResult();
+		return promedio != null ? promedio : 0;
 	}
 
 	@Override

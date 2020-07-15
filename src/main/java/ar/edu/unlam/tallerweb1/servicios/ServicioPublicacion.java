@@ -17,4 +17,5 @@ public interface ServicioPublicacion {
     List<Publicacion> recomendarPublicacionesPorCategoria(Usuario user, List<Etiqueta> etiquetas, Long publicacionId);
     Integer cantidadDeVentas(Long id, Usuario usuario);
     Integer consultarValorEnPuntos(Publicacion publicacion);
+    List<Publicacion> recomendarPublicacionesPorPuntosDisponibles(Usuario user);
 }
