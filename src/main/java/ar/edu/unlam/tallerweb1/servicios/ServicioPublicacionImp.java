@@ -101,31 +101,35 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
         List<Compra> compras = repositorioUsuarioDao.getCompras(user);
         List<Publicacion> publicaciones = repositorioUsuarioDao.getPublicaciones(user);
 
-        if (compras.size() > 0) {
-            List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
-            List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
-            List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-            List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasIds, publicacionesIds);
+        List<Publicacion> publicacionesDeCompras = compras.stream().map(Compra::getPublicacion).collect(Collectors.toList());
+        List<Long> publicacionesIds = publicaciones.stream().map(Publicacion::getId).collect(Collectors.toList());
+        List<Long> comprasIds = publicacionesDeCompras.stream().map(Publicacion::getId).collect(Collectors.toList());
 
-            List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
-
-            for (int i = 0; i < publicacionesPorEtiquetas.size(); i++) {
-                publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
-            }
-
-            for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
-                if (publicacionesPorPuntaje.get(i).getId() == publicacionId) {
-                    publicacionesPorPuntaje.remove(i);
-                    i--;
-                }
-            }
-
-            return publicacionesPorPuntaje;
-        } else {
-            return new ArrayList<>();
+        if(comprasIds.size() == 0){
+            comprasIds.add(0L);
         }
 
+        if(publicacionesIds.size() == 0){
+            publicacionesIds.add(0L);
+        }
+
+        List<Publicacion> publicacionesPorEtiquetas = servicioEtiquetaDao.publicacionesPorEtiquetasPorPublicacion(user, etiquetasDescripcion, comprasIds, publicacionesIds);
+
+        List<Publicacion> publicacionesPorPuntaje = new ArrayList<Publicacion>();
+
+        for (int i = 0; i < publicacionesPorEtiquetas.size(); i++) {
+            publicacionesPorPuntaje.add(publicacionesPorEtiquetas.get(i));
+        }
+
+        for (int i = 0; i < publicacionesPorPuntaje.size(); i++) {
+            if (publicacionesPorPuntaje.get(i).getId() == publicacionId) {
+                publicacionesPorPuntaje.remove(i);
+                i--;
+            }
+        }
+
+        return publicacionesPorPuntaje;
     }
 
     @Override
