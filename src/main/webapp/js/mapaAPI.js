@@ -107,15 +107,16 @@ function directionsUpdated(e) {
     let pricePerDistance = 50;
 
     let finalPrice = distance > 200 ? parsedPrice + 500 : parsedPrice + distance * pricePerDistance;
+    let precioEnvio = distance > 200 ? 500 : distance * pricePerDistance;
 
     const routePanel = document.getElementById('routeInfoPanel')
 
-    routePanel.innerHTML = 'Distancia: ' + distance + ' ' + distanceUnits + '<br/>Precio del envio: ' + finalPrice;
+    routePanel.innerHTML = 'Distancia: ' + distance + ' ' + distanceUnits + '<br/>Precio del envio: $' + precioEnvio;
 
     if (finalPrice) {
         priceElement.textContent = `$ ${finalPrice}`;
 
-        cancelDelivery.className = 'btn btn-primary btn-md mx-0 my-3 show'
+        cancelDelivery.className = 'btn btn-primary btn-md mx-0 my-3 ml-3 show'
 
         localStorage.setItem('price', finalPrice);
 

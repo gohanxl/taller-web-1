@@ -128,16 +128,20 @@
                         <div class="card mb-3 card-mapa">
                             <div class="card-body d-flex justify-content-between">
                                 <div class="d-flex flex-column">
+                                    <h2>Envios</h2>
+                                    <p>Ingrese un destino para calcular el precio de envio</p>
                                     <div id="directionsInputContainer">
                                     </div>
-                                    <button value="Cancelar Envio" class="hidden" id="deliveryBtn">Cancelar Envio</button>
+                                    <button value="Cancelar Envio" class="hidden" id="deliveryBtn" style="width: 150px;">
+                                        Cancelar Envio
+                                    </button>
+                                    <div class="col-12 d-flex flex-row">
+                                        <div id="routeInfoPanel" style="padding: 15px"></div>
+                                    </div>
                                 </div>
                                 <div id="myMap" style="width: 50%; height: 500px" class="flex"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 d-flex flex-row">
-                        <div id="routeInfoPanel" style="padding: 15px"></div>
                     </div>
                 </c:if>
             </div>
