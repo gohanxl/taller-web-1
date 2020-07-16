@@ -67,6 +67,7 @@ public class RecomendarPublicacionesTest {
         usuario2.setNombre("Isaias");
         usuario2.setEmail("isaias@gmail.com");
 
+
         publicacionRecomendada.setEtiquetas(etiquetas);
         publicacionRecomendada.setId(2L);
 

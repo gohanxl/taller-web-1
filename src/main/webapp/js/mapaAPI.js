@@ -15,47 +15,37 @@ window.addEventListener('load', function () {
     let gripButton1 = document.getElementsByClassName("dirWpGrip")[0]
     let gripButton2 = document.getElementsByClassName("dirWpGrip")[1]
     let goButton = document.getElementsByClassName("dirBtnGo")[0]
+    let lineaGris = document.getElementsByClassName("searchboxWithAS")[0]
     let priceElement = document.getElementById("price");
+    let inputContainer = document.getElementById("directionsInputContainer");
     let price = priceElement.textContent;
     let parsedPrice = Number(price.replace(/[^0-9\.]+/g, ''));
 
     waypoint.disabled = true
     waypoint.className = "disabled"
 
-    walkingMan.className = "hidden"
-    car.className = "hidden"
+    walkingMan.remove();
+    car.remove();
     optionsButton.className = "hidden"
     addButton.className = "hidden"
     timeButton.className = "hidden"
     reverseButton.className = "hidden"
     gripButton1.className = "hidden"
     gripButton2.className = "hidden"
-    goButton.className += " float-left ml-0"
+    goButton.className = "hidden"
+    lineaGris.className += "hide-linea"
+    inputContainer.className += "px-4"
 
     localStorage.removeItem('price');
 
     cancelDelivery.addEventListener('click', function () {
         localStorage.removeItem('price');
         priceElement.textContent = `$ ${parsedPrice}`;
-        directionManager.clearAll()
-        directionManager.setRequestOptions({maxRoutes: 1, routeDraggable: false});
-        let depositWaypoint = new Microsoft.Maps.Directions.Waypoint({
-            address: 'Deposito',
-            location: new Microsoft.Maps.Location(-34.668856, -58.565657)
-        });
-        directionManager.addWaypoint(depositWaypoint);
-        directionManager.showInputPanel('directionsInputContainer');
 
-        gripButton1 = document.getElementsByClassName("dirWpGrip")[0]
-        gripButton2 = document.getElementsByClassName("dirWpGrip")[1]
-
-        gripButton1.className = "hidden"
-        gripButton2.className = "hidden"
         cancelDelivery.className = "hidden"
-
-
         routePanel.innerHTML = '';
     })
+
 })
 
 function GetMap() {
@@ -103,15 +93,18 @@ function directionsUpdated(e) {
     let pricePerDistance = 50;
 
     let finalPrice = distance > 50 ? parsedPrice + 500 : parsedPrice + distance * pricePerDistance;
+    let precioEnvio = distance > 200 ? 500 : distance * pricePerDistance;
 
     const routePanel = document.getElementById('routeInfoPanel')
 
-    routePanel.innerHTML = 'Distancia: ' + distance + ' ' + distanceUnits + '<br/>Precio del envio: ' + finalPrice;
+    routePanel.innerHTML = 'Distancia: ' + distance + ' ' + distanceUnits + '<br/>Precio del envio: $' + precioEnvio;
 
     if (finalPrice) {
         priceElement.textContent = `$ ${finalPrice}`;
 
-        cancelDelivery.className = 'btn btn-primary btn-md mx-0 my-3 show'
+        console.log("entra ca")
+
+        cancelDelivery.className = 'btn btn-primary btn-md mx-0 my-3 ml-3 show'
 
         localStorage.setItem('price', finalPrice);
 
