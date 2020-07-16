@@ -24,8 +24,8 @@ window.addEventListener('load', function () {
     waypoint.disabled = true
     waypoint.className = "disabled"
 
-    walkingMan.className = "hidden"
-    car.className = "hidden"
+    walkingMan.remove();
+    car.remove();
     optionsButton.className = "hidden"
     addButton.className = "hidden"
     timeButton.className = "hidden"
@@ -41,25 +41,11 @@ window.addEventListener('load', function () {
     cancelDelivery.addEventListener('click', function () {
         localStorage.removeItem('price');
         priceElement.textContent = `$ ${parsedPrice}`;
-        directionManager.clearAll()
-        directionManager.setRequestOptions({maxRoutes: 1, routeDraggable: false});
-        let depositWaypoint = new Microsoft.Maps.Directions.Waypoint({
-            address: 'Deposito',
-            location: new Microsoft.Maps.Location(-34.668856, -58.565657)
-        });
-        directionManager.addWaypoint(depositWaypoint);
-        directionManager.showInputPanel('directionsInputContainer');
 
-        gripButton1 = document.getElementsByClassName("dirWpGrip")[0]
-        gripButton2 = document.getElementsByClassName("dirWpGrip")[1]
-
-        gripButton1.className = "hidden"
-        gripButton2.className = "hidden"
         cancelDelivery.className = "hidden"
-
-
         routePanel.innerHTML = '';
     })
+
 })
 
 function GetMap() {
@@ -115,6 +101,8 @@ function directionsUpdated(e) {
 
     if (finalPrice) {
         priceElement.textContent = `$ ${finalPrice}`;
+
+        console.log("entra ca")
 
         cancelDelivery.className = 'btn btn-primary btn-md mx-0 my-3 ml-3 show'
 

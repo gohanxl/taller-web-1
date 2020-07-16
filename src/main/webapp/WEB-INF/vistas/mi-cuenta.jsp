@@ -132,6 +132,7 @@
         border-radius: 100px;
         box-shadow: 2px 4px 5px 0px #00000029;
         color: #6b6b6b;
+        min-width: 130px;
     }
 </style>
 
