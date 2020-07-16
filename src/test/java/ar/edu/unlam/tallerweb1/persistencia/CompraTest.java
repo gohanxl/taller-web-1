@@ -21,6 +21,7 @@ public class CompraTest extends SpringTest {
     public void testRealizarCompra() {
 
         Usuario usuario = new Usuario();
+        usuario.setPuntos(0);
         session().save(usuario);
 
         Libro libro = new Libro("pepe", "null", "null");

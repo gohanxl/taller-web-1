@@ -49,6 +49,7 @@ public class ControladorPublicacionesTest extends SpringTest {
         usuario.setNombre("mica");
         usuario.setPassword("1234");
         usuario.setEmail("mica@gmail.com");
+        usuario.setPuntos(0);
 
         publicaciones.add(publicacion);
         publicaciones.add(publicacion);

@@ -53,6 +53,7 @@ public class ControladorBibliotecaTest {
         usuario.setNombre("Lucas");
         usuario.setPassword("1234");
         usuario.setEmail("lucas@gmail.com");
+        usuario.setPuntos(0);
 
     }
 
