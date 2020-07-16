@@ -128,8 +128,11 @@
                         <div class="card mb-3 card-mapa">
                             <div class="card-body d-flex justify-content-between">
                                 <div class="d-flex flex-column">
-                                    <h2>Envios</h2>
-                                    <p>Ingrese un destino para calcular el precio de envio</p>
+                                    <div class="row mx-0 mb-3">
+                                        <img class="envio-icon" src="https://img.icons8.com/ios-glyphs/50/000000/filled-sent.png"/>
+                                        <h2>Envío</h2>
+                                    </div>
+                                    <p>Ingrese un destino para calcular y realizar la compra con envío</p>
                                     <div id="directionsInputContainer">
                                     </div>
                                     <button value="Cancelar Envio" class="hidden" id="deliveryBtn" style="width: 150px;">
@@ -264,6 +267,12 @@
     }
     .hide-linea{
         border-top: none !important;
+    }
+    .envio-icon{
+        width: 40px;
+        height: 40px;
+        opacity: .7;
+        margin-right: 10px;
     }
 </style>
 
