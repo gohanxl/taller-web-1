@@ -50,8 +50,6 @@ public class RecomendarPublicacionesTest {
         usuario1.setId(1L);
         usuario1.setNombre("Mica");
         usuario1.setEmail("mica@gmail.com");
-        usuario1.setPuntos(0);
-
 
         etiqueta.setDescripcion("Terror");
         etiquetas.add(etiqueta);
@@ -68,7 +66,6 @@ public class RecomendarPublicacionesTest {
         usuario2.setId(2L);
         usuario2.setNombre("Isaias");
         usuario2.setEmail("isaias@gmail.com");
-        usuario2.setPuntos(0);
 
 
         publicacionRecomendada.setEtiquetas(etiquetas);

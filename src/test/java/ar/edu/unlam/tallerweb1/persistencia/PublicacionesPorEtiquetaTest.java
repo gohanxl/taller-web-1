@@ -23,11 +23,9 @@ public class PublicacionesPorEtiquetaTest extends SpringTest {
     public void testObtenerPublicacionesPorEtiqueta() {
 
         Usuario usuario = new Usuario();
-        usuario.setPuntos(0);
         session().save(usuario);
 
         Usuario usuario2 = new Usuario();
-        usuario2.setPuntos(0);
         session().save(usuario2);
 
         Libro libro = new Libro("Libro", "null", "null");

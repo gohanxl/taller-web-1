@@ -20,7 +20,6 @@ public class PublicarTest extends SpringTest {
     public void testRealizarPublicacion() {
 
         Usuario usuario = new Usuario();
-        usuario.setPuntos(0);
         session().save(usuario);
 
         Libro libro = new Libro("Libro", "null", "null");

@@ -63,5 +63,7 @@ public class Usuario {
 		this.setPuntos(puntos);
 	}
 
-	public Usuario(){}
+	public Usuario(){
+		this.setPuntos(0);
+	}
 }
