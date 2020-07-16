@@ -1,5 +1,6 @@
 <%@ include file = "header.jsp" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="/css/style_historial-de-transacciones.css" rel="stylesheet">
 
 <main class="mt-5 pt-4 container">
@@ -10,12 +11,12 @@
         </button>
         <div class="collapse navbar-collapse" id="basicExampleNav">
             <ul class="nav navbar-nav mr-auto" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active mr-3" id="historial-tab" data-toggle="tab" href="#historial" role="tab" aria-controls="home"
+                <li class="nav-item mr-3 active" id="link-historial" onclick="changeStatus('link-historial', 'link-puntos')">
+                    <a class="nav-link" id="historial-tab" data-toggle="tab" href="#historial" role="tab" aria-controls="home"
                        aria-selected="true">Historial de Transacciones</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#puntos" role="tab" aria-controls="profile"
+                <li class="nav-item" id="link-puntos" onclick="changeStatus('link-puntos', 'link-historial')">
+                    <a class="nav-link" id="puntos-tab" data-toggle="tab" href="#puntos" role="tab" aria-controls="puntos"
                        aria-selected="false">Mis Puntos</a>
                 </li>
             </ul>
@@ -44,7 +45,7 @@
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    <p style="color:grey">Aun no hay compras</p>
+                                    <p style="color:grey">Aún no hay compras</p>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -61,7 +62,7 @@
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    <p style="color:grey">Aun no hay ventas</p>
+                                    <p style="color:grey">Aún no hay ventas</p>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -69,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="puntos" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane fade" id="puntos" role="tabpanel" aria-labelledby="puntos-tab">
             <div class="card mb-3 card-historial">
                 <div class="card-body">
                     <div class="card-title px-4 pt-4 text-center d-flex justify-content-center">
@@ -106,12 +107,22 @@
                             </c:forEach>
                             </div>
                         </c:when>
+                        <c:otherwise>
+                            <p class="text-center my-5" style="color:grey;">Acumula más puntos para canjearlos por libros!</p>
+                        </c:otherwise>
                     </c:choose>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<script>
+    function changeStatus(id, other){
+        document.getElementById(id).className = "nav-item mr-3 active";
+        document.getElementById(other).className = "nav-item mr-3";
+    }
+</script>
 
 <style>
     .puntos-de-usuario{

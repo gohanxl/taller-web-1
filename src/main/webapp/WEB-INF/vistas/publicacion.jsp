@@ -139,17 +139,16 @@
             <!--Grid row-->
             <!--Grid row-->
             <div class="row d-flex wow fadeIn">
-
-                <!--Grid column-->
                 <div class="col-md-6 text-left">
-
                     <h4 class="my-4 h4">Valoración del libro</h4>
                 </div>
-                <!--Grid column-->
-
             </div>
-            <!--Grid row-->
-
+            <c:choose>
+                <c:when test="${empty puntajes}">
+                    <span class="glyphicon glyphicon-book"></span>
+                    <p>Aún no hay valoraciones</p>
+                </c:when>
+            </c:choose>
             <c:forEach var="puntaje" items="${puntajes}">
 
                 <div class="card mb-4">
@@ -186,61 +185,63 @@
                 </div>
             </c:forEach>
         </div>
-        <div>
-            <section class="text-center mb-4">
-                <div class="row wow fadeIn mb-4">
-                    <h2>Relacionados:</h2>
-                </div>
-                <!--Grid row-->
-                <div class="row wow fadeIn">
-                    <c:forEach var="publicacion" items="${publicacionesRelacionadas}">
-                        <!--Grid column-->
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <!--Card-->
-                            <a href="/publicacion/${publicacion.id}">
-                                <div class="card">
-                                    <!--Card image-->
-                                    <div class="view overlay" style="cursor: pointer">
-                                        <img src="${publicacion.libro.imagen}" class="card-img-top portada-libro"
-                                             alt="">
-                                    </div>
-                                    <!--Card image-->
-
-                                    <!--Card content-->
-                                    <div class="card-body text-center">
-                                        <!--Category & Title-->
-                                        <span class="grey-text">
-                                            <h5><c:out value="${publicacion.propietario.nombre}"/></h5>
-                                        </span>
-                                        <h5>
-                                            <strong>
-                                                <span class="dark-grey-text"><c:out
-                                                        value="${publicacion.libro.nombre}"/></span>
-                                            </strong>
-                                        </h5>
-                                        <c:forEach var="etiqueta" items="${publicacion.etiquetas}">
-                                            <span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
-                                        </c:forEach>
-                                        <h4 class="font-weight-bold blue-text mt-2">
-                                            <strong>$ <c:out value="${publicacion.precio}"/></strong>
-                                        </h4>
-
-                                    </div>
-                                    <!--Card content-->
-
-                                </div>
-                            </a>
-                            <!--Card-->
+        <c:choose>
+            <c:when test="${not empty publicacionesRelacionadas}">
+                <div class="mt-5">
+                    <section class="text-center mb-4">
+                        <div class="row d-flex wow fadeIn">
+                            <div class="col-md-6 text-left">
+                                <h4 class="my-4 h4">Relacionados</h4>
+                            </div>
                         </div>
-                        <!--Grid column-->
-                    </c:forEach>
+                        <!--Grid row-->
+                        <div class="row wow fadeIn">
+                            <c:forEach var="publicacion" items="${publicacionesRelacionadas}">
+                                <!--Grid column-->
+                                <div class="col-lg-3 col-md-6 mb-4">
+                                    <!--Card-->
+                                    <a href="/publicacion/${publicacion.id}">
+                                        <div class="card">
+                                            <!--Card image-->
+                                            <div class="view overlay" style="cursor: pointer">
+                                                <img src="${publicacion.libro.imagen}" class="card-img-top portada-libro"
+                                                     alt="">
+                                            </div>
+                                            <!--Card image-->
+
+                                            <!--Card content-->
+                                            <div class="card-body text-center">
+                                                <!--Category & Title-->
+                                                <span class="grey-text">
+                                                    <h5><c:out value="${publicacion.propietario.nombre}"/></h5>
+                                                </span>
+                                                <h5>
+                                                    <strong>
+                                                        <span class="dark-grey-text"><c:out
+                                                                value="${publicacion.libro.nombre}"/></span>
+                                                    </strong>
+                                                </h5>
+                                                <c:forEach var="etiqueta" items="${publicacion.etiquetas}">
+                                                    <span class="badge badge-pill primary-color">${etiqueta.descripcion}</span>
+                                                </c:forEach>
+                                                <h4 class="font-weight-bold blue-text mt-2">
+                                                    <strong>$ <c:out value="${publicacion.precio}"/></strong>
+                                                </h4>
+
+                                            </div>
+                                            <!--Card content-->
+
+                                        </div>
+                                    </a>
+                                    <!--Card-->
+                                </div>
+                                <!--Grid column-->
+                            </c:forEach>
+                        </div>
+                    </section>
                 </div>
-                <!--Grid row-->
-
-            </section>
-
-
-        </div>
+            </c:when>
+        </c:choose>
     </div>
 </main>
 <!--Main layout-->
