@@ -102,7 +102,7 @@ function directionsUpdated(e) {
     let parsedPrice = Number(price.replace(/[^0-9\.]+/g, ''));
     let pricePerDistance = 50;
 
-    let finalPrice = distance > 200 ? parsedPrice + 500 : parsedPrice + distance * pricePerDistance;
+    let finalPrice = distance > 50 ? parsedPrice + 500 : parsedPrice + distance * pricePerDistance;
 
     const routePanel = document.getElementById('routeInfoPanel')
 

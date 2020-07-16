@@ -192,7 +192,7 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
 				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Resumen de compra</h3>\n" +
 				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
-				"                        <img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
+				"                         <img src=\"cid:Image\"  style=\"    height: 300px; object-fit: cover;\" />" +
 				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Pagaste $" + publicacion.getPrecio().toString() + "</p>\n" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
@@ -367,7 +367,7 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
 				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Venta de libro</h3>\n" +
 				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
-				"						<img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
+				"						 <img src=\"cid:Image\"  style=\"    height: 300px; object-fit: cover;\" />" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
 				"                            <tr>\n" +
@@ -541,7 +541,7 @@ public class ServicioEmailImp implements ServicioEmail {
 				"                      <td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">\n" +
 				"                        <h3 style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">Regalo de libro</h3>\n" +
 				"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + publicacion.getLibro().getNombre() + "</p>\n" +
-				"                        <img src=\"cid:Image\"  width=\"50%\" height=\"50%\"/>" +
+				"                        <img src=\"cid:Image\"  style=\"    height: 300px; object-fit: cover;\" />" +
 				"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\n" +
 				"                          <tbody>\n" +
 				"                            <tr>\n" +

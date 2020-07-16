@@ -55,13 +55,17 @@ public class ControladorProcesarPago {
             HttpServletRequest request
     ) throws MPException, MessagingException, IOException {
         Usuario comprador = (Usuario) request.getSession().getAttribute("USUARIO");
+        Usuario usuario = comprador;
         Integer puntosRestantes = null;
         String estadoDePago = "bad request";
         String numeroDeTarjeta = null;
-        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, comprador);
+        if(email_regalo != null){
+            usuario = servicioUsuario.getUsuarioRegalo(email_regalo);
+        }
+        Payment detallesDePago = servicioPagar.pagarLibro(token, precio, metodoDePago, cuotas, mail, descripcion, publicacion_id, usuario);
 
         if (puntosACanjear != null) {
-            puntosRestantes = servicioPagar.pagarConPuntos(publicacion_id, comprador, precio);
+            puntosRestantes = servicioPagar.pagarConPuntos(publicacion_id, usuario, precio);
         }
 
         if (puntosACanjear == null || puntosRestantes != null) {
@@ -74,8 +78,7 @@ public class ControladorProcesarPago {
                 this.servicioEmail.enviarEmailVendedor(publicacion_id, url);
                 if (email_regalo != null) {
                     Usuario usuarioRegalo = servicioUsuario.getUsuarioRegalo(email_regalo);
-                    Usuario usuario = (Usuario) request.getSession().getAttribute("USUARIO");
-                    this.servicioEmail.enviarEmailComprador(publicacion_id, usuario, url);
+                    this.servicioEmail.enviarEmailComprador(publicacion_id, comprador, url);
                     this.servicioEmail.enviarEmailRegalo(publicacion_id, usuarioRegalo, url);
                 } else {
                     this.servicioEmail.enviarEmailComprador(publicacion_id, comprador, url);

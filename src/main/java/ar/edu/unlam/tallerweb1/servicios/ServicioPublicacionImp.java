@@ -93,6 +93,10 @@ public class ServicioPublicacionImp implements ServicioPublicacion {
     @Override
     public List<Publicacion> recomendarPublicacionesPorCategoria(Usuario user, List<Etiqueta> etiquetas, Long publicacionId) {
 
+        if(user == null){
+            List<Publicacion> lista = new ArrayList<>();
+            return lista;
+        }
         List<Object> etiquetasDescripcion = new ArrayList<>();
         etiquetas.forEach(etiqueta -> {
             etiquetasDescripcion.add(etiqueta.getDescripcion());
