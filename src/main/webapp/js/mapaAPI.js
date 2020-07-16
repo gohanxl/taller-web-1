@@ -15,7 +15,9 @@ window.addEventListener('load', function () {
     let gripButton1 = document.getElementsByClassName("dirWpGrip")[0]
     let gripButton2 = document.getElementsByClassName("dirWpGrip")[1]
     let goButton = document.getElementsByClassName("dirBtnGo")[0]
+    let lineaGris = document.getElementsByClassName("searchboxWithAS")[0]
     let priceElement = document.getElementById("price");
+    let inputContainer = document.getElementById("directionsInputContainer");
     let price = priceElement.textContent;
     let parsedPrice = Number(price.replace(/[^0-9\.]+/g, ''));
 
@@ -30,7 +32,9 @@ window.addEventListener('load', function () {
     reverseButton.className = "hidden"
     gripButton1.className = "hidden"
     gripButton2.className = "hidden"
-    goButton.className += " float-left ml-0"
+    goButton.className = "hidden"
+    lineaGris.className += "hide-linea"
+    inputContainer.className += "px-4"
 
     localStorage.removeItem('price');
 

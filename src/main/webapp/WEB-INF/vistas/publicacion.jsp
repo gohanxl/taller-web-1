@@ -80,8 +80,6 @@
                                     Canjear por <b>${puntosACanjear}</b> puntos
                                 </button>
                             </form>
-
-                            <button value="Cancelar Envio" class="hidden" id="deliveryBtn">Cancelar Envio</button>
                         </c:when>
                         <c:when test="${comprado && puntuado}">
                             <form action="/checkout" class="d-flex justify-content-left">
@@ -127,9 +125,16 @@
                 <!--Grid column-->
                 <c:if test="${!comprado}">
                     <div class="col-12 d-flex flex-row">
-                        <div id="directionsInputContainer">
+                        <div class="card mb-3 card-mapa">
+                            <div class="card-body d-flex justify-content-between">
+                                <div class="d-flex flex-column">
+                                    <div id="directionsInputContainer">
+                                    </div>
+                                    <button value="Cancelar Envio" class="hidden" id="deliveryBtn">Cancelar Envio</button>
+                                </div>
+                                <div id="myMap" style="width: 50%; height: 500px" class="flex"></div>
+                            </div>
                         </div>
-                        <div id="myMap" style="width: 100%; height: 500px" class="flex"></div>
                     </div>
                     <div class="col-12 d-flex flex-row">
                         <div id="routeInfoPanel" style="padding: 15px"></div>
@@ -249,4 +254,13 @@
 <script type='text/javascript'
         src='http://www.bing.com/api/maps/mapcontrol?key=Ai_KF8afanFf4bWmXjsFzj0tBgWAYKPyyLqjCyYRKzLUcVr1AmjdElPKAQ2_ednr&setLang=es&callback=GetMap'
         async defer></script>
+<style>
+    .card-mapa{
+        width: 100%;
+    }
+    .hide-linea{
+        border-top: none !important;
+    }
+</style>
+
 <%@ include file="footer.jsp" %>
